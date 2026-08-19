@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BoQ AI Allocator & Benchmarking Studio</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            padding: 30px; 
+            background: #f1f5f9; 
+            color: #1e293b;
+        }
+        .container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            background: white; 
+            padding: 35px; 
+            border-radius: 14px; 
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01); 
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        h1 { 
+            font-size: 24px; 
+            margin: 0;
+            color: #0f172a;
+            font-weight: 700;
+        }
+        .engine-pill {
+            font-size: 0.85em;
+            background: #eef2ff;
+            color: #4f46e5;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            border: 1px solid #c7d2fe;
+        }
+        
+        /* Control Bar */
+        .control-bar {
+            background: #f8fafc;
+            padding: 16px 20px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .control-bar label {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #475569;
+        }
+        .model-select {
+            flex: 1;
+            min-width: 250px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.95em;
+            background: white;
+            color: #0f172a;
+            outline: none;
+            font-weight: 500;
+        }
+        .run-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .run-btn:hover {
+            background: #1d4ed8;
+        }
+        .run-btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        /* Live Progress Console */
+        #progress-container {
+            display: none;
+            background: #0f172a;
+            color: #38bdf8;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.85em;
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+        .progress-bar-bg {
+            height: 6px;
+            background: #1e293b;
+            border-radius: 3px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            display: none;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: #38bdf8;
+            width: 0%;
+            transition: width 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Accuracy Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .metric-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 14px 18px;
+            border-radius: 10px;
+            border-left: 4px solid #cbd5e1;
+        }
+        .metric-card.highlight {
+            border-left-color: #10b981;
+            background: #f0fdf4;
+        }
+        .metric-card.cost {
+            border-left-color: #6366f1;
+        }
+        .metric-card strong {
+            display: block;
+            color: #64748b;
+            font-size: 0.78em;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+        .metric-card span {
+            font-size: 1.25em;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        /* Tree Styles */
+        details { 
+            margin: 8px 0 8px 15px; 
+        }
+        summary { 
+            cursor: pointer; 
+            padding: 12px 16px; 
+            border-radius: 8px; 
+            user-select: none; 
+            font-weight: 500; 
+            transition: all 0.2s ease;
+            outline: none;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        summary:hover { filter: brightness(0.97); }
+        .wd-package { 
+            background: #e0f2fe;
+            color: #0369a1; 
+            border: 1px solid #bae6fd;
+            font-size: 1.05em;
+        }
+        .boq-package { 
+            background: #ffffff;
+            color: #334155; 
+            border: 1px solid #e2e8f0;
+            margin-left: 15px;
+            font-size: 0.94em;
+        }
+        .inspector-panel { 
+            padding: 16px 20px;
+            margin: 6px 0 12px 35px;
+            background: #ffffff; 
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        .rationale-box {
+            background: #eff6ff;
+            border: 1px solid #dbeafe;
+            padding: 12px 16px;
+            border-radius: 6px;
+            color: #1e40af;
+            margin-bottom: 12px;
+        }
+        .evidence-list {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 12px 16px;
+            color: #475569;
+        }
+        .evidence-item {
+            margin-bottom: 6px;
+            padding-bottom: 6px;
+            border-bottom: 1px dashed #e2e8f0;
+            font-size: 0.88em;
+        }
+        .evidence-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        /* Badges */
+        .badge {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+        .badge-trade {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        .badge-conf-pkg {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.78em;
+            font-weight: 600;
+        }
+        .badge-conf-trade {
+            background: #ede9fe;
+            color: #5b21b6;
+            border: 1px solid #ddd6fe;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.78em;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-top">
+            <h1>BoQ Package Allocation & Benchmarking</h1>
+            <span class="engine-pill" id="engine-badge">Engine: Gemini Flash</span>
+        </div>
+
+        <!-- AI Engine Control Bar -->
+        <div class="control-bar">
+            <label for="model-select">Select AI Model:</label>
+            <select id="model-select" class="model-select">
+                <option value="gemini-flash" selected>Google Gemini 3.5 Flash (Ultra-Fast / Lowest Cost)</option>
+                <option value="gemini-pro">Google Gemini 3.1 Pro (Deep Reasoning)</option>
+                <option value="openai-sol">OpenAI GPT-5.6 Sol (Flagship / Deep Reasoning)</option>
+                <option value="openai-terra">OpenAI GPT-5.6 Terra (Balanced / Everyday)</option>
+                <option value="openai-luna">OpenAI GPT-5.6 Luna (Fast / Lightweight)</option>
+                <option value="claude-sonnet">Anthropic Claude 3.7 Sonnet</option>
+                <option value="claude-opus">Anthropic Claude Opus</option>
+                <option value="local-llama-8b">Local Llama-3-8B (100% Offline / CPU)</option>
+            </select>
+            <button id="run-btn" class="run-btn" onclick="triggerProcessing()">
+                <span>⚡</span> Run Allocation
+            </button>
+        </div>
+
+        <!-- Live Progress Stream -->
+        <div class="progress-bar-bg" id="progress-bar-bg">
+            <div class="progress-bar-fill" id="progress-bar-fill"></div>
+        </div>
+        <div id="progress-container"></div>
+
+        <!-- Accuracy & Cost Metrics -->
+        <div class="metrics-grid" id="metrics-container">
+            <div class="metric-card highlight">
+                <strong>Overall Accuracy Score</strong>
+                <span id="metric-accuracy">--</span>
+            </div>
+            <div class="metric-card">
+                <strong>Run Duration</strong>
+                <span id="metric-duration" style="color: #0284c7;">--</span>
+            </div>
+            <div class="metric-card">
+                <strong>Avg Package Confidence</strong>
+                <span id="metric-pkg-conf">--</span>
+            </div>
+            <div class="metric-card">
+                <strong>Avg Trade Confidence</strong>
+                <span id="metric-trade-conf">--</span>
+            </div>
+            <div class="metric-card">
+                <strong>Bills Mapped</strong>
+                <span id="metric-mapped">-- / --</span>
+            </div>
+            <div class="metric-card">
+                <strong>Tokens (In / Out)</strong>
+                <span id="metric-tokens">--</span>
+            </div>
+            <div class="metric-card cost">
+                <strong>Total AI Cost</strong>
+                <span id="metric-cost" style="color: #4f46e5;">--</span>
+            </div>
+        </div>
+
+        <!-- Hierarchy Tree Container -->
+        <div id="tree">Loading package hierarchy...</div>
+    </div>
+
+    <script>
+        function loadHierarchy() {
+            fetch('output_wd.json?t=' + Date.now())
+                .then(res => res.json())
+                .then(data => {
+                    const meta = data.metadata || {};
+                    document.getElementById('engine-badge').textContent = meta.engine || 'AI Engine';
+                    document.getElementById('metric-accuracy').textContent = meta.overall_accuracy_score || '--';
+                    document.getElementById('metric-duration').textContent = meta.execution_time || '--';
+                    document.getElementById('metric-pkg-conf').textContent = meta.avg_package_confidence || '--';
+                    document.getElementById('metric-trade-conf').textContent = meta.avg_trade_confidence || '--';
+                    document.getElementById('metric-mapped').textContent = `${meta.mapped_bills || 0} / ${meta.total_bills || 0}`;
+                    
+                    const tokenElement = document.getElementById('metric-tokens');
+                    if (tokenElement) {
+                        if (meta.token_usage) {
+                            const inT = meta.token_usage.input ? meta.token_usage.input.toLocaleString() : '0';
+                            const outT = meta.token_usage.output ? meta.token_usage.output.toLocaleString() : '0';
+                            tokenElement.textContent = `${inT} / ${outT}`;
+                        } else {
+                            tokenElement.textContent = '--';
+                        }
+                    }
+
+                    document.getElementById('metric-cost').textContent = meta.estimated_cost || '$0.00';
+
+                    const treeContainer = document.getElementById('tree');
+                    treeContainer.innerHTML = '';
+
+                    data.work_packages.forEach(wdPkg => {
+                        const wdDetails = document.createElement('details');
+                        if (wdPkg.children && wdPkg.children.length > 0) wdDetails.open = true;
+
+                        const wdSummary = document.createElement('summary');
+                        wdSummary.className = 'wd-package';
+                        wdSummary.innerHTML = `
+                            📁 <strong>${wdPkg.name}</strong> 
+                            <span class="badge" style="margin-left: auto;">${wdPkg.children ? wdPkg.children.length : 0} Bills</span>
+                        `;
+                        wdDetails.appendChild(wdSummary);
+
+                        if (wdPkg.children) {
+                            wdPkg.children.forEach(bill => {
+                                const billDetails = document.createElement('details');
+                                billDetails.open = false;
+
+                                const billSummary = document.createElement('summary');
+                                billSummary.className = 'boq-package';
+
+                                const trade = bill.attributes?.suggested_trade || 'General';
+                                const pkgConf = bill.attributes?.package_confidence || 85;
+                                const tradeConf = bill.attributes?.trade_confidence || 85;
+                                const rationale = bill.attributes?.ai_rationale || 'Mapped via AI reasoning.';
+
+                                billSummary.innerHTML = `
+                                    <span>📄 ${bill.name}</span>
+                                    <span class="badge-trade">🔨 ${trade}</span>
+                                    <span class="badge-conf-pkg">📦 Pkg Match: ${pkgConf}%</span>
+                                    <span class="badge-conf-trade">🛠️ Trade Match: ${tradeConf}%</span>
+                                `;
+                                billDetails.appendChild(billSummary);
+
+                                const inspectorPanel = document.createElement('div');
+                                inspectorPanel.className = 'inspector-panel';
+
+                                let evidenceHtml = '';
+                                if (bill.source_evidence && bill.source_evidence.length > 0) {
+                                    bill.source_evidence.forEach(item => {
+                                        evidenceHtml += `<div class="evidence-item">• ${item}</div>`;
+                                    });
+                                } else {
+                                    evidenceHtml = '<div class="evidence-item"><em>No detailed items available for this bill.</em></div>';
+                                }
+
+                                inspectorPanel.innerHTML = `
+                                    <div class="rationale-box">
+                                        <strong>💡 AI Commercial Rationale:</strong><br>
+                                        ${rationale}
+                                    </div>
+                                    <div class="evidence-list">
+                                        <strong style="display:block; margin-bottom:8px; color:#334155;">📋 Scope & BoQ Source Items (${bill.source_evidence ? bill.source_evidence.length : 0} items):</strong>
+                                        ${evidenceHtml}
+                                    </div>
+                                `;
+
+                                billDetails.appendChild(inspectorPanel);
+                                wdDetails.appendChild(billDetails);
+                            });
+                        }
+                        treeContainer.appendChild(wdDetails);
+                    });
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        }
+
+        async function triggerProcessing() {
+            const model = document.getElementById('model-select').value;
+            const runBtn = document.getElementById('run-btn');
+            const progressBox = document.getElementById('progress-container');
+            const progressBarBg = document.getElementById('progress-bar-bg');
+            const progressBarFill = document.getElementById('progress-bar-fill');
+
+            runBtn.disabled = true;
+            runBtn.innerHTML = '<span>⏳</span> Processing...';
+            progressBox.style.display = 'block';
+            progressBarBg.style.display = 'block';
+            progressBarFill.style.width = '20%';
+            progressBox.textContent = `[Init] Connecting to ${model}...\n`;
+
+            try {
+                const response = await fetch(`process_boq_wd.php?model=${model}`);
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let done = false;
+
+                progressBarFill.style.width = '60%';
+
+                while (!done) {
+                    const { value, done: streamDone } = await reader.read();
+                    done = streamDone;
+                    if (value) {
+                        const chunk = decoder.decode(value, { stream: true });
+                        progressBox.textContent += chunk;
+                        progressBox.scrollTop = progressBox.scrollHeight;
+                    }
+                }
+
+                progressBarFill.style.width = '100%';
+                setTimeout(() => {
+                    progressBarBg.style.display = 'none';
+                }, 1000);
+
+                loadHierarchy();
+            } catch (err) {
+                progressBox.textContent += `\n[Fatal Error] ${err.message}\n`;
+            } finally {
+                runBtn.disabled = false;
+                runBtn.innerHTML = '<span>⚡</span> Run Allocation';
+            }
+        }
+
+        // Initial Load
+        loadHierarchy();
+    </script>
+</body>
+</html>

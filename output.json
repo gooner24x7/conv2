@@ -1,0 +1,398 @@
+{
+    "metadata": {
+        "source_file": "BoQ.xlsx",
+        "status": "proposed",
+        "top_level_package_count": 21,
+        "child_package_count": 2
+    },
+    "work_packages": [
+        {
+            "id": "wp_top_e5227b38",
+            "name": "Internal leaf and a half doors; with vision panels to both leaves",
+            "attributes": {
+                "bill_numbers": [
+                    38
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": null
+            },
+            "source_evidence": [
+                {
+                    "worksheet": "General Summary",
+                    "reference": "A15:B15",
+                    "description": "Bill 38: Internal leaf and a half doors; with vision panels to both leaves"
+                }
+            ],
+            "children": []
+        },
+        {
+            "id": "wp_top_3edc7acd",
+            "name": "FITTINGS, FURNISHINGS & EQUIPMENT\n\nN FURNITURE/EQUIPMENT\n\nN10 GENERAL FIXTURES/FURNISHINGS/ EQUIPMENT\n\nPurpose-made Reception Desk; See NBS clause N10/110\nBespoke reception desk to entrance lobby, with scalloped Oak veneer frontage, recycled plastic worktop, and fluted glass privacy screen; To follow design intent as shown on drawing Reception Desk; Services/Worktop: Coordination required by furniture manufacturer with Mechanical & Electrical Subcontractor drawings. Lighting: Behind counter lighting with concealed fixings all in accordance with Electrical Engineers specification; See Architect drawing number DGW1-BBA-Z1-00-DR-A-7202 P04 for details",
+            "attributes": {
+                "bill_numbers": [
+                    39
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": null
+            },
+            "source_evidence": [
+                {
+                    "worksheet": "General Summary",
+                    "reference": "A22:B22",
+                    "description": "Bill 39: FITTINGS, FURNISHINGS & EQUIPMENT\n\nN FURNITURE/EQUIPMENT\n\nN10 GENERAL FIXTURES/FURNISHINGS/ EQUIPMENT\n\nPurpose-made Reception Desk; See NBS clause N10/110\nBespoke reception desk to entrance lobby, with scalloped Oak veneer frontage, recycled plastic worktop, and fluted glass privacy screen; To follow design intent as shown on drawing Reception Desk; Services/Worktop: Coordination required by furniture manufacturer with Mechanical & Electrical Subcontractor drawings. Lighting: Behind counter lighting with concealed fixings all in accordance with Electrical Engineers specification; See Architect drawing number DGW1-BBA-Z1-00-DR-A-7202 P04 for details"
+                }
+            ],
+            "children": []
+        },
+        {
+            "id": "wp_top_a6e0ed46",
+            "name": "18",
+            "attributes": {
+                "bill_numbers": [
+                    40
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": null
+            },
+            "source_evidence": [
+                {
+                    "worksheet": "General Summary",
+                    "reference": "A38:B38",
+                    "description": "Bill 40: 18"
+                }
+            ],
+            "children": []
+        },
+        {
+            "id": "wp_top_cbfc58bf",
+            "name": "Q26 SPECIAL SURFACINGS / PAVINGS FOR SPORT / GENERAL AMENITY\n\nThermoplastic yellow line markings\n\nLine marking",
+            "attributes": {
+                "bill_numbers": [
+                    41
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": null
+            },
+            "source_evidence": [
+                {
+                    "worksheet": "General Summary",
+                    "reference": "A43:B43",
+                    "description": "Bill 41: Q26 SPECIAL SURFACINGS / PAVINGS FOR SPORT / GENERAL AMENITY\n\nThermoplastic yellow line markings\n\nLine marking"
+                }
+            ],
+            "children": []
+        },
+        {
+            "id": "wp_top_645c7a54",
+            "name": "For multiple services in the same trench; not exceeding 200 nominal size",
+            "attributes": {
+                "bill_numbers": [
+                    42
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": null
+            },
+            "source_evidence": [
+                {
+                    "worksheet": "General Summary",
+                    "reference": "A70:B70",
+                    "description": "Bill 42: For multiple services in the same trench; not exceeding 200 nominal size"
+                }
+            ],
+            "children": []
+        },
+        {
+            "id": "wp_top_e58c8c95",
+            "name": "Bill 1 Works",
+            "attributes": {
+                "bill_numbers": [
+                    1
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": "Auto-generated from Bill Items"
+            },
+            "source_evidence": [],
+            "children": [
+                {
+                    "id": "wp_child_61cdc97f",
+                    "parent_id": "wp_top_e58c8c95",
+                    "name": "General Works",
+                    "attributes": {
+                        "bill_numbers": [
+                            1
+                        ],
+                        "phases": []
+                    },
+                    "source_evidence": [
+                        {
+                            "worksheet": "Bill Items",
+                            "reference": "Bill 1, P1, Ref A",
+                            "description": "C EXISTING SITE / BUILDINGS / SERVICES  C20 DEMOLITION  Refer to 22-004-PR-W-0020 DGW1 Demolition Pr..."
+                        },
+                        {
+                            "worksheet": "Bill Items",
+                            "reference": "Bill 1, P1, Ref ITEM",
+                            "description": "B..."
+                        },
+                        {
+                            "worksheet": "Bill Items",
+                            "reference": "Bill 1, P1, Ref Demolition inc soft strip and grubbing up floor slab, foundations & drainage inc capping off",
+                            "description": "C..."
+                        }
+                    ],
+                    "review_note": null
+                }
+            ]
+        },
+        {
+            "id": "wp_top_cd4484ce",
+            "name": "Bill 5 Works",
+            "attributes": {
+                "bill_numbers": [
+                    5
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": "Auto-generated from Bill Items"
+            },
+            "source_evidence": [],
+            "children": []
+        },
+        {
+            "id": "wp_top_e407fabe",
+            "name": "Bill 7 Works",
+            "attributes": {
+                "bill_numbers": [
+                    7
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": "Auto-generated from Bill Items"
+            },
+            "source_evidence": [],
+            "children": []
+        },
+        {
+            "id": "wp_top_ce30a7b3",
+            "name": "Bill 10 Works",
+            "attributes": {
+                "bill_numbers": [
+                    10
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": "Auto-generated from Bill Items"
+            },
+            "source_evidence": [],
+            "children": []
+        },
+        {
+            "id": "wp_top_e9be9d26",
+            "name": "Bill 14 Works",
+            "attributes": {
+                "bill_numbers": [
+                    14
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": "Auto-generated from Bill Items"
+            },
+            "source_evidence": [],
+            "children": []
+        },
+        {
+            "id": "wp_top_7222ec0b",
+            "name": "Bill 18 Works",
+            "attributes": {
+                "bill_numbers": [
+                    18
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": "Auto-generated from Bill Items"
+            },
+            "source_evidence": [],
+            "children": []
+        },
+        {
+            "id": "wp_top_60ac94cb",
+            "name": "Bill 20 Works",
+            "attributes": {
+                "bill_numbers": [
+                    20
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": "Auto-generated from Bill Items"
+            },
+            "source_evidence": [],
+            "children": []
+        },
+        {
+            "id": "wp_top_1faf9012",
+            "name": "Bill 21 Works",
+            "attributes": {
+                "bill_numbers": [
+                    21
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": "Auto-generated from Bill Items"
+            },
+            "source_evidence": [],
+            "children": []
+        },
+        {
+            "id": "wp_top_640a32f7",
+            "name": "Bill 23 Works",
+            "attributes": {
+                "bill_numbers": [
+                    23
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": "Auto-generated from Bill Items"
+            },
+            "source_evidence": [],
+            "children": []
+        },
+        {
+            "id": "wp_top_7f0c9b14",
+            "name": "Bill 25 Works",
+            "attributes": {
+                "bill_numbers": [
+                    25
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": "Auto-generated from Bill Items"
+            },
+            "source_evidence": [],
+            "children": []
+        },
+        {
+            "id": "wp_top_6b12f3fb",
+            "name": "Bill 26 Works",
+            "attributes": {
+                "bill_numbers": [
+                    26
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": "Auto-generated from Bill Items"
+            },
+            "source_evidence": [],
+            "children": []
+        },
+        {
+            "id": "wp_top_5f659cd4",
+            "name": "Bill 27 Works",
+            "attributes": {
+                "bill_numbers": [
+                    27
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": "Auto-generated from Bill Items"
+            },
+            "source_evidence": [],
+            "children": []
+        },
+        {
+            "id": "wp_top_8733c0d3",
+            "name": "Bill 28 Works",
+            "attributes": {
+                "bill_numbers": [
+                    28
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": "Auto-generated from Bill Items"
+            },
+            "source_evidence": [],
+            "children": []
+        },
+        {
+            "id": "wp_top_010e402a",
+            "name": "Bill 29 Works",
+            "attributes": {
+                "bill_numbers": [
+                    29
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": "Auto-generated from Bill Items"
+            },
+            "source_evidence": [],
+            "children": [
+                {
+                    "id": "wp_child_1793e639",
+                    "parent_id": "wp_top_010e402a",
+                    "name": "General Works",
+                    "attributes": {
+                        "bill_numbers": [
+                            29
+                        ],
+                        "phases": []
+                    },
+                    "source_evidence": [
+                        {
+                            "worksheet": "Bill Items",
+                            "reference": "Bill 29, P1, Ref A",
+                            "description": "'L' Shaped reception/welcome desk; 2460/2100mm long x 600mm wide x 720mm high with upper section 115..."
+                        }
+                    ],
+                    "review_note": null
+                }
+            ]
+        },
+        {
+            "id": "wp_top_88f1ae2c",
+            "name": "Bill 31 Works",
+            "attributes": {
+                "bill_numbers": [
+                    31
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": "Auto-generated from Bill Items"
+            },
+            "source_evidence": [],
+            "children": []
+        },
+        {
+            "id": "wp_top_451c584e",
+            "name": "Bill 33 Works",
+            "attributes": {
+                "bill_numbers": [
+                    33
+                ],
+                "phases": [],
+                "package_type": "standard",
+                "review_note": "Auto-generated from Bill Items"
+            },
+            "source_evidence": [],
+            "children": []
+        }
+    ],
+    "validation": {
+        "valid": true,
+        "errors": [],
+        "warnings": [],
+        "checks": {
+            "json_syntax": true,
+            "unique_ids": true,
+            "parent_relationships": true,
+            "unique_children": true,
+            "package_counts": true,
+            "attribute_placement": true,
+            "source_evidence": true
+        }
+    }
+}
