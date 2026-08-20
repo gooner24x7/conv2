@@ -75,7 +75,7 @@ class AiProviderService {
             ]
         ];
 
-        $maxRetries = 3;
+        $maxRetries = 5;
         $attempt = 0;
 
         while ($attempt < $maxRetries) {
@@ -86,7 +86,7 @@ class AiProviderService {
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 90);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 600);
 
             $res = curl_exec($ch);
             $err = curl_error($ch);
@@ -97,13 +97,15 @@ class AiProviderService {
 
             $data = json_decode($res, true);
 
-            // Handle Rate Limits (HTTP 429 or Quota Exceeded)
+            // Handle Rate Limits, High Demand, and Server Errors (HTTP 429, 503, 500)
             if (isset($data['error'])) {
                 $msg = $data['error']['message'];
-                if (stripos($msg, 'quota') !== false || stripos($msg, 'rate') !== false || $httpCode === 429) {
+                $isRetryable = stripos($msg, 'quota') !== false || stripos($msg, 'rate') !== false || stripos($msg, 'demand') !== false || in_array($httpCode, [429, 500, 503]);
+                
+                if ($isRetryable) {
                     if ($attempt < $maxRetries) {
                         preg_match('/retry in ([0-9.]+)s/i', $msg, $m);
-                        $sleepSec = isset($m[1]) ? ((int)ceil((float)$m[1]) + 2) : 10;
+                        $sleepSec = isset($m[1]) ? ((int)ceil((float)$m[1]) + 2) : 15;
                         sleep($sleepSec);
                         continue;
                     }
@@ -139,8 +141,7 @@ class AiProviderService {
                 ['role' => 'system', 'content' => $systemPrompt],
                 ['role' => 'user', 'content' => $userPrompt]
             ],
-            'temperature' => 0.1,
-            'response_format' => ['type' => 'json_object']
+            'temperature' => 1
         ];
 
         $ch = curl_init($url);
@@ -152,7 +153,7 @@ class AiProviderService {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 600);
 
         $res = curl_exec($ch);
         $err = curl_error($ch);
@@ -200,7 +201,7 @@ class AiProviderService {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 600);
 
         $res = curl_exec($ch);
         $err = curl_error($ch);

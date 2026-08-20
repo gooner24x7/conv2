@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>BoQ AI Allocator & Benchmarking Studio</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
@@ -9,6 +10,40 @@
             background: #f1f5f9; 
             color: #1e293b;
         }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .tab-btn:hover { background: #f1f5f9; }
+        .tab-btn.active { background: #eef2ff; color: #4f46e5; }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .chart-box {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .chart-box h3 { margin-top: 0; font-size: 16px; color: #334155; text-align: center; }
         .container { 
             max-width: 1100px; 
             margin: 0 auto; 
@@ -18,9 +53,6 @@
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01); 
         }
         .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             border-bottom: 2px solid #f1f5f9;
             padding-bottom: 20px;
             margin-bottom: 20px;
@@ -30,15 +62,6 @@
             margin: 0;
             color: #0f172a;
             font-weight: 700;
-        }
-        .engine-pill {
-            font-size: 0.85em;
-            background: #eef2ff;
-            color: #4f46e5;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-weight: 600;
-            border: 1px solid #c7d2fe;
         }
         
         /* Control Bar */
@@ -53,6 +76,31 @@
             gap: 15px;
             flex-wrap: wrap;
         }
+
+        .tournament-btn {
+            background: #10b981; 
+            color: white; 
+            padding: 10px 18px; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: 600;
+        }
+        .tournament-btn:hover { background: #059669; }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); display: none; 
+            align-items: center; justify-content: center; z-index: 1000;
+        }
+        .modal-content {
+            background: white; padding: 30px; border-radius: 12px;
+            width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .modal-content h3 { margin-top: 0; }
+        .model-cb-list { margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+
         .control-bar label {
             font-size: 0.9em;
             font-weight: 600;
@@ -259,89 +307,373 @@
         }
         .badge-conf-trade {
             background: #ede9fe;
-            color: #5b21b6;
             border: 1px solid #ddd6fe;
             padding: 2px 8px;
             border-radius: 12px;
             font-size: 0.78em;
             font-weight: 600;
         }
+        #league-table th { transition: background 0.2s; }
+        #league-table th:hover { background: #e2e8f0; }
     </style>
 </head>
 <body>
+    <div id="tournament-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>🏆 Batch Tournament Mode</h3>
+            <p style="font-size: 14px; color: #64748b;">Select the models you want to run. They will run consecutively to populate the League Table.</p>
+            <div class="model-cb-list">
+                <label><input type="checkbox" class="tourn-cb" value="gemini-flash" checked> Gemini 3.5 Flash</label>
+                <label><input type="checkbox" class="tourn-cb" value="gemini-pro" checked> Gemini 3.1 Pro</label>
+                <label><input type="checkbox" class="tourn-cb" value="openai-sol" checked> OpenAI GPT-5.6 Sol</label>
+                <label><input type="checkbox" class="tourn-cb" value="openai-terra"> OpenAI GPT-5.6 Terra</label>
+                <label><input type="checkbox" class="tourn-cb" value="openai-luna"> OpenAI GPT-5.6 Luna</label>
+                <label><input type="checkbox" class="tourn-cb" value="claude-sonnet"> Claude 3.7 Sonnet</label>
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button onclick="document.getElementById('tournament-modal').style.display='none'" style="padding: 8px 16px; border-radius: 6px; border: 1px solid #cbd5e1; background: white; cursor: pointer;">Cancel</button>
+                <button onclick="startTournament()" style="padding: 8px 16px; border-radius: 6px; border: none; background: #10b981; color: white; font-weight: 600; cursor: pointer;">Start Tournament</button>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="header-top">
             <h1>BoQ Package Allocation & Benchmarking</h1>
-            <span class="engine-pill" id="engine-badge">Engine: Gemini Flash</span>
         </div>
 
-        <!-- AI Engine Control Bar -->
-        <div class="control-bar">
-            <label for="model-select">Select AI Model:</label>
-            <select id="model-select" class="model-select">
-                <option value="gemini-flash" selected>Google Gemini 3.5 Flash (Ultra-Fast / Lowest Cost)</option>
-                <option value="gemini-pro">Google Gemini 3.1 Pro (Deep Reasoning)</option>
-                <option value="openai-sol">OpenAI GPT-5.6 Sol (Flagship / Deep Reasoning)</option>
-                <option value="openai-terra">OpenAI GPT-5.6 Terra (Balanced / Everyday)</option>
-                <option value="openai-luna">OpenAI GPT-5.6 Luna (Fast / Lightweight)</option>
-                <option value="claude-sonnet">Anthropic Claude 3.7 Sonnet</option>
-                <option value="claude-opus">Anthropic Claude Opus</option>
-                <option value="local-llama-8b">Local Llama-3-8B (100% Offline / CPU)</option>
-            </select>
-            <button id="run-btn" class="run-btn" onclick="triggerProcessing()">
-                <span>⚡</span> Run Allocation
-            </button>
+        <div class="tabs">
+            <button class="tab-btn active" id="tab-allocator" onclick="switchTab('allocator')">Live Allocator</button>
+            <button class="tab-btn" id="tab-dashboard" onclick="switchTab('dashboard')">Analytics Dashboard</button>
+            <button class="tab-btn" id="tab-leaguetable" onclick="switchTab('leaguetable')">League Table</button>
         </div>
 
-        <!-- Live Progress Stream -->
-        <div class="progress-bar-bg" id="progress-bar-bg">
-            <div class="progress-bar-fill" id="progress-bar-fill"></div>
-        </div>
-        <div id="progress-container"></div>
+        <div id="allocator-view">
+            <!-- AI Engine Control Bar -->
+            <div class="control-bar">
+                <label for="model-select">Select AI Model:</label>
+                <select id="model-select" class="model-select">
+                    <option value="gemini-flash" selected>Google Gemini 3.5 Flash (Ultra-Fast / Lowest Cost)</option>
+                    <option value="gemini-pro">Google Gemini 3.1 Pro (Deep Reasoning)</option>
+                    <option value="openai-sol">OpenAI GPT-5.6 Sol (Flagship / Deep Reasoning)</option>
+                    <option value="openai-terra">OpenAI GPT-5.6 Terra (Balanced / Everyday)</option>
+                    <option value="openai-luna">OpenAI GPT-5.6 Luna (Fast / Lightweight)</option>
+                    <option value="claude-sonnet">Anthropic Claude 3.7 Sonnet</option>
+                    <option value="claude-opus">Anthropic Claude Opus</option>
+                    <option value="local-llama-8b">Local Llama-3-8B (100% Offline / CPU)</option>
+                </select>
+                <button id="run-btn" class="run-btn" onclick="triggerProcessing()">
+                    <span>⚡</span> Run Allocation
+                </button>
+                <button id="tournament-btn" class="tournament-btn" onclick="document.getElementById('tournament-modal').style.display='flex'">
+                    <span>🏆</span> Batch Run
+                </button>
+                <button id="cancel-btn" class="run-btn" onclick="cancelProcessing()" style="display: none; background: #ef4444; border: 1px solid #dc2626;">
+                    <span>🛑</span> Cancel
+                </button>
+            </div>
 
-        <!-- Accuracy & Cost Metrics -->
-        <div class="metrics-grid" id="metrics-container">
-            <div class="metric-card highlight">
-                <strong>Overall Accuracy Score</strong>
-                <span id="metric-accuracy">--</span>
+            <!-- Live Progress Stream -->
+            <div class="progress-bar-bg" id="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-bar-fill"></div>
             </div>
-            <div class="metric-card">
-                <strong>Run Duration</strong>
-                <span id="metric-duration" style="color: #0284c7;">--</span>
+            <div id="progress-container"></div>
+
+            <!-- Accuracy & Cost Metrics -->
+            <div class="metrics-grid" id="metrics-container">
+                <div class="metric-card highlight">
+                    <strong>Overall Accuracy Score</strong>
+                    <span id="metric-accuracy">--</span>
+                </div>
+                <div class="metric-card">
+                    <strong>Run Duration</strong>
+                    <span id="metric-duration" style="color: #0284c7;">--</span>
+                </div>
+                <div class="metric-card">
+                    <strong>Avg Package Confidence</strong>
+                    <span id="metric-pkg-conf">--</span>
+                </div>
+                <div class="metric-card">
+                    <strong>Avg Trade Confidence</strong>
+                    <span id="metric-trade-conf">--</span>
+                </div>
+                <div class="metric-card">
+                    <strong>Bills Mapped</strong>
+                    <span id="metric-mapped">-- / --</span>
+                </div>
+                <div class="metric-card">
+                    <strong>Tokens (In / Out)</strong>
+                    <span id="metric-tokens">--</span>
+                </div>
+                <div class="metric-card cost">
+                    <strong>Total AI Cost</strong>
+                    <span id="metric-cost" style="color: #4f46e5;">--</span>
+                </div>
             </div>
-            <div class="metric-card">
-                <strong>Avg Package Confidence</strong>
-                <span id="metric-pkg-conf">--</span>
-            </div>
-            <div class="metric-card">
-                <strong>Avg Trade Confidence</strong>
-                <span id="metric-trade-conf">--</span>
-            </div>
-            <div class="metric-card">
-                <strong>Bills Mapped</strong>
-                <span id="metric-mapped">-- / --</span>
-            </div>
-            <div class="metric-card">
-                <strong>Tokens (In / Out)</strong>
-                <span id="metric-tokens">--</span>
-            </div>
-            <div class="metric-card cost">
-                <strong>Total AI Cost</strong>
-                <span id="metric-cost" style="color: #4f46e5;">--</span>
-            </div>
+
+            <!-- Hierarchy Tree Container -->
+            <div id="tree">Loading package hierarchy...</div>
         </div>
 
-        <!-- Hierarchy Tree Container -->
-        <div id="tree">Loading package hierarchy...</div>
+        <div id="dashboard-view" style="display: none;">
+            <div class="dashboard-grid">
+                <div class="chart-box">
+                    <h3>The Balanced Scorecard (Radar)</h3>
+                    <canvas id="radarChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <h3>Quality: Accuracy vs Mapping Rate</h3>
+                    <canvas id="barChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <h3>Efficiency: Cost vs Time</h3>
+                    <canvas id="scatterChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <h3>Value: Cost vs Accuracy</h3>
+                    <canvas id="costAccChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div id="leaguetable-view" style="display: none;">
+            <div class="chart-box" style="padding: 0; overflow: hidden;">
+                <table id="league-table" style="width: 100%; border-collapse: collapse; text-align: left;">
+                    <thead>
+                        <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #334155;">
+                            <th onclick="sortLeagueTable('model')" style="padding: 16px; cursor: pointer; user-select: none;">AI Model <span class="sort-icon"></span></th>
+                            <th onclick="sortLeagueTable('accuracy')" style="padding: 16px; cursor: pointer; user-select: none;">Overall Accuracy <span class="sort-icon">▼</span></th>
+                            <th onclick="sortLeagueTable('execution_time_sec')" style="padding: 16px; cursor: pointer; user-select: none;">Execution Time <span class="sort-icon"></span></th>
+                            <th onclick="sortLeagueTable('cost')" style="padding: 16px; cursor: pointer; user-select: none;">Total Cost <span class="sort-icon"></span></th>
+                            <th onclick="sortLeagueTable('timestamp')" style="padding: 16px; cursor: pointer; user-select: none;">Last Run <span class="sort-icon"></span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="league-table-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script>
+        let leagueData = [];
+        let currentSortColumn = 'accuracy';
+        let currentSortAsc = false;
+
+        function switchTab(tab) {
+            document.getElementById('tab-allocator').classList.remove('active');
+            document.getElementById('tab-dashboard').classList.remove('active');
+            document.getElementById('tab-leaguetable').classList.remove('active');
+            
+            document.getElementById('allocator-view').style.display = 'none';
+            document.getElementById('dashboard-view').style.display = 'none';
+            document.getElementById('leaguetable-view').style.display = 'none';
+
+            if (tab === 'allocator') {
+                document.getElementById('tab-allocator').classList.add('active');
+                document.getElementById('allocator-view').style.display = 'block';
+            } else if (tab === 'dashboard') {
+                document.getElementById('tab-dashboard').classList.add('active');
+                document.getElementById('dashboard-view').style.display = 'block';
+                loadDashboard();
+            } else if (tab === 'leaguetable') {
+                document.getElementById('tab-leaguetable').classList.add('active');
+                document.getElementById('leaguetable-view').style.display = 'block';
+                loadLeagueTable();
+            }
+        }
+
+        function loadLeagueTable() {
+            fetch('benchmark_history.json?t=' + Date.now())
+                .then(res => res.json())
+                .then(data => {
+                    if (!data || data.length === 0) return;
+                    // Deduplicate to get the latest per model
+                    const latestByModel = {};
+                    data.forEach(run => { latestByModel[run.model] = run; });
+                    leagueData = Object.values(latestByModel);
+                    renderLeagueTable();
+                })
+                .catch(err => console.log('No historical data yet.'));
+        }
+
+        function renderLeagueTable() {
+            const tbody = document.getElementById('league-table-body');
+            tbody.innerHTML = '';
+
+            // Sort data
+            leagueData.sort((a, b) => {
+                let valA = a[currentSortColumn];
+                let valB = b[currentSortColumn];
+
+                if (typeof valA === 'string') {
+                    valA = valA.toLowerCase();
+                    valB = valB.toLowerCase();
+                }
+
+                if (valA < valB) return currentSortAsc ? -1 : 1;
+                if (valA > valB) return currentSortAsc ? 1 : -1;
+                return 0;
+            });
+
+            // Update headers
+            const ths = document.querySelectorAll('#league-table th');
+            ths.forEach(th => {
+                const icon = th.querySelector('.sort-icon');
+                if (th.getAttribute('onclick').includes(currentSortColumn)) {
+                    icon.textContent = currentSortAsc ? ' ▲' : ' ▼';
+                } else {
+                    icon.textContent = '';
+                }
+            });
+
+            // Render rows
+            leagueData.forEach((row, index) => {
+                const tr = document.createElement('tr');
+                tr.style.borderBottom = '1px solid #e2e8f0';
+                if (index % 2 === 1) tr.style.background = '#f8fafc';
+                
+                const dateStr = new Date(row.timestamp).toLocaleString();
+                
+                tr.innerHTML = `
+                    <td style="padding: 16px; font-weight: 600;">${row.model}</td>
+                    <td style="padding: 16px;">${row.accuracy.toFixed(1)}%</td>
+                    <td style="padding: 16px;">${row.execution_time_sec.toFixed(1)}s</td>
+                    <td style="padding: 16px;">$${row.cost.toFixed(5)}</td>
+                    <td style="padding: 16px; color: #64748b; font-size: 0.9em;">${dateStr}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function sortLeagueTable(column) {
+            if (currentSortColumn === column) {
+                currentSortAsc = !currentSortAsc;
+            } else {
+                currentSortColumn = column;
+                currentSortAsc = (column === 'model' || column === 'execution_time_sec' || column === 'cost') ? true : false;
+            }
+            renderLeagueTable();
+        }
+
+        let chartInstances = {};
+
+        function loadDashboard() {
+            fetch('benchmark_history.json?t=' + Date.now())
+                .then(res => res.json())
+                .then(data => {
+                    if (!data || data.length === 0) return;
+                    renderCharts(data);
+                })
+                .catch(err => console.log('No historical data yet.'));
+        }
+
+        function renderCharts(history) {
+            // Get the latest run for each model
+            const latestByModel = {};
+            history.forEach(run => {
+                latestByModel[run.model] = run;
+            });
+            const latestRuns = Object.values(latestByModel);
+            const models = latestRuns.map(r => r.model);
+            const allColors = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#6366f1'];
+
+            // 1. Radar Chart (Balanced Scorecard)
+            const radarData = {
+                labels: ['Quality (Accuracy %)', 'Throughput (Mapped %)', 'Speed Score', 'Cost Score'],
+                datasets: latestRuns.map((run, idx) => {
+                    const color = allColors[idx % allColors.length];
+                    const speedScore = Math.max(0, 100 - (run.execution_time_sec / 6)); // 0s = 100, 600s = 0
+                    const costScore = Math.max(0, 100 - (run.cost * 100)); // $0.00 = 100, $1.00 = 0
+                    
+                    return {
+                        label: run.model,
+                        data: [
+                            run.accuracy,
+                            run.mapping_rate * 100,
+                            speedScore,
+                            costScore
+                        ],
+                        backgroundColor: color + '33', 
+                        borderColor: color,
+                        pointBackgroundColor: color,
+                        borderWidth: 2
+                    };
+                })
+            };
+            drawChart('radarChart', 'radar', radarData, { scales: { r: { min: 0, max: 100 } } });
+
+            // 2. Bar Chart (Quality)
+            const barData = {
+                labels: models,
+                datasets: [
+                    {
+                        label: 'Overall Accuracy %',
+                        data: latestRuns.map(r => r.accuracy),
+                        backgroundColor: '#3b82f6'
+                    },
+                    {
+                        label: 'Mapping Rate %',
+                        data: latestRuns.map(r => r.mapping_rate * 100),
+                        backgroundColor: '#10b981'
+                    }
+                ]
+            };
+            drawChart('barChart', 'bar', barData, { scales: { y: { min: 0, max: 100 } } });
+
+            // 3. Scatter Chart (Efficiency)
+            const scatterData = {
+                datasets: latestRuns.map((run, idx) => {
+                    return {
+                        label: run.model,
+                        data: [{ x: run.execution_time_sec, y: run.cost }],
+                        backgroundColor: allColors[idx % allColors.length],
+                        pointRadius: 6
+                    };
+                })
+            };
+            drawChart('scatterChart', 'scatter', scatterData, {
+                scales: { 
+                    x: { title: { display: true, text: 'Execution Time (Seconds)' }, beginAtZero: true },
+                    y: { title: { display: true, text: 'Total Cost ($)' }, beginAtZero: true }
+                }
+            });
+
+            // 4. Scatter Chart (Value: Cost vs Accuracy)
+            const costAccData = {
+                datasets: latestRuns.map((run, idx) => {
+                    return {
+                        label: run.model,
+                        data: [{ x: run.accuracy, y: run.cost }],
+                        backgroundColor: allColors[idx % allColors.length],
+                        pointRadius: 6
+                    };
+                })
+            };
+            drawChart('costAccChart', 'scatter', costAccData, {
+                scales: {
+                    x: { title: { display: true, text: 'Overall Accuracy (%)' }, min: 0, max: 100 },
+                    y: { title: { display: true, text: 'Total Cost ($)' }, beginAtZero: true }
+                }
+            });
+        }
+
+        function drawChart(canvasId, type, data, options) {
+            if (chartInstances[canvasId]) {
+                chartInstances[canvasId].destroy();
+            }
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            chartInstances[canvasId] = new Chart(ctx, {
+                type: type,
+                data: data,
+                options: { responsive: true, ...options }
+            });
+        }
+
         function loadHierarchy() {
-            fetch('output_wd.json?t=' + Date.now())
+            return fetch('output_wd.json?t=' + Date.now())
                 .then(res => res.json())
                 .then(data => {
                     const meta = data.metadata || {};
-                    document.getElementById('engine-badge').textContent = meta.engine || 'AI Engine';
                     document.getElementById('metric-accuracy').textContent = meta.overall_accuracy_score || '--';
                     document.getElementById('metric-duration').textContent = meta.execution_time || '--';
                     document.getElementById('metric-pkg-conf').textContent = meta.avg_package_confidence || '--';
@@ -410,14 +742,12 @@
                                 }
 
                                 inspectorPanel.innerHTML = `
-                                    <div class="rationale-box">
-                                        <strong>💡 AI Commercial Rationale:</strong><br>
+                                    <div style="font-size: 13px; color: #4b5563; margin-bottom: 12px; background: #fffbeb; padding: 10px; border-left: 3px solid #f59e0b;">
+                                        <strong>AI Commercial Rationale:</strong><br/>
                                         ${rationale}
                                     </div>
-                                    <div class="evidence-list">
-                                        <strong style="display:block; margin-bottom:8px; color:#334155;">📋 Scope & BoQ Source Items (${bill.source_evidence ? bill.source_evidence.length : 0} items):</strong>
-                                        ${evidenceHtml}
-                                    </div>
+                                    <div style="font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 8px;">SCOPE SAMPLES:</div>
+                                    ${evidenceHtml}
                                 `;
 
                                 billDetails.appendChild(inspectorPanel);
@@ -432,22 +762,78 @@
                 });
         }
 
+        let currentAbortController = null;
+        let tournamentActive = false;
+        let tournamentQueue = [];
+
+        async function startTournament() {
+            const cbs = document.querySelectorAll('.tourn-cb:checked');
+            tournamentQueue = Array.from(cbs).map(cb => cb.value);
+            if (tournamentQueue.length === 0) {
+                alert("Please select at least one model.");
+                return;
+            }
+            document.getElementById('tournament-modal').style.display = 'none';
+            tournamentActive = true;
+            switchTab('allocator');
+            
+            for (let i = 0; i < tournamentQueue.length; i++) {
+                if (!tournamentActive) break;
+                
+                const model = tournamentQueue[i];
+                document.getElementById('model-select').value = model; // Update UI
+                
+                const treeContainer = document.getElementById('tree');
+                if(treeContainer) {
+                    treeContainer.innerHTML = `<div style="padding: 20px; text-align: center; color: #64748b;">[Batch Run ${i+1}/${tournamentQueue.length}] Preparing ${model}...</div>`;
+                }
+
+                await triggerProcessing(); // Wait for this run to completely finish
+            }
+            
+            tournamentActive = false;
+            switchTab('leaguetable'); // Jump to the standings!
+        }
+
+        function cancelProcessing() {
+            tournamentActive = false; // Stop the tournament queue
+            if (currentAbortController) {
+                currentAbortController.abort();
+            }
+        }
+
         async function triggerProcessing() {
             const model = document.getElementById('model-select').value;
             const runBtn = document.getElementById('run-btn');
+            const cancelBtn = document.getElementById('cancel-btn');
             const progressBox = document.getElementById('progress-container');
+            const treeContainer = document.getElementById('tree');
             const progressBarBg = document.getElementById('progress-bar-bg');
             const progressBarFill = document.getElementById('progress-bar-fill');
+            
+            runBtn.style.display = 'none';
+            cancelBtn.style.display = 'flex';
+            currentAbortController = new AbortController();
 
-            runBtn.disabled = true;
-            runBtn.innerHTML = '<span>⏳</span> Processing...';
+            // Clear metrics during run
+            document.getElementById('metric-accuracy').textContent = '--';
+            document.getElementById('metric-duration').textContent = '--';
+            document.getElementById('metric-pkg-conf').textContent = '--';
+            document.getElementById('metric-trade-conf').textContent = '--';
+            document.getElementById('metric-mapped').textContent = '-- / --';
+            if (document.getElementById('metric-tokens')) document.getElementById('metric-tokens').textContent = '--';
+            document.getElementById('metric-cost').textContent = '--';
+            treeContainer.innerHTML = '<div style="padding: 20px; text-align: center; color: #64748b;">Processing via AI... This may take a few minutes.</div>';
+
             progressBox.style.display = 'block';
             progressBarBg.style.display = 'block';
             progressBarFill.style.width = '20%';
             progressBox.textContent = `[Init] Connecting to ${model}...\n`;
 
             try {
-                const response = await fetch(`process_boq_wd.php?model=${model}`);
+                const response = await fetch(`process_boq_wd.php?model=${model}`, {
+                    signal: currentAbortController.signal
+                });
                 const reader = response.body.getReader();
                 const decoder = new TextDecoder();
                 let done = false;
@@ -469,12 +855,19 @@
                     progressBarBg.style.display = 'none';
                 }, 1000);
 
-                loadHierarchy();
+                await loadHierarchy();
             } catch (err) {
-                progressBox.textContent += `\n[Fatal Error] ${err.message}\n`;
+                if (err.name === 'AbortError') {
+                    progressBox.textContent += `\n[Aborted] Run cancelled by user.\n`;
+                    progressBarFill.style.width = '0%';
+                } else {
+                    progressBox.textContent += `\n[Fatal Error] ${err.message}\n`;
+                }
             } finally {
-                runBtn.disabled = false;
+                runBtn.style.display = 'flex';
+                cancelBtn.style.display = 'none';
                 runBtn.innerHTML = '<span>⚡</span> Run Allocation';
+                currentAbortController = null;
             }
         }
 

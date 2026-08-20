@@ -9,6 +9,7 @@ $globalStartTime = microtime(true);
 // Disable PHP execution time limit for long AI requests
 set_time_limit(0);
 ini_set('max_execution_time', '0');
+ignore_user_abort(false);
 
 // Handle output buffering for real-time web streaming
 if (php_sapi_name() !== 'cli') {
@@ -128,10 +129,14 @@ $wdPackages = [];
 $wdList = [];
 foreach ($wdSheet as $row) {
     $name = trim($row['A'] ?? '');
-    if ($name === '' || stripos($name, 'Works Package') !== false) continue;
+    $desc = trim($row['B'] ?? ''); // Extract Strategy #2 Description Column
+    
+    // Skip if empty or if it's the header row
+    if ($name === '' || stripos($name, 'Works Package') !== false || stripos($name, 'wd_') !== false) continue;
+    
     $id = 'wd_' . count($wdPackages);
     $wdPackages[$name] = $id;
-    $wdList[] = ['id' => $id, 'name' => $name];
+    $wdList[] = ['id' => $id, 'name' => $name, 'description' => $desc];
 }
 emitStatus("  -> Identified " . count($wdList) . " target Works Packages.");
 
@@ -161,10 +166,11 @@ foreach ($billItems as $row) {
     if ($colA !== '' && ctype_digit($colA)) $lastBillNum = (int)$colA;
     
     if ($lastBillNum !== null && isset($bills[$lastBillNum]) && $colE !== '') {
-        $cleanDesc = cleanText(mb_substr($colE, 0, 200));
+        $cleanDesc = cleanText(mb_substr($colE, 0, 400));
         if (strlen($cleanDesc) > 3 && !in_array($cleanDesc, ['To Collection', 'Total Carried to Summary', 'Carried to Summary'])) {
             if (!isset($billContext[$lastBillNum])) $billContext[$lastBillNum] = [];
-            if (count($billContext[$lastBillNum]) < 12 && !in_array($cleanDesc, $billContext[$lastBillNum])) {
+            // Strategy #1 Reversal: Reduced from 50 to 20 to eliminate long-tail noise
+            if (count($billContext[$lastBillNum]) < 20 && !in_array($cleanDesc, $billContext[$lastBillNum])) {
                 $billContext[$lastBillNum][] = $cleanDesc;
             }
         }
@@ -173,31 +179,12 @@ foreach ($billItems as $row) {
 emitStatus("  -> Extracted " . count($bills) . " bills with rich scope context.");
 
 // ============================================================
-// PHASE 4: Exact Matching Filter
+// PHASE 4: Bypass Programmatic Matching (100% AI Reasoning)
 // ============================================================
 $billMappings = [];
-$unmappedForAi = [];
+$unmappedForAi = $bills; // All bills require AI analysis
 
-foreach ($bills as $bn => $bName) {
-    $cleanBill = strtolower(preg_replace('/[^a-z0-9]/i', '', $bName));
-    $matched = false;
-    foreach ($wdList as $wd) {
-        if ($cleanBill === strtolower(preg_replace('/[^a-z0-9]/i', '', $wd['name']))) {
-            $billMappings[$bn] = [
-                'target' => $wd['id'],
-                'package_confidence' => 100,
-                'trade' => $wd['name'] . ' Specialist',
-                'trade_confidence' => 100,
-                'rationale' => "Direct 100% exact match with Works Package '{$wd['name']}'."
-            ];
-            $matched = true;
-            break;
-        }
-    }
-    if (!$matched) $unmappedForAi[$bn] = $bName;
-}
-
-emitStatus("Phase 4: Exact match resolved " . count($billMappings) . " bills. " . count($unmappedForAi) . " require AI analysis.");
+emitStatus("Phase 4: Programmatic matching disabled. 100% of bills (" . count($unmappedForAi) . ") will be sent to the AI Reasoning Engine.");
 
 // ============================================================
 // PHASE 5: AI Analysis with Dual-Confidence
@@ -210,7 +197,13 @@ if (count($unmappedForAi) > 0) {
     emitStatus("Phase 5: Processing with " . $aiService->getModelLabel() . "...");
 
     $targetListStr = "";
-    foreach ($wdList as $wp) $targetListStr .= "- {$wp['id']}: {$wp['name']}\n";
+    foreach ($wdList as $wp) {
+        if (!empty($wp['description'])) {
+            $targetListStr .= "- {$wp['id']}: {$wp['name']} (SCOPE DEFINITION: {$wp['description']})\n";
+        } else {
+            $targetListStr .= "- {$wp['id']}: {$wp['name']}\n";
+        }
+    }
 
     $systemPrompt = <<<PROMPT
 You are a Senior UK Quantity Surveyor.
@@ -219,33 +212,55 @@ Analyze each BoQ Bill and map it to the SINGLE best Works Package.
 TARGET WORKS PACKAGES:
 $targetListStr
 
-Evaluate both the Works Package match and the Subcontractor Trade independently.
-For each bill, return:
-1. "bill_number": integer
-2. "target_wd_id": string (e.g. "wd_3" or "unmapped")
-3. "package_confidence": integer (0 to 100) representing confidence in the works package selection
-4. "trade": string (specific subcontractor trade, e.g. "Dryliner / Plasterer", "Groundworker", "Glazier")
-5. "trade_confidence": integer (0 to 100) representing confidence in the subcontractor trade assignment
-6. "rationale": concise 1-sentence commercial explanation citing specific items or materials
+RULES & CONSTRAINTS:
+1. CHAIN OF THOUGHT: You MUST generate your "rationale" FIRST. Think through the scope before selecting the package.
+2. DOMINANT TRADE FOCUS: Bills often contain a "long tail" of minor items (e.g. temporary scaffolding, fixings, or cleaning) that support a main trade. IGNORE these minor items. Map the bill based exclusively on the DOMINANT permanent trade. 
+3. NEGATIVE CONSTRAINTS: Only map to "wd_unmapped" (General/Preliminaries) if the ENTIRE bill consists of temporary works or site setups. If there is permanent construction, pick a package.
+4. EDGE CASES: If a bill is ambiguously named (e.g., "Builders Work" or "General"), rely strictly on the specific item descriptions to find the dominant trade. If it is a 50/50 split of permanent trades, map to "wd_unmapped".
+5. BASELINES: A clear bill like "Brickwork" should map directly to the masonry works package.
 
-Return a valid JSON array of objects with NO markdown formatting:
+EXAMPLES:
 [
   {
+    "rationale": "The items list site cabins, scaffolding, and temporary water. These are temporary works and preliminaries, which do not belong to a permanent trade package.",
     "bill_number": 1,
-    "target_wd_id": "wd_2",
+    "target_wd_id": "wd_unmapped",
+    "package_confidence": 99,
+    "trade": "Preliminaries",
+    "trade_confidence": 99
+  },
+  {
+    "rationale": "Scope includes facing bricks, mortar, and blockwork, which perfectly aligns with the masonry permanent package.",
+    "bill_number": 2,
+    "target_wd_id": "wd_4",
     "package_confidence": 95,
-    "trade": "Demolition Contractor",
-    "trade_confidence": 98,
-    "rationale": "Commercial justification..."
+    "trade": "Bricklayer / Mason",
+    "trade_confidence": 98
   }
 ]
+
+Evaluate both the Works Package match and the Subcontractor Trade independently.
+For each bill, return:
+1. "rationale": concise 1-sentence commercial explanation citing specific items or materials. (DO THIS FIRST)
+2. "bill_number": integer
+3. "target_wd_id": string (e.g. "wd_3" or "wd_unmapped")
+4. "package_confidence": integer (0 to 100) representing confidence in the works package selection
+5. "trade": string (specific subcontractor trade, e.g. "Dryliner / Plasterer", "Groundworker", "Glazier")
+6. "trade_confidence": integer (0 to 100) representing confidence in the subcontractor trade assignment
+
+Return a valid JSON array of objects with NO markdown formatting.
 PROMPT;
 
     $unmappedKeys = array_keys($unmappedForAi);
-    $batchSize = ($selectedModel === 'local-llama-8b') ? 10 : 24;
+    $batchSize = ($selectedModel === 'local-llama-8b') ? 10 : 12; // Reduced batch size for higher attention
     $batches = array_chunk($unmappedKeys, $batchSize);
 
     foreach ($batches as $idx => $batchBills) {
+        // Halt if the user cancelled the request in the UI
+        if (connection_aborted()) {
+            exit;
+        }
+
         $bNum = $idx + 1;
         emitStatus("  -> Running AI Batch $bNum of " . count($batches) . " (" . count($batchBills) . " bills)...");
 
@@ -253,21 +268,50 @@ PROMPT;
         foreach ($batchBills as $bn) {
             $name = $unmappedForAi[$bn];
             $items = $billContext[$bn] ?? [];
-            $itemsList = !empty($items) ? implode('; ', array_slice($items, 0, 10)) : 'No detailed item descriptions';
+            // Remove the hardcoded limit of 10 that was squashing Strategy #1
+            $itemsList = !empty($items) ? implode('; ', array_slice($items, 0, 50)) : 'No detailed item descriptions';
             $userLines[] = "Bill $bn: \"$name\"\nScope: $itemsList\n";
         }
         $userContent = "Analyze and map these BoQ Bills:\n\n" . implode("\n", $userLines);
 
         try {
-            $response = $aiService->prompt($systemPrompt, $userContent);
+            // PASS 1: Generate Draft Mapping
+            emitStatus("  -> [Pass 1] Generating draft mapping...");
+            $draftResponse = $aiService->prompt($systemPrompt, $userContent);
 
             $totalInTokens += $aiService->lastUsage['input_tokens'];
             $totalOutTokens += $aiService->lastUsage['output_tokens'];
             $totalEstimatedCost += $aiService->lastUsage['estimated_cost'];
 
-            $parsed = json_decode($response, true);
-            if (!$parsed && preg_match('/\[\s*\{.*\}\s*\]/s', $response, $m)) {
+            // PASS 2: Self-Reflection & Critique
+            emitStatus("  -> [Pass 2] Self-Reflecting and correcting errors...");
+            $reflectionPrompt = "ORIGINAL BILLS TO MAP:\n" . implode("\n", $userLines) . "\n\n" .
+                                "YOUR DRAFT MAPPING:\n" . $draftResponse . "\n\n" .
+                                "REVIEW AND REFINE:\n" .
+                                "Critique your draft mapping above against the original bills. Check strictly against the RULES & CONSTRAINTS. Specifically:\n" .
+                                "1. Did you map a bill to 'wd_unmapped' just because it contained minor scaffolding/fixings? If so, correct it to the dominant permanent trade.\n" .
+                                "2. Ensure the 'ai_rationale' justifies the final choice based on the DOMINANT items.\n\n" .
+                                "Output ONLY the final, corrected JSON array containing the refined mappings in the exact same format.";
+                                
+            $finalResponse = $aiService->prompt($systemPrompt, $reflectionPrompt);
+            
+            $totalInTokens += $aiService->lastUsage['input_tokens'];
+            $totalOutTokens += $aiService->lastUsage['output_tokens'];
+            $totalEstimatedCost += $aiService->lastUsage['estimated_cost'];
+
+            $parsed = json_decode($finalResponse, true);
+            if (!$parsed && preg_match('/\[\s*\{.*\}\s*\]/s', $finalResponse, $m)) {
                 $parsed = json_decode($m[0], true);
+            }
+            
+            // Safety Catch: If the AI wrapped the array in a root object (e.g. {"bills": [...]})
+            if (is_array($parsed) && !isset($parsed[0])) {
+                foreach ($parsed as $key => $val) {
+                    if (is_array($val) && isset($val[0])) {
+                        $parsed = $val;
+                        break;
+                    }
+                }
             }
 
             if (is_array($parsed)) {
@@ -366,7 +410,7 @@ $avgPkgConf = $scoredCount > 0 ? round($totalPkgConfidence / $scoredCount, 1) : 
 $avgTradeConf = $scoredCount > 0 ? round($totalTradeConfidence / $scoredCount, 1) : 0;
 // Overall accuracy combines allocation rate and average confidence
 $mappingRate = count($bills) > 0 ? ($mappedCount / count($bills)) : 0;
-$overallAccuracy = round((($avgPkgConf * 0.6) + ($avgTradeConf * 0.4)) * ($mappingRate * 0.2 + 0.8), 1);
+$overallAccuracy = round((($avgPkgConf * 0.95) + ($avgTradeConf * 0.05)) * ($mappingRate * 0.2 + 0.8), 1);
 
 $finalOutput = [
     'metadata' => [
@@ -391,5 +435,32 @@ $finalOutput = [
 
 file_put_contents('output_wd.json', json_encode($finalOutput, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
+// Append to Historical Benchmark Data (Keeping only the latest run per model)
+$historyFile = 'benchmark_history.json';
+$history = file_exists($historyFile) ? json_decode(file_get_contents($historyFile), true) : [];
+if (!is_array($history)) $history = [];
+
+$newRun = [
+    'timestamp' => date('Y-m-d H:i:s'),
+    'model' => $aiService->getModelLabel(),
+    'total_bills' => count($bills),
+    'mapped_bills' => $mappedCount,
+    'mapping_rate' => $mappingRate,
+    'accuracy' => (float)$overallAccuracy,
+    'execution_time_sec' => round(microtime(true) - $globalStartTime, 2),
+    'cost' => (float)$totalEstimatedCost
+];
+
+$updatedHistory = [];
+foreach ($history as $run) {
+    if (is_array($run) && isset($run['model']) && $run['model'] !== $newRun['model']) {
+        $updatedHistory[] = $run;
+    }
+}
+$updatedHistory[] = $newRun;
+
+file_put_contents($historyFile, json_encode($updatedHistory, JSON_PRETTY_PRINT));
+
 emitStatus("=== COMPLETE ===");
 emitStatus("Mapped: $mappedCount / " . count($bills) . " | Accuracy Score: {$overallAccuracy}% | Cost: $" . number_format($totalEstimatedCost, 5));
+
