@@ -1,15 +1,5 @@
 [
     {
-        "timestamp": "2026-08-20 09:10:54",
-        "model": "Google Gemini 3.5 Flash (Ultra-Fast)",
-        "total_bills": 71,
-        "mapped_bills": 60,
-        "mapping_rate": 0.8450704225352113,
-        "accuracy": 90.5,
-        "execution_time_sec": 195.64,
-        "cost": 0.010129874999999998
-    },
-    {
         "timestamp": "2026-08-20 09:16:35",
         "model": "Google Gemini 3.1 Pro (Deep Reasoning)",
         "total_bills": 71,
@@ -17,7 +7,8 @@
         "mapping_rate": 0.8169014084507042,
         "accuracy": 91.1,
         "execution_time_sec": 340.63,
-        "cost": 0.16967124999999997
+        "cost": 0.2994832222222222,
+        "template": "WD template.xlsx"
     },
     {
         "timestamp": "2026-08-20 09:20:40",
@@ -27,7 +18,8 @@
         "mapping_rate": 0.8732394366197183,
         "accuracy": 88.4,
         "execution_time_sec": 245.28,
-        "cost": 2.5483949999999993
+        "cost": 0.8911368679245282,
+        "template": "WD template.xlsx"
     },
     {
         "timestamp": "2026-08-20 09:23:36",
@@ -37,7 +29,8 @@
         "mapping_rate": 0.8450704225352113,
         "accuracy": 87.1,
         "execution_time_sec": 175.49,
-        "cost": 0.35877749999999997
+        "cost": 0.316635380952381,
+        "template": "WD template.xlsx"
     },
     {
         "timestamp": "2026-08-20 09:26:22",
@@ -47,6 +40,84 @@
         "mapping_rate": 0.8732394366197183,
         "accuracy": 86.9,
         "execution_time_sec": 166.72,
-        "cost": 0.02365095
+        "cost": 0.03478816984126984,
+        "template": "WD template.xlsx"
+    },
+    {
+        "timestamp": "2026-08-20 11:46:50",
+        "model": "Google Gemini 3.1 Pro (Deep Reasoning)",
+        "template": "NRM1 template.xlsx",
+        "total_bills": 71,
+        "mapped_bills": 61,
+        "mapping_rate": 0.8591549295774648,
+        "accuracy": 91.8,
+        "execution_time_sec": 399.34,
+        "cost": 0.5847443174603175
+    },
+    {
+        "timestamp": "2026-08-20 11:51:09",
+        "model": "OpenAI GPT-5.6 Sol (Flagship)",
+        "template": "NRM1 template.xlsx",
+        "total_bills": 71,
+        "mapped_bills": 61,
+        "mapping_rate": 0.8591549295774648,
+        "accuracy": 90.4,
+        "execution_time_sec": 259.2,
+        "cost": 1.516175283018868
+    },
+    {
+        "timestamp": "2026-08-20 11:54:15",
+        "model": "OpenAI GPT-5.6 Terra (Balanced)",
+        "template": "NRM1 template.xlsx",
+        "total_bills": 71,
+        "mapped_bills": 59,
+        "mapping_rate": 0.8309859154929577,
+        "accuracy": 87.8,
+        "execution_time_sec": 185.77,
+        "cost": 0.5966828730158731
+    },
+    {
+        "timestamp": "2026-08-20 11:56:43",
+        "model": "OpenAI GPT-5.6 Luna (Lightweight)",
+        "template": "NRM1 template.xlsx",
+        "total_bills": 71,
+        "mapped_bills": 57,
+        "mapping_rate": 0.8028169014084507,
+        "accuracy": 89.8,
+        "execution_time_sec": 147.33,
+        "cost": 0.06126899365079364
+    },
+    {
+        "timestamp": "2026-08-20 12:29:44",
+        "model": "Google Gemini 3.5 Flash (Ultra-Fast)",
+        "template": "NRM1 template.xlsx",
+        "total_bills": 71,
+        "mapped_bills": 60,
+        "mapping_rate": 0.8450704225352113,
+        "accuracy": 91.1,
+        "execution_time_sec": 174.15,
+        "cost": 0.43608933333333333
+    },
+    {
+        "timestamp": "2026-08-20 12:33:13",
+        "model": "Anthropic Claude 3.7 Sonnet",
+        "template": "NRM1 template.xlsx",
+        "total_bills": 71,
+        "mapped_bills": 0,
+        "mapping_rate": 0,
+        "accuracy": 0,
+        "execution_time_sec": 0.14,
+        "cost": 0
+    },
+    {
+        "timestamp": "2026-08-20 12:42:30",
+        "model": "Google Gemini 3.5 Flash (Ultra-Fast)",
+        "template": "WD template.xlsx",
+        "total_bills": 71,
+        "mapped_bills": 55,
+        "mapping_rate": 0.7746478873239436,
+        "accuracy": 90.8,
+        "execution_time_sec": 374.07,
+        "cost": 0.22431786904761905
     }
 ]

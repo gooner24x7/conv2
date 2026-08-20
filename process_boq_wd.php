@@ -58,8 +58,29 @@ if (isset($_GET['model'])) {
     }
 }
 
+// Determine Selected Template
+$selectedTemplate = 'WD template.xlsx'; // default
+if (isset($_GET['template'])) {
+    $selectedTemplate = trim($_GET['template']);
+} elseif (isset($_POST['template'])) {
+    $selectedTemplate = trim($_POST['template']);
+} else {
+    foreach ($argv ?? [] as $arg) {
+        if (strpos($arg, '--template=') === 0) {
+            $selectedTemplate = substr($arg, 11);
+        }
+    }
+}
+
+$templatePath = __DIR__ . '/templates/' . basename($selectedTemplate);
+if (!file_exists($templatePath)) {
+    emitStatus("Error: Template file not found: $selectedTemplate");
+    exit;
+}
+
 $aiService = new AiProviderService($selectedModel);
 emitStatus("Starting BoQ Allocation Engine: " . $aiService->getModelLabel());
+emitStatus("Using Works Package Template: " . $selectedTemplate);
 
 // ============================================================
 // EXCEL PARSER - Native ZIP/XML reader
@@ -121,8 +142,8 @@ function cleanText(string $s): string {
 // ============================================================
 // PHASE 1: Load Works Packages
 // ============================================================
-emitStatus("Phase 1: Loading Works Packages from WD template.xlsx...");
-$wdData = parseXlsx('WD template.xlsx');
+emitStatus("Phase 1: Loading Works Packages from $selectedTemplate...");
+$wdData = parseXlsx($templatePath);
 $wdSheet = $wdData['Sheet1'] ?? reset($wdData);
 
 $wdPackages = [];
@@ -419,6 +440,7 @@ $finalOutput = [
         'unmapped_bills' => count($unmappedChildren),
         'wd_packages_used' => count(array_filter($output, fn($n) => $n['id'] !== 'wd_unmapped')),
         'engine' => $aiService->getModelLabel(),
+        'template' => $selectedTemplate,
         'execution_time' => round(microtime(true) - $globalStartTime, 2) . 's',
         'overall_accuracy_score' => $overallAccuracy . '%',
         'avg_package_confidence' => $avgPkgConf . '%',
@@ -435,7 +457,7 @@ $finalOutput = [
 
 file_put_contents('output_wd.json', json_encode($finalOutput, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
-// Append to Historical Benchmark Data (Keeping only the latest run per model)
+// Append to Historical Benchmark Data (Keeping only the latest run per model + template combination)
 $historyFile = 'benchmark_history.json';
 $history = file_exists($historyFile) ? json_decode(file_get_contents($historyFile), true) : [];
 if (!is_array($history)) $history = [];
@@ -443,6 +465,7 @@ if (!is_array($history)) $history = [];
 $newRun = [
     'timestamp' => date('Y-m-d H:i:s'),
     'model' => $aiService->getModelLabel(),
+    'template' => $selectedTemplate,
     'total_bills' => count($bills),
     'mapped_bills' => $mappedCount,
     'mapping_rate' => $mappingRate,
@@ -453,8 +476,12 @@ $newRun = [
 
 $updatedHistory = [];
 foreach ($history as $run) {
-    if (is_array($run) && isset($run['model']) && $run['model'] !== $newRun['model']) {
-        $updatedHistory[] = $run;
+    if (is_array($run) && isset($run['model'])) {
+        $runTemplate = $run['template'] ?? 'WD template.xlsx';
+        // Keep runs if they are a different model OR a different template
+        if ($run['model'] !== $newRun['model'] || $runTemplate !== $newRun['template']) {
+            $updatedHistory[] = $run;
+        }
     }
 }
 $updatedHistory[] = $newRun;

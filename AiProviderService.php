@@ -40,23 +40,23 @@ class AiProviderService {
     public function prompt(string $systemPrompt, string $userPrompt): string {
         switch ($this->modelKey) {
             case 'gemini-flash':
-                return $this->callGemini('gemini-3.5-flash', $systemPrompt, $userPrompt, 0.075, 0.30);
+                return $this->callGemini('gemini-3.5-flash', $systemPrompt, $userPrompt, 1.50, 9.00);
             case 'gemini-pro':
-                return $this->callGemini('gemini-3.1-pro-preview', $systemPrompt, $userPrompt, 1.25, 5.00);
+                return $this->callGemini('gemini-3.1-pro-preview', $systemPrompt, $userPrompt, 2.00, 12.00);
             case 'openai-sol':
-                return $this->callOpenAI('gpt-5.6-sol', $systemPrompt, $userPrompt, 15.00, 75.00);
+                return $this->callOpenAI('gpt-5.6-sol', $systemPrompt, $userPrompt, 5.00, 30.00);
             case 'openai-terra':
-                return $this->callOpenAI('gpt-5.6-terra', $systemPrompt, $userPrompt, 2.50, 10.00);
+                return $this->callOpenAI('gpt-5.6-terra', $systemPrompt, $userPrompt, 2.00, 12.00);
             case 'openai-luna':
-                return $this->callOpenAI('gpt-5.6-luna', $systemPrompt, $userPrompt, 0.15, 0.60);
+                return $this->callOpenAI('gpt-5.6-luna', $systemPrompt, $userPrompt, 0.20, 1.20);
             case 'claude-opus':
-                return $this->callAnthropic('claude-3-opus-20240229', $systemPrompt, $userPrompt, 15.00, 75.00);
+                return $this->callAnthropic('claude-3-opus-20240229', $systemPrompt, $userPrompt, 5.00, 25.00);
             case 'claude-sonnet':
-                return $this->callAnthropic('claude-3-5-sonnet-20241022', $systemPrompt, $userPrompt, 3.00, 15.00);
+                return $this->callAnthropic('claude-3-5-sonnet-20241022', $systemPrompt, $userPrompt, 0.59, 2.93);
             case 'local-llama-8b':
                 return $this->callLocalLlama($systemPrompt, $userPrompt);
             default:
-                return $this->callGemini('gemini-3.5-flash', $systemPrompt, $userPrompt, 0.075, 0.30);
+                return $this->callGemini('gemini-3.5-flash', $systemPrompt, $userPrompt, 1.50, 9.00);
         }
     }
 

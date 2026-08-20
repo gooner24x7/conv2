@@ -349,8 +349,8 @@
 
         <div id="allocator-view">
             <!-- AI Engine Control Bar -->
-            <div class="control-bar">
-                <label for="model-select">Select AI Model:</label>
+            <div class="control-bar" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 25px;">
+                <label for="model-select" style="font-weight: 500; font-size: 14px; color: #475569;">AI Model:</label>
                 <select id="model-select" class="model-select">
                     <option value="gemini-flash" selected>Google Gemini 3.5 Flash (Ultra-Fast / Lowest Cost)</option>
                     <option value="gemini-pro">Google Gemini 3.1 Pro (Deep Reasoning)</option>
@@ -361,6 +361,13 @@
                     <option value="claude-opus">Anthropic Claude Opus</option>
                     <option value="local-llama-8b">Local Llama-3-8B (100% Offline / CPU)</option>
                 </select>
+                
+                <label for="template-select" style="font-weight: 500; font-size: 14px; color: #475569; margin-left: 10px;">Works Template:</label>
+                <select id="template-select" class="model-select">
+                    <option value="WD template.xlsx" selected>WD template.xlsx</option>
+                    <option value="NRM1 template.xlsx">NRM1 template.xlsx</option>
+                </select>
+
                 <button id="run-btn" class="run-btn" onclick="triggerProcessing()">
                     <span>⚡</span> Run Allocation
                 </button>
@@ -442,6 +449,7 @@
                         <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #334155;">
                             <th onclick="sortLeagueTable('model')" style="padding: 16px; cursor: pointer; user-select: none;">AI Model <span class="sort-icon"></span></th>
                             <th onclick="sortLeagueTable('accuracy')" style="padding: 16px; cursor: pointer; user-select: none;">Overall Accuracy <span class="sort-icon">▼</span></th>
+                            <th onclick="sortLeagueTable('template')" style="padding: 16px; cursor: pointer; user-select: none;">Template <span class="sort-icon"></span></th>
                             <th onclick="sortLeagueTable('execution_time_sec')" style="padding: 16px; cursor: pointer; user-select: none;">Execution Time <span class="sort-icon"></span></th>
                             <th onclick="sortLeagueTable('cost')" style="padding: 16px; cursor: pointer; user-select: none;">Total Cost <span class="sort-icon"></span></th>
                             <th onclick="sortLeagueTable('timestamp')" style="padding: 16px; cursor: pointer; user-select: none;">Last Run <span class="sort-icon"></span></th>
@@ -487,10 +495,13 @@
                 .then(res => res.json())
                 .then(data => {
                     if (!data || data.length === 0) return;
-                    // Deduplicate to get the latest per model
-                    const latestByModel = {};
-                    data.forEach(run => { latestByModel[run.model] = run; });
-                    leagueData = Object.values(latestByModel);
+                    // Deduplicate to get the latest per model + template combination
+                    const latestByRun = {};
+                    data.forEach(run => { 
+                        const key = `${run.model}::${run.template || 'WD template.xlsx'}`;
+                        latestByRun[key] = run; 
+                    });
+                    leagueData = Object.values(latestByRun);
                     renderLeagueTable();
                 })
                 .catch(err => console.log('No historical data yet.'));
@@ -533,10 +544,12 @@
                 if (index % 2 === 1) tr.style.background = '#f8fafc';
                 
                 const dateStr = new Date(row.timestamp).toLocaleString();
+                const tmpl = row.template || 'WD template.xlsx'; // fallback for old data
                 
                 tr.innerHTML = `
                     <td style="padding: 16px; font-weight: 600;">${row.model}</td>
                     <td style="padding: 16px;">${row.accuracy.toFixed(1)}%</td>
+                    <td style="padding: 16px;">${tmpl}</td>
                     <td style="padding: 16px;">${row.execution_time_sec.toFixed(1)}s</td>
                     <td style="padding: 16px;">$${row.cost.toFixed(5)}</td>
                     <td style="padding: 16px; color: #64748b; font-size: 0.9em;">${dateStr}</td>
@@ -568,13 +581,17 @@
         }
 
         function renderCharts(history) {
-            // Get the latest run for each model
-            const latestByModel = {};
+            // Get the latest run for each model + template combination
+            const latestByRun = {};
             history.forEach(run => {
-                latestByModel[run.model] = run;
+                const key = `${run.model}::${run.template || 'WD template.xlsx'}`;
+                latestByRun[key] = run;
             });
-            const latestRuns = Object.values(latestByModel);
-            const models = latestRuns.map(r => r.model);
+            const latestRuns = Object.values(latestByRun);
+            const models = latestRuns.map(r => {
+                const t = r.template ? ` (${r.template.replace('.xlsx','')})` : '';
+                return `${r.model}${t}`;
+            });
             const allColors = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#6366f1'];
 
             // 1. Radar Chart (Balanced Scorecard)
@@ -658,10 +675,13 @@
         }
 
         function drawChart(canvasId, type, data, options) {
+            if (typeof Chart === 'undefined') return;
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
             if (chartInstances[canvasId]) {
                 chartInstances[canvasId].destroy();
             }
-            const ctx = document.getElementById(canvasId).getContext('2d');
+            const ctx = canvas.getContext('2d');
             chartInstances[canvasId] = new Chart(ctx, {
                 type: type,
                 data: data,
@@ -803,7 +823,6 @@
         }
 
         async function triggerProcessing() {
-            const model = document.getElementById('model-select').value;
             const runBtn = document.getElementById('run-btn');
             const cancelBtn = document.getElementById('cancel-btn');
             const progressBox = document.getElementById('progress-container');
@@ -811,6 +830,11 @@
             const progressBarBg = document.getElementById('progress-bar-bg');
             const progressBarFill = document.getElementById('progress-bar-fill');
             
+            const modelSelect = document.getElementById('model-select');
+            const model = modelSelect ? modelSelect.value : 'gemini-flash';
+            const templateSelect = document.getElementById('template-select');
+            const template = templateSelect ? templateSelect.value : 'WD template.xlsx';
+
             runBtn.style.display = 'none';
             cancelBtn.style.display = 'flex';
             currentAbortController = new AbortController();
@@ -823,19 +847,27 @@
             document.getElementById('metric-mapped').textContent = '-- / --';
             if (document.getElementById('metric-tokens')) document.getElementById('metric-tokens').textContent = '--';
             document.getElementById('metric-cost').textContent = '--';
-            treeContainer.innerHTML = '<div style="padding: 20px; text-align: center; color: #64748b;">Processing via AI... This may take a few minutes.</div>';
+            if (!tournamentActive) {
+                treeContainer.innerHTML = '<div style="padding: 20px; text-align: center; color: #64748b;">Processing via AI... This may take a few minutes.</div>';
+            }
 
             progressBox.style.display = 'block';
             progressBarBg.style.display = 'block';
             progressBarFill.style.width = '20%';
-            progressBox.textContent = `[Init] Connecting to ${model}...\n`;
+            
+            if (tournamentActive) {
+                const currentIndex = tournamentQueue.indexOf(model) + 1;
+                progressBox.textContent = `[Batch Run ${currentIndex}/${tournamentQueue.length}] Connecting to ${model} using template ${template}...\n`;
+            } else {
+                progressBox.textContent = `[Init] Connecting to ${model} using template ${template}...\n`;
+            }
 
             try {
-                const response = await fetch(`process_boq_wd.php?model=${model}`, {
+                const response = await fetch(`process_boq_wd.php?model=${model}&template=${encodeURIComponent(template)}`, {
                     signal: currentAbortController.signal
                 });
                 const reader = response.body.getReader();
-                const decoder = new TextDecoder();
+                const decoder = new TextDecoder('utf-8');
                 let done = false;
 
                 progressBarFill.style.width = '60%';
@@ -873,6 +905,36 @@
 
         // Initial Load
         loadHierarchy();
+
+        // Load templates
+        fetch('api_templates.php?t=' + Date.now())
+            .then(res => {
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                return res.json();
+            })
+            .then(data => {
+                const select = document.getElementById('template-select');
+                if (select && data.templates && data.templates.length > 0) {
+                    select.innerHTML = '';
+                    data.templates.forEach(t => {
+                        const opt = document.createElement('option');
+                        opt.value = t;
+                        opt.textContent = t;
+                        if (t === 'WD template.xlsx') opt.selected = true;
+                        select.appendChild(opt);
+                    });
+                }
+            })
+            .catch(err => {
+                console.error("Could not load templates:", err);
+                const select = document.getElementById('template-select');
+                if (select) {
+                    select.innerHTML = `
+                        <option value="WD template.xlsx" selected>WD template.xlsx</option>
+                        <option value="NRM1 template.xlsx">NRM1 template.xlsx</option>
+                    `;
+                }
+            });
     </script>
 </body>
 </html>
