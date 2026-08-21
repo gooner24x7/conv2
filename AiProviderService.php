@@ -25,22 +25,40 @@ class AiProviderService {
 
     public function getModelLabel(): string {
         $labels = [
-            'local-llama-8b' => 'Local Llama-3-8B (Offline / CPU)',
-            'gemini-flash'    => 'Google Gemini 3.5 Flash (Ultra-Fast)',
-            'gemini-pro'      => 'Google Gemini 3.1 Pro (Deep Reasoning)',
-            'openai-sol'      => 'OpenAI GPT-5.6 Sol (Flagship)',
-            'openai-terra'    => 'OpenAI GPT-5.6 Terra (Balanced)',
-            'openai-luna'     => 'OpenAI GPT-5.6 Luna (Lightweight)',
-            'claude-opus'     => 'Anthropic Claude Opus',
-            'claude-sonnet'   => 'Anthropic Claude 3.7 Sonnet'
+            'gemini-3.7-flash'      => 'Google Gemini 3.7 Flash',
+            'gemini-3.6-flash'      => 'Google Gemini 3.6 Flash',
+            'gemini-3.5-flash'      => 'Google Gemini 3.5 Flash',
+            'gemini-3.5-flash-lite' => 'Google Gemini 3.5 Flash-Lite',
+            'gemini-3.1-pro'        => 'Google Gemini 3.1 Pro',
+            'gemini-flash'          => 'Google Gemini 3.6 Flash',
+            'gemini-pro'            => 'Google Gemini 3.1 Pro',
+            'openai-sol'            => 'OpenAI GPT-5.6 Sol',
+            'openai-terra'          => 'OpenAI GPT-5.6 Terra',
+            'openai-luna'           => 'OpenAI GPT-5.6 Luna',
+            'claude-opus'           => 'Anthropic Claude Opus',
+            'claude-sonnet'         => 'Anthropic Claude 3.7 Sonnet'
         ];
-        return $labels[$this->modelKey] ?? $this->modelKey;
+        if (isset($labels[$this->modelKey])) {
+            return $labels[$this->modelKey];
+        }
+        if (strpos($this->modelKey, 'gemini-') === 0) {
+            return 'Google Gemini (' . $this->modelKey . ')';
+        }
+        return $this->modelKey;
     }
 
     public function prompt(string $systemPrompt, string $userPrompt): string {
         switch ($this->modelKey) {
+            case 'gemini-3.7-flash':
+                return $this->callGemini('gemini-3.7-flash', $systemPrompt, $userPrompt, 0.75, 3.75);
+            case 'gemini-3.6-flash':
             case 'gemini-flash':
+                return $this->callGemini('gemini-3.6-flash', $systemPrompt, $userPrompt, 1.50, 7.50);
+            case 'gemini-3.5-flash':
                 return $this->callGemini('gemini-3.5-flash', $systemPrompt, $userPrompt, 1.50, 9.00);
+            case 'gemini-3.5-flash-lite':
+                return $this->callGemini('gemini-3.5-flash-lite', $systemPrompt, $userPrompt, 0.075, 0.30);
+            case 'gemini-3.1-pro':
             case 'gemini-pro':
                 return $this->callGemini('gemini-3.1-pro-preview', $systemPrompt, $userPrompt, 2.00, 12.00);
             case 'openai-sol':
@@ -53,10 +71,11 @@ class AiProviderService {
                 return $this->callAnthropic('claude-3-opus-20240229', $systemPrompt, $userPrompt, 5.00, 25.00);
             case 'claude-sonnet':
                 return $this->callAnthropic('claude-3-5-sonnet-20241022', $systemPrompt, $userPrompt, 0.59, 2.93);
-            case 'local-llama-8b':
-                return $this->callLocalLlama($systemPrompt, $userPrompt);
             default:
-                return $this->callGemini('gemini-3.5-flash', $systemPrompt, $userPrompt, 1.50, 9.00);
+                if (strpos($this->modelKey, 'gemini-') === 0) {
+                    return $this->callGemini($this->modelKey, $systemPrompt, $userPrompt, 1.50, 7.50);
+                }
+                return $this->callGemini('gemini-3.6-flash', $systemPrompt, $userPrompt, 1.50, 7.50);
         }
     }
 
@@ -226,25 +245,4 @@ class AiProviderService {
         return $data['content'][0]['text'] ?? '';
     }
 
-    private function callLocalLlama(string $systemPrompt, string $userPrompt): string {
-        $bin = __DIR__ . '/bin/llama-cli.exe';
-        $model = __DIR__ . '/Meta-Llama-3-8B-Instruct.Q4_K_M.gguf';
-
-        if (!file_exists($bin) || !file_exists($model)) {
-            throw new Exception("Local Llama binary or 8B model file not found in directory.");
-        }
-
-        require_once __DIR__ . '/QwenLocalAiService.php';
-        $local = new QwenLocalAiService($bin, $model, 99, 0.1);
-        $res = $local->prompt($systemPrompt, $userPrompt, 4096);
-
-        $this->lastUsage = [
-            'input_tokens' => 0,
-            'output_tokens' => 0,
-            'total_tokens' => 0,
-            'estimated_cost' => 0.0 // 100% free offline
-        ];
-
-        return $res;
     }
-}

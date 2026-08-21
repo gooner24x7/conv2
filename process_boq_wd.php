@@ -226,54 +226,39 @@ if (count($unmappedForAi) > 0) {
         }
     }
 
-    $systemPrompt = <<<PROMPT
-You are a Senior UK Quantity Surveyor.
-Analyze each BoQ Bill and map it to the SINGLE best Works Package.
+    $isOpenAI = (strpos($selectedModel, 'openai-') === 0);
+    
+    // Check for Custom Rules Injection
+    $customRulesInjection = "";
+    if (file_exists(__DIR__ . '/custom_rules.txt')) {
+        $customText = trim(file_get_contents(__DIR__ . '/custom_rules.txt'));
+        if (!empty($customText)) {
+            $customRulesInjection = "\n\nUSER SPECIFIC OVERRIDE RULES (PRIORITIZE THESE):\n" . $customText;
+        }
+    }
 
-TARGET WORKS PACKAGES:
-$targetListStr
+    $baseRules = "TARGET WORKS PACKAGES:\n$targetListStr\n\nRULES & CONSTRAINTS:\n1. CHAIN OF THOUGHT: You MUST generate your \"rationale\" FIRST. Think through the scope before selecting the package.\n2. DOMINANT TRADE FOCUS: Bills often contain a \"long tail\" of minor items (e.g. temporary scaffolding, fixings, or cleaning) that support a main trade. IGNORE these minor items. Map the bill based exclusively on the DOMINANT permanent trade.\n3. NEGATIVE CONSTRAINTS: Only map to \"wd_unmapped\" (General/Preliminaries) if the ENTIRE bill consists of temporary works or site setups. If there is permanent construction, pick a package.\n4. EDGE CASES: If a bill is ambiguously named, rely strictly on item descriptions. If a 50/50 split, map to \"wd_unmapped\".\n5. BASELINES: A clear bill like \"Brickwork\" should map directly to the masonry works package." . $customRulesInjection . "\n\nEXAMPLES:\n[\n  {\n    \"rationale\": \"The items list site cabins and scaffolding. These are temporary works and preliminaries.\",\n    \"bill_number\": 1,\n    \"target_wd_id\": \"wd_unmapped\",\n    \"package_confidence\": 99,\n    \"trade\": \"Preliminaries\",\n    \"trade_confidence\": 99\n  },\n  {\n    \"rationale\": \"Scope includes facing bricks and mortar, perfectly aligning with masonry.\",\n    \"bill_number\": 2,\n    \"target_wd_id\": \"wd_4\",\n    \"package_confidence\": 95,\n    \"trade\": \"Bricklayer / Mason\",\n    \"trade_confidence\": 98\n  }\n]\n\nEvaluate both the Works Package match and the Subcontractor Trade independently.\nFor each bill, return:\n1. \"rationale\": concise 1-sentence commercial explanation citing specific items or materials.\n2. \"bill_number\": integer\n3. \"target_wd_id\": string (e.g. \"wd_3\" or \"wd_unmapped\")\n4. \"package_confidence\": integer (0 to 100)\n5. \"trade\": string (specific subcontractor trade)\n6. \"trade_confidence\": integer (0 to 100)";
+    
+    // Check for Full Prompt Override
+    $systemPrompt = "";
+    if (file_exists(__DIR__ . '/custom_prompt.txt')) {
+        $overridePrompt = trim(file_get_contents(__DIR__ . '/custom_prompt.txt'));
+        if (!empty($overridePrompt)) {
+            // If they provided the tag [TARGET_WORKS_PACKAGES], inject the list
+            $systemPrompt = str_replace('[TARGET_WORKS_PACKAGES]', $targetListStr, $overridePrompt);
+        }
+    }
 
-RULES & CONSTRAINTS:
-1. CHAIN OF THOUGHT: You MUST generate your "rationale" FIRST. Think through the scope before selecting the package.
-2. DOMINANT TRADE FOCUS: Bills often contain a "long tail" of minor items (e.g. temporary scaffolding, fixings, or cleaning) that support a main trade. IGNORE these minor items. Map the bill based exclusively on the DOMINANT permanent trade. 
-3. NEGATIVE CONSTRAINTS: Only map to "wd_unmapped" (General/Preliminaries) if the ENTIRE bill consists of temporary works or site setups. If there is permanent construction, pick a package.
-4. EDGE CASES: If a bill is ambiguously named (e.g., "Builders Work" or "General"), rely strictly on the specific item descriptions to find the dominant trade. If it is a 50/50 split of permanent trades, map to "wd_unmapped".
-5. BASELINES: A clear bill like "Brickwork" should map directly to the masonry works package.
-
-EXAMPLES:
-[
-  {
-    "rationale": "The items list site cabins, scaffolding, and temporary water. These are temporary works and preliminaries, which do not belong to a permanent trade package.",
-    "bill_number": 1,
-    "target_wd_id": "wd_unmapped",
-    "package_confidence": 99,
-    "trade": "Preliminaries",
-    "trade_confidence": 99
-  },
-  {
-    "rationale": "Scope includes facing bricks, mortar, and blockwork, which perfectly aligns with the masonry permanent package.",
-    "bill_number": 2,
-    "target_wd_id": "wd_4",
-    "package_confidence": 95,
-    "trade": "Bricklayer / Mason",
-    "trade_confidence": 98
-  }
-]
-
-Evaluate both the Works Package match and the Subcontractor Trade independently.
-For each bill, return:
-1. "rationale": concise 1-sentence commercial explanation citing specific items or materials. (DO THIS FIRST)
-2. "bill_number": integer
-3. "target_wd_id": string (e.g. "wd_3" or "wd_unmapped")
-4. "package_confidence": integer (0 to 100) representing confidence in the works package selection
-5. "trade": string (specific subcontractor trade, e.g. "Dryliner / Plasterer", "Groundworker", "Glazier")
-6. "trade_confidence": integer (0 to 100) representing confidence in the subcontractor trade assignment
-
-Return a valid JSON array of objects with NO markdown formatting.
-PROMPT;
+    if (empty($systemPrompt)) {
+        if ($isOpenAI) {
+            $systemPrompt = "You are a Senior UK Quantity Surveyor. Analyze each BoQ Bill and map it to the SINGLE best Works Package.\n\n" . $baseRules . "\n\nYou must return a valid JSON array of objects. Output JSON ONLY. No markdown formatting. No conversational text.";
+        } else {
+            $systemPrompt = "You are a Senior UK Quantity Surveyor. Analyze each BoQ Bill and map it to the SINGLE best Works Package.\n\n" . $baseRules . "\n\nIMPORTANT: To ensure deep reasoning, you MUST write out your commercial analysis inside <scratchpad>...</scratchpad> tags BEFORE outputting the JSON array.\nAfter the scratchpad, output the final result in a ```json code block.";
+        }
+    }
 
     $unmappedKeys = array_keys($unmappedForAi);
-    $batchSize = ($selectedModel === 'local-llama-8b') ? 10 : 12; // Reduced batch size for higher attention
+    $batchSize = 12;
     $batches = array_chunk($unmappedKeys, $batchSize);
 
     foreach ($batches as $idx => $batchBills) {
@@ -293,7 +278,11 @@ PROMPT;
             $itemsList = !empty($items) ? implode('; ', array_slice($items, 0, 50)) : 'No detailed item descriptions';
             $userLines[] = "Bill $bn: \"$name\"\nScope: $itemsList\n";
         }
-        $userContent = "Analyze and map these BoQ Bills:\n\n" . implode("\n", $userLines);
+        if ($isOpenAI) {
+            $userContent = "Analyze and map these BoQ Bills:\n\n" . implode("\n", $userLines);
+        } else {
+            $userContent = "Analyze and map these BoQ Bills:\n\n" . implode("\n", $userLines) . "\n\nRemember to write your <scratchpad> reasoning first, followed by the ```json block.";
+        }
 
         try {
             // PASS 1: Generate Draft Mapping
@@ -306,13 +295,12 @@ PROMPT;
 
             // PASS 2: Self-Reflection & Critique
             emitStatus("  -> [Pass 2] Self-Reflecting and correcting errors...");
-            $reflectionPrompt = "ORIGINAL BILLS TO MAP:\n" . implode("\n", $userLines) . "\n\n" .
-                                "YOUR DRAFT MAPPING:\n" . $draftResponse . "\n\n" .
-                                "REVIEW AND REFINE:\n" .
-                                "Critique your draft mapping above against the original bills. Check strictly against the RULES & CONSTRAINTS. Specifically:\n" .
-                                "1. Did you map a bill to 'wd_unmapped' just because it contained minor scaffolding/fixings? If so, correct it to the dominant permanent trade.\n" .
-                                "2. Ensure the 'ai_rationale' justifies the final choice based on the DOMINANT items.\n\n" .
-                                "Output ONLY the final, corrected JSON array containing the refined mappings in the exact same format.";
+            $baseReflect = "ORIGINAL BILLS TO MAP:\n" . implode("\n", $userLines) . "\n\nYOUR DRAFT MAPPING:\n" . $draftResponse . "\n\nREVIEW AND REFINE:\nCritique your draft mapping above against the original bills. Check strictly against the RULES & CONSTRAINTS. Specifically:\n1. Did you map a bill to 'wd_unmapped' just because it contained minor scaffolding/fixings? If so, correct it to the dominant permanent trade.\n2. Ensure the 'ai_rationale' justifies the final choice based on the DOMINANT items.\n\n";
+            if ($isOpenAI) {
+                $reflectionPrompt = $baseReflect . "Output ONLY the final, corrected JSON array containing the refined mappings in the exact same format. No markdown, pure JSON.";
+            } else {
+                $reflectionPrompt = $baseReflect . "First, put your reflection in a <scratchpad>. Then output the final, corrected JSON array in a ```json block.";
+            }
                                 
             $finalResponse = $aiService->prompt($systemPrompt, $reflectionPrompt);
             

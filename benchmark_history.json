@@ -1,16 +1,5 @@
 [
     {
-        "timestamp": "2026-08-20 09:16:35",
-        "model": "Google Gemini 3.1 Pro (Deep Reasoning)",
-        "total_bills": 71,
-        "mapped_bills": 58,
-        "mapping_rate": 0.8169014084507042,
-        "accuracy": 91.1,
-        "execution_time_sec": 340.63,
-        "cost": 0.2994832222222222,
-        "template": "WD template.xlsx"
-    },
-    {
         "timestamp": "2026-08-20 09:20:40",
         "model": "OpenAI GPT-5.6 Sol (Flagship)",
         "total_bills": 71,
@@ -110,14 +99,47 @@
         "cost": 0
     },
     {
-        "timestamp": "2026-08-20 12:42:30",
+        "timestamp": "2026-08-20 13:35:05",
+        "model": "Google Gemini 3.1 Pro (Deep Reasoning)",
+        "template": "WD template.xlsx",
+        "total_bills": 71,
+        "mapped_bills": 58,
+        "mapping_rate": 0.8169014084507042,
+        "accuracy": 90.5,
+        "execution_time_sec": 359.74,
+        "cost": 0.320152
+    },
+    {
+        "timestamp": "2026-08-20 15:00:45",
+        "model": "Google Gemini 3.7 Flash (Ultra-Fast)",
+        "template": "NRM1 template.xlsx",
+        "total_bills": 71,
+        "mapped_bills": 61,
+        "mapping_rate": 0.8591549295774648,
+        "accuracy": 91.6,
+        "execution_time_sec": 455.64,
+        "cost": 0.415287
+    },
+    {
+        "timestamp": "2026-08-21 12:28:45",
         "model": "Google Gemini 3.5 Flash (Ultra-Fast)",
         "template": "WD template.xlsx",
         "total_bills": 71,
-        "mapped_bills": 55,
-        "mapping_rate": 0.7746478873239436,
-        "accuracy": 90.8,
-        "execution_time_sec": 374.07,
-        "cost": 0.22431786904761905
+        "mapped_bills": 60,
+        "mapping_rate": 0.8450704225352113,
+        "accuracy": 91.7,
+        "execution_time_sec": 405.69,
+        "cost": 0.24071849999999995
+    },
+    {
+        "timestamp": "2026-08-21 15:37:55",
+        "model": "Google Gemini 3.5 Flash-Lite",
+        "template": "NRM1 template.xlsx",
+        "total_bills": 71,
+        "mapped_bills": 65,
+        "mapping_rate": 0.9154929577464789,
+        "accuracy": 92.7,
+        "execution_time_sec": 57.52,
+        "cost": 0.020470425
     }
 ]
