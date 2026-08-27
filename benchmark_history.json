@@ -22,17 +22,6 @@
         "cost": 0.044815
     },
     {
-        "timestamp": "2026-08-27 10:24:33",
-        "model": "OpenAI GPT-5.6 Terra",
-        "template": "NRM2 template.csv",
-        "total_bills": 71,
-        "mapped_bills": 61,
-        "mapping_rate": 0.8591549295774648,
-        "accuracy": 90,
-        "execution_time_sec": 174.53,
-        "cost": 0.4074399999999999
-    },
-    {
         "timestamp": "2026-08-27 10:31:15",
         "model": "Google Gemini 3.6 Flash",
         "template": "NRM2 template.csv",
@@ -64,5 +53,27 @@
         "accuracy": 89.2,
         "execution_time_sec": 209.72,
         "cost": 0.0653078
+    },
+    {
+        "timestamp": "2026-08-27 10:45:08",
+        "model": "OpenAI GPT-5.6 Luna",
+        "template": "WD template.csv",
+        "total_bills": 71,
+        "mapped_bills": 62,
+        "mapping_rate": 0.8732394366197183,
+        "accuracy": 84.6,
+        "execution_time_sec": 212.83,
+        "cost": 0.0397006
+    },
+    {
+        "timestamp": "2026-08-27 10:51:46",
+        "model": "Google Gemini 3.5 Flash-Lite",
+        "template": "WD template.csv",
+        "total_bills": 71,
+        "mapped_bills": 61,
+        "mapping_rate": 0.8591549295774648,
+        "accuracy": 90.9,
+        "execution_time_sec": 52.99,
+        "cost": 0.010225274999999999
     }
 ]
