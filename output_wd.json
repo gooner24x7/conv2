@@ -1,23 +1,55 @@
 {
     "metadata": {
         "total_bills": 71,
-        "mapped_bills": 65,
-        "unmapped_bills": 6,
-        "wd_packages_used": 26,
-        "engine": "Google Gemini 3.5 Flash-Lite",
-        "template": "NRM1 template.xlsx",
-        "execution_time": "57.52s",
-        "overall_accuracy_score": "92.7%",
-        "avg_package_confidence": "94.2%",
-        "avg_trade_confidence": "95.5%",
+        "mapped_bills": 62,
+        "unmapped_bills": 9,
+        "wd_packages_used": 27,
+        "engine": "OpenAI GPT-5.6 Luna",
+        "template": "NRM1 template.csv",
+        "execution_time": "209.72s",
+        "overall_accuracy_score": "89.2%",
+        "avg_package_confidence": "91.5%",
+        "avg_trade_confidence": "96.2%",
         "token_usage": {
-            "input": 209663,
-            "output": 15819,
-            "total": 225482
+            "input": 198733,
+            "output": 21301,
+            "total": 220034
         },
-        "estimated_cost": "$0.02047"
+        "estimated_cost": "$0.06531"
     },
     "work_packages": [
+        {
+            "id": "wd_0",
+            "name": "0.1.1 - Toxic or hazardous material removal",
+            "attributes": {
+                "package_type": "wd_template"
+            },
+            "children": [
+                {
+                    "id": "bill_42",
+                    "name": "Bill 42: Phase 7 - Cut & Fill",
+                    "attributes": {
+                        "bill_number": 42,
+                        "suggested_trade": "Hazardous materials remediation and excavation contractor",
+                        "package_confidence": 86,
+                        "trade_confidence": 94,
+                        "ai_rationale": "The bill specifically includes removal and disposal of a substantial hazardous-material hotspot identified in the environmental report, in addition to general excavation and breaking-out works."
+                    },
+                    "source_evidence": [
+                        "D GROUNDWORK D20 EXCAVATING AND FILLING Excavating To reduce levels 1 m maximum depth",
+                        "Breaking out existing hard pavings Break out existing tarmac/ concrete flags or block paving depth to be confirmed on site",
+                        "Concrete ground floor slab; with reinforcement depth to be confirmed on site",
+                        "Foundations Break out existing foundations to Trafford Court Block B; to a depth of 1m",
+                        "Disposal Disposal of water surface water",
+                        "ground water",
+                        "Excavated material off site",
+                        "Hot spot of hazardous materials in TP09 identified in Arc environmental report 12th September 2024. Assumed 5m x 5m x 5m deep",
+                        "Surface treatments Compacting bottom of excavations",
+                        "Description"
+                    ]
+                }
+            ]
+        },
         {
             "id": "wd_3",
             "name": "0.2.1 - Demolition works",
@@ -30,10 +62,10 @@
                     "name": "Bill 1: Demolition & Initial Earthworks",
                     "attributes": {
                         "bill_number": 1,
-                        "suggested_trade": "Demolition Contractor",
-                        "package_confidence": 95,
-                        "trade_confidence": 98,
-                        "ai_rationale": "The bill covers major site demolition, asbestos removal, soft strip, and earthworks/piling platform formation."
+                        "suggested_trade": "Demolition and remediation contractor",
+                        "package_confidence": 96,
+                        "trade_confidence": 96,
+                        "ai_rationale": "The dominant scope is demolition of buildings, slabs, foundations, walls, drainage and hardstandings, with asbestos removal, backfilling and site remediation as associated activities."
                     },
                     "source_evidence": [
                         "C EXISTING SITE / BUILDINGS / SERVICES C20 DEMOLITION Refer to 22-004-PR-W-0020 DGW1 Demolition Programme Rev A 2024-09-20 Phase 1A W+M Demolition (Above ground) Phase 1B W+M Demolition (Ground floor slabs) Phase 1C W+M Demolition (Basements) Phase 1D W+M Demolition (Foundations) PHASE 1 (Wolseley Plumb Centre) Asbestos removal",
@@ -61,8 +93,38 @@
             ]
         },
         {
-            "id": "wd_13",
-            "name": "1.1.1 - Standard foundations",
+            "id": "wd_7",
+            "name": "0.4.2 - Soil stabilisation measures",
+            "attributes": {
+                "package_type": "wd_template"
+            },
+            "children": [
+                {
+                    "id": "bill_70",
+                    "name": "Bill 70: Defence Mounds (Valley Garden)",
+                    "attributes": {
+                        "bill_number": 70,
+                        "suggested_trade": "Geotechnical and reinforced-earth contractor",
+                        "package_confidence": 84,
+                        "trade_confidence": 96,
+                        "ai_rationale": "The dominant specialist work is geocell and reinforced-earth stabilisation to form the defence mounds, supported by erosion-control matting and engineered granular fill."
+                    },
+                    "source_evidence": [
+                        "D GROUNDWORK D20 EXCAVATING AND FILLING Surface treatments Waveform erosion control matting for reinforcement; installaed to manufacturers instructions; as drawing generally; phase 1",
+                        "generally; phase 2",
+                        "D41 CRIB WALLS / GABIONS / REINFORCED EARTH Defencell 300 geoceill structure within bund; Defencell profil 300 potection system, textile, cellular, containment system; layered construction system; installated to manufacturers instructions as drawing SL-DR-L-7008 P01 Defencell; phase 1 size 3500 x 1250 high; 50 degree slope; by specialist Sub-Contractor",
+                        "Filling to make up levels; to form mounds Sand, gravel and small rocks (assumed 75% of mound volume)",
+                        "Topsoil (assumed 25% of mound volume)",
+                        "Defencell; phase 2 size 3500 x 1250 high; 50 degree slope; by specialist Sub-Contractor",
+                        "Filling to make up levels; to form mounds Sand, gravel and small rocks (assumed 75% of mound voilume)",
+                        "Description"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "wd_14",
+            "name": "1.1.2 - Specialist foundations",
             "attributes": {
                 "package_type": "wd_template"
             },
@@ -72,10 +134,10 @@
                     "name": "Bill 2: Substructure",
                     "attributes": {
                         "bill_number": 2,
-                        "suggested_trade": "Groundworker",
-                        "package_confidence": 95,
-                        "trade_confidence": 98,
-                        "ai_rationale": "The bill includes substructure excavations, ground beams, pile caps, and blinding for foundations."
+                        "suggested_trade": "Specialist piling and groundworks contractor",
+                        "package_confidence": 88,
+                        "trade_confidence": 94,
+                        "ai_rationale": "The bill principally covers specialist piling together with pile caps, ground beams, foundation excavations, earthwork support and associated backfilling from the piling platform."
                     },
                     "source_evidence": [
                         "SUBSTRUCTURES Excavating and Filling Site strip measured and working platform included in Demoltion Phase 1 Package.",
@@ -114,10 +176,10 @@
                     "name": "Bill 3: Frame",
                     "attributes": {
                         "bill_number": 3,
-                        "suggested_trade": "Steelwork Contractor",
-                        "package_confidence": 98,
+                        "suggested_trade": "Structural steelwork contractor",
+                        "package_confidence": 99,
                         "trade_confidence": 99,
-                        "ai_rationale": "The scope specifies structural steel framing, columns, beams, bracings, and erection."
+                        "ai_rationale": "The permanent works comprise structural steel columns, beams, bracings, bolted connections, holding-down bolts and steel frame erection."
                     },
                     "source_evidence": [
                         "FRAME G Structural/Carcassing metal/timber G10 Structural steel framing To be priced in accordance with relevant BJB Consulting Ltd structural drawings and section G10 of BJB Consulting Ltd specification ref DGW1-BJB-XX-XX-SP-S-00001-P02 dated 6 December 2023 Specialist design; connections",
@@ -156,10 +218,10 @@
                     "name": "Bill 4: Upper Floors",
                     "attributes": {
                         "bill_number": 4,
-                        "suggested_trade": "Concrete / Structural Frame Contractor",
-                        "package_confidence": 95,
+                        "suggested_trade": "Concrete flooring and metal decking contractor",
+                        "package_confidence": 97,
                         "trade_confidence": 96,
-                        "ai_rationale": "The scope covers profiled metal decking and in-situ reinforced concrete suspended upper floors."
+                        "ai_rationale": "The dominant permanent work is suspended upper-floor construction using profiled metal decking, reinforced in-situ concrete slabs, reinforcement and associated upstands."
                     },
                     "source_evidence": [
                         "UPPER FLOORS Note: Area of 5th Floor included as part of Roof decking and slab.",
@@ -187,8 +249,8 @@
             ]
         },
         {
-            "id": "wd_28",
-            "name": "2.3.2 - Roof coverings",
+            "id": "wd_27",
+            "name": "2.3.1 - Roof structure",
             "attributes": {
                 "package_type": "wd_template"
             },
@@ -198,10 +260,10 @@
                     "name": "Bill 5: Roof",
                     "attributes": {
                         "bill_number": 5,
-                        "suggested_trade": "Roofing Contractor",
-                        "package_confidence": 92,
-                        "trade_confidence": 95,
-                        "ai_rationale": "The bill encompasses roof metal decking, concrete topping slabs, and terrace waterproofing structures."
+                        "suggested_trade": "Roof decking and concrete roofing contractor",
+                        "package_confidence": 91,
+                        "trade_confidence": 92,
+                        "ai_rationale": "The scope is principally roof construction comprising structural metal decking, roof deck slabs, concrete upstands, reinforcement and falls, rather than a separate roof covering system."
                     },
                     "source_evidence": [
                         "ROOF STRUCTURE AND ROOF COVERINGS G Structural/Carcassing metal/timber G30 Metal profiled sheet decking Metal Decking; to terraces and level 05 main roof Specialist design",
@@ -240,10 +302,10 @@
                     "name": "Bill 6: Stairs",
                     "attributes": {
                         "bill_number": 6,
-                        "suggested_trade": "Staircase / Metalwork Contractor",
-                        "package_confidence": 95,
-                        "trade_confidence": 94,
-                        "ai_rationale": "The bill provides precast concrete stair flights, landings, balustrades, handrails, and ladders."
+                        "suggested_trade": "Precast concrete stairs contractor",
+                        "package_confidence": 94,
+                        "trade_confidence": 95,
+                        "ai_rationale": "The main permanent works are precast concrete stair flights and half landings, with secondary steelwork and associated stair access components."
                     },
                     "source_evidence": [
                         "STAIRS AND BALUSTRADING E In situ concrete/Large precast concrete E60 Precast/ composite concrete floors/ roof decks/ stairs PROPRIETARY FLOORS/ ROOF DECKS/ /STAIRS Precast stair flights and half landings; allow for Type A finish to BS8110 Part 1 Section 6.2.7.3. Specialist design",
@@ -282,10 +344,10 @@
                     "name": "Bill 7: External Walls",
                     "attributes": {
                         "bill_number": 7,
-                        "suggested_trade": "Bricklayer / Mason",
-                        "package_confidence": 98,
+                        "suggested_trade": "Bricklayer and external masonry contractor",
+                        "package_confidence": 99,
                         "trade_confidence": 99,
-                        "ai_rationale": "The scope is entirely focused on clay facing brickwork, pistol bricks, and masonry specials."
+                        "ai_rationale": "The bill consists predominantly of clay facing brickwork, recessed brick panels, brick reveals, specials and mortar-jointed external masonry walls."
                     },
                     "source_evidence": [
                         "EXTERNAL WALLS Brickwork and Blockwork Clay facing brickwork Type A; La Paloma Glazed Verde Termilino; 10mm dark grey mortar joints, half lap stretcher bond and bucket handle joints; as F10/110A and drawings BBA-Z1-(00/01/02/03/04/05)-DR-A-2101 & 2102, BBA-Z1-ZZ-DR-A-4402 to 4419 and BBA-Z1-Z-DR-A-7650 to 7655, 7671 & 7672 Walls; half brick thick; facework one side",
@@ -324,10 +386,10 @@
                     "name": "Bill 8: Windows & External Doors",
                     "attributes": {
                         "bill_number": 8,
-                        "suggested_trade": "Facade / Glazing Contractor",
-                        "package_confidence": 98,
-                        "trade_confidence": 99,
-                        "ai_rationale": "The bill details stick curtain walling, external automatic doorsets, louvres, and perimeter flashings."
+                        "suggested_trade": "Curtain walling and architectural glazing contractor",
+                        "package_confidence": 95,
+                        "trade_confidence": 98,
+                        "ai_rationale": "The dominant facade work is stick curtain walling with PPC aluminium framing, glazing, louvres, flashings and integrated door interfaces."
                     },
                     "source_evidence": [
                         "WINDOWS AND EXTERNAL DOORS Note: No window boards measured - to be provided my Tenant Fitout, as indicated on drawing BBA-Z1-ZZ-DR-A-7070. Glazed Curtain Walling Stick curtain walling systems Type A; Senior Architectural Systems SF52 Fully Capped Curtain Wall System; large glazing units with PPC aluminium frames with metallic finish; including all head, jamb and door flashings / angles, integra",
@@ -366,10 +428,10 @@
                     "name": "Bill 9: Internal Walls",
                     "attributes": {
                         "bill_number": 9,
-                        "suggested_trade": "Drylining / Partition Contractor",
-                        "package_confidence": 95,
-                        "trade_confidence": 97,
-                        "ai_rationale": "The scope comprises metal stud drywall partitions, acoustic ratings, and precast concrete lift shafts."
+                        "suggested_trade": "Drylining and partitioning contractor",
+                        "package_confidence": 86,
+                        "trade_confidence": 94,
+                        "ai_rationale": "The bill is principally internal wall construction through metal stud partition systems, gypsum boards, dry linings and associated acoustic or fire-rated insulation, despite the included lift shaft elements."
                     },
                     "source_evidence": [
                         "DONCASTER GATEWAY 1 INTERNAL WALLS, COLUMN AND BEAM ENCASEMENTS Precast Concrete Lift Shafts to Specialist Design Specialist design",
@@ -408,10 +470,10 @@
                     "name": "Bill 10: Internal Doors",
                     "attributes": {
                         "bill_number": 10,
-                        "suggested_trade": "Carpenter / Joiner",
-                        "package_confidence": 98,
-                        "trade_confidence": 99,
-                        "ai_rationale": "The bill lists timber internal doorsets with various fire, acoustic, and vision panel specifications."
+                        "suggested_trade": "Internal doorset contractor",
+                        "package_confidence": 99,
+                        "trade_confidence": 98,
+                        "ai_rationale": "The scope comprises internal timber doorsets, frames, ironmongery, fire and acoustic-rated leaves, vision panels, protection and perimeter caulking."
                     },
                     "source_evidence": [
                         "INTERNAL DOORS AND SCREENS L WINDOWS/DOORS/STAIRS L20 Doors/ shutters/ hatches Refer to Architect drawing numbers:- DGW1-BBA-Z1-ZZ-SH-A-7105 P03 DGW1-BBA-Z1-ZZ-SH-A-7121 P05 DGW1-BBA-Z1-ZZ-DR-A-7101 P02 Site dimensions; See NBS clause L20/150 Site measurement",
@@ -450,10 +512,10 @@
                     "name": "Bill 11: Wall Finishes",
                     "attributes": {
                         "bill_number": 11,
-                        "suggested_trade": "Drylining Contractor",
-                        "package_confidence": 95,
-                        "trade_confidence": 96,
-                        "ai_rationale": "The scope covers metal stud wall linings, dry lining systems, and associated insulation."
+                        "suggested_trade": "Drylining and wall-finishes contractor",
+                        "package_confidence": 97,
+                        "trade_confidence": 97,
+                        "ai_rationale": "The permanent work is predominantly metal-stud wall lining and gypsum-board drylining with acoustic insulation, reveals, openings and deflection-head details."
                     },
                     "source_evidence": [
                         "WALL FINISHES K10 Gypsum board dry linings/ partitions/ ceilings Wall linings K10/155H Wall lining system (metal studs) Type 08; See Siniat Project Pack for full details; IS90B-212dB#0 115mm thick; to internal skin of external wall; 300-600mm high (Level 05 plinth); See detail on architect drawing number DGW1-BBA-Z1-ZZ-DR-A-7427 P03",
@@ -481,8 +543,8 @@
             ]
         },
         {
-            "id": "wd_51",
-            "name": "3.2.1 - Finishes to floors",
+            "id": "wd_52",
+            "name": "3.2.2 - Raised access floors",
             "attributes": {
                 "package_type": "wd_template"
             },
@@ -492,10 +554,10 @@
                     "name": "Bill 12: Floor Finishes",
                     "attributes": {
                         "bill_number": 12,
-                        "suggested_trade": "Flooring Contractor",
-                        "package_confidence": 95,
-                        "trade_confidence": 97,
-                        "ai_rationale": "The bill details levelling screeds, liquid tanking membranes, and raised access flooring."
+                        "suggested_trade": "Raised access flooring contractor",
+                        "package_confidence": 89,
+                        "trade_confidence": 94,
+                        "ai_rationale": "The principal permanent installation is raised access flooring with Kingspan panels, pedestals, cut-outs, bonding and cleaning, with screeds and sealers serving as associated floor preparation."
                     },
                     "source_evidence": [
                         "FLOOR FINISHES Floor finishes as per drawings DGW1-BBA-Z1-00-DR-A-8151, 01-DR-A-8151, 02-DR-A-8151, 03-DR-A-8151, 04-DR-A-8151, 05-DR-A-8151, DGW1-BBA-Z1-ZZ-DR-A-7601, 7602, 7611, 7612 and DGW1-BBA-Z1-ZZ-SK-A-6911. Tanking/Screeding Type 07 - Cold applied tanking Type B; Sikafloor -420 moisture triggered polyurethane resin coating; as J30/110B Width > 300mm",
@@ -523,8 +585,8 @@
             ]
         },
         {
-            "id": "wd_53",
-            "name": "3.3.1 - Finishes to ceilings",
+            "id": "wd_54",
+            "name": "3.3.2 - False ceilings",
             "attributes": {
                 "package_type": "wd_template"
             },
@@ -534,10 +596,10 @@
                     "name": "Bill 13: Ceiling Finishes",
                     "attributes": {
                         "bill_number": 13,
-                        "suggested_trade": "Plasterer / Ceiling Contractor",
-                        "package_confidence": 98,
-                        "trade_confidence": 98,
-                        "ai_rationale": "The scope comprises suspended MF plasterboard ceilings, acoustic metal planks, soffit linings and plasterboard bulkheads."
+                        "suggested_trade": "Ceiling systems and drylining contractor",
+                        "package_confidence": 94,
+                        "trade_confidence": 97,
+                        "ai_rationale": "The dominant items are suspended MF plasterboard ceilings, perforated metal ceiling planks, soffit linings and plasterboard bulkheads, aligning with false ceiling installations."
                     },
                     "source_evidence": [
                         "CEILING FINISHES Ceiling finishes as per drawings DGW1-BBA-Z1-00-DR-A-8051, 01-DR-A-8051, 02-DR-A-8051, 03-DR-A-8051, 04-DR-A-8051 and 05-DR-A-8051. Soffit Linings Type 06 - Exposed soffit Soffits",
@@ -576,10 +638,10 @@
                     "name": "Bill 14: FF&E",
                     "attributes": {
                         "bill_number": 14,
-                        "suggested_trade": "FF&E Contractor",
-                        "package_confidence": 98,
-                        "trade_confidence": 98,
-                        "ai_rationale": "The scope includes purpose-made reception desks, solid surface vanity units, shelving, benches, and internal signage."
+                        "suggested_trade": "FF&E manufacturer and installer",
+                        "package_confidence": 87,
+                        "trade_confidence": 92,
+                        "ai_rationale": "The principal items are the bespoke reception desk, solid-surface vanity unit, shelving, benches and chairs, with signage forming a subsidiary FF&E element."
                     },
                     "source_evidence": [
                         "FITTINGS, FURNISHINGS & EQUIPMENT N FURNITURE/EQUIPMENT N10 GENERAL FIXTURES/FURNISHINGS/ EQUIPMENT Purpose-made Reception Desk; See NBS clause N10/110 Bespoke reception desk to entrance lobby, with scalloped Oak veneer frontage, recycled plastic worktop, and fluted glass privacy screen; To follow design intent as shown on drawing Reception Desk; Services/Worktop: Coordination required by furni",
@@ -618,10 +680,10 @@
                     "name": "Bill 15: Sanitaryware",
                     "attributes": {
                         "bill_number": 15,
-                        "suggested_trade": "Plumber / Sanitaryware Installer",
+                        "suggested_trade": "Sanitaryware and plumbing installer",
                         "package_confidence": 98,
                         "trade_confidence": 98,
-                        "ai_rationale": "The scope includes WC pans, accessible shower packs, washbasins, taps, mirrors, and sanitary ancillaries."
+                        "ai_rationale": "The scope is dominated by WC pans, accessible shower packs, sinks, washbasins and shower fittings, supported by associated sanitary accessories and mirrors."
                     },
                     "source_evidence": [
                         "SANITARY INSTALLATIONS N FURNITURE EQUIPMENT N13 SANITARY APPLIANCE FITTINGS Specialist design; see NBS clause N13/20",
@@ -660,10 +722,10 @@
                     "name": "Bill 16: M&E",
                     "attributes": {
                         "bill_number": 16,
-                        "suggested_trade": "Lift Specialist / M&E Contractor",
-                        "package_confidence": 90,
-                        "trade_confidence": 92,
-                        "ai_rationale": "The scope covers mechanical and electrical installations alongside passenger and evacuation lifts."
+                        "suggested_trade": "Lift installation contractor",
+                        "package_confidence": 72,
+                        "trade_confidence": 86,
+                        "ai_rationale": "Although mechanical and electrical quotations are included, the specifically defined permanent installation comprises two passenger/evacuation lifts with lifting beams, testing and commissioning, aligning most closely with lifts and enclosed hoists."
                     },
                     "source_evidence": [
                         "MECHANICAL, ELECTRICAL & LIFT INSTALLATIONS MECHANICAL INSTALLATIONS Mechanical Installations Quotation",
@@ -691,8 +753,8 @@
             ]
         },
         {
-            "id": "wd_132",
-            "name": "8.1.1 - Site clearance",
+            "id": "wd_120",
+            "name": "7.1.1 - Minor demolition and alteration works",
             "attributes": {
                 "package_type": "wd_template"
             },
@@ -702,10 +764,10 @@
                     "name": "Bill 46: Phase 8.1 (278 Wks) - Cut & Fill",
                     "attributes": {
                         "bill_number": 46,
-                        "suggested_trade": "Groundworker",
-                        "package_confidence": 95,
+                        "suggested_trade": "Civils and minor alteration works contractor",
+                        "package_confidence": 93,
                         "trade_confidence": 95,
-                        "ai_rationale": "The bill covers site clearance, removing existing street furniture, and breaking out hard materials."
+                        "ai_rationale": "The work is predominantly alteration and adjustment of existing gullies, lighting columns, valves, manholes, kerbs and road markings within an existing site."
                     },
                     "source_evidence": [
                         "C EXISTING SITE / BUILDINGS / SERVICES C90 ALTERATIONS - SPOT ITEMS Removing fittings and fixtures Existing gully pot, grate and frame to be taken up and removed from site, resulting void to be infilled with ST5 concrete mix and vibrated to remove any air bubbles generally",
@@ -722,6 +784,31 @@
             ]
         },
         {
+            "id": "wd_132",
+            "name": "8.1.1 - Site clearance",
+            "attributes": {
+                "package_type": "wd_template"
+            },
+            "children": [
+                {
+                    "id": "bill_62",
+                    "name": "Bill 62: Phase 8.5 (278 Wks) - Cut & Fill",
+                    "attributes": {
+                        "bill_number": 62,
+                        "suggested_trade": "Site clearance and demolition groundworker",
+                        "package_confidence": 90,
+                        "trade_confidence": 93,
+                        "ai_rationale": "The work comprises general site clearance, removal of existing road markings and breaking out existing kerbs, channels and concrete for reuse or recycling."
+                    },
+                    "source_evidence": [
+                        "D GROUNDWORK D20 EXCAVATING AND FILLING Site preparation General site clearance; and existing road markings to be removed generally",
+                        "Breaking out existing materials Break out existing kerb/ channel/ edging plus concrete bed and haunch; to be either reused or recycled for fill generally",
+                        "Description"
+                    ]
+                }
+            ]
+        },
+        {
             "id": "wd_133",
             "name": "8.1.2 - Preparatory groundworks",
             "attributes": {
@@ -733,10 +820,10 @@
                     "name": "Bill 18: Phase 1 - Cut & Fill",
                     "attributes": {
                         "bill_number": 18,
-                        "suggested_trade": "Groundworker",
-                        "package_confidence": 98,
+                        "suggested_trade": "Groundworks and earthworks contractor",
+                        "package_confidence": 97,
                         "trade_confidence": 98,
-                        "ai_rationale": "The scope covers excavating to reduce levels, breaking out hard pavings, disposal, and filling to make up levels."
+                        "ai_rationale": "The dominant works are reducing site levels, breaking out existing hard paving, disposing of excavated material, filling to levels and compacting excavation bottoms."
                     },
                     "source_evidence": [
                         "D GROUNDWORK D20 EXCAVATING AND FILLING Excavating To reduce levels 1 m maximum depth",
@@ -756,10 +843,10 @@
                     "name": "Bill 22: Phase 2 - Cut & Fill",
                     "attributes": {
                         "bill_number": 22,
-                        "suggested_trade": "Groundworker",
-                        "package_confidence": 98,
+                        "suggested_trade": "Groundworks and earthworks contractor",
+                        "package_confidence": 97,
                         "trade_confidence": 98,
-                        "ai_rationale": "The scope covers excavating to reduce levels, breaking out hard pavings, and filling to make up levels."
+                        "ai_rationale": "The works comprise site level reduction, breaking out existing hard paving, disposal of excavated materials, filling to form mounds and compaction of excavation bottoms."
                     },
                     "source_evidence": [
                         "D GROUNDWORK D20 EXCAVATING AND FILLING Excavating To reduce levels 1 m maximum depth",
@@ -778,9 +865,9 @@
                     "attributes": {
                         "bill_number": 26,
                         "suggested_trade": "Groundworker",
-                        "package_confidence": 95,
+                        "package_confidence": 97,
                         "trade_confidence": 98,
-                        "ai_rationale": "Scope covers reducing levels, excavating, filling, hardcore, and compacting for cut and fill."
+                        "ai_rationale": "The items comprise reduced-level excavation, off-site disposal, imported sub-soil and 6F2/6F5 hardcore filling and compaction, aligning with preparatory groundworks."
                     },
                     "source_evidence": [
                         "D GROUNDWORK D20 EXCAVATING AND FILLING Excavating To reduce levels 0.25 m maximum depth",
@@ -802,9 +889,9 @@
                     "attributes": {
                         "bill_number": 30,
                         "suggested_trade": "Groundworker",
-                        "package_confidence": 95,
+                        "package_confidence": 96,
                         "trade_confidence": 98,
-                        "ai_rationale": "Scope covers excavating, reducing levels, and compacting for cut and fill groundworks."
+                        "ai_rationale": "The scope consists of reduced-level excavation, disposal of excavated and groundwater materials, and compaction of excavation bottoms, forming preparatory groundworks."
                     },
                     "source_evidence": [
                         "D GROUNDWORK D20 EXCAVATING AND FILLING Excavating To reduce levels 0.25 m maximum depth",
@@ -821,9 +908,9 @@
                     "attributes": {
                         "bill_number": 34,
                         "suggested_trade": "Groundworker",
-                        "package_confidence": 95,
+                        "package_confidence": 97,
                         "trade_confidence": 98,
-                        "ai_rationale": "Scope covers filling to make up levels with hardcore and compacting."
+                        "ai_rationale": "The items are limited to imported 6F2/6F5 hardcore filling in compacted layers, which is preparatory groundworks rather than a permanent structural element."
                     },
                     "source_evidence": [
                         "D GROUNDWORK D20 EXCAVATING AND FILLING Filling to make up levels Average thickness not exceeding 0.25 m obtained off site; 6F2/ 6F5 hardcore for making up levels",
@@ -837,10 +924,10 @@
                     "name": "Bill 38: Phase 6 - Cut & Fill",
                     "attributes": {
                         "bill_number": 38,
-                        "suggested_trade": "Groundworker",
-                        "package_confidence": 95,
-                        "trade_confidence": 98,
-                        "ai_rationale": "The bill consists of filling to make up levels and compacting hardcore material."
+                        "suggested_trade": "Groundworks contractor",
+                        "package_confidence": 98,
+                        "trade_confidence": 99,
+                        "ai_rationale": "The work consists of imported 6F2/6F5 hardcore filling and compaction to make up site levels."
                     },
                     "source_evidence": [
                         "D GROUNDWORK D20 EXCAVATING AND FILLING Filling to make up levels Average thickness exceeding 0.25 m obtained off site; 6F2/ 6F5 hardcore for making up levels",
@@ -849,37 +936,14 @@
                     ]
                 },
                 {
-                    "id": "bill_42",
-                    "name": "Bill 42: Phase 7 - Cut & Fill",
-                    "attributes": {
-                        "bill_number": 42,
-                        "suggested_trade": "Groundworker",
-                        "package_confidence": 95,
-                        "trade_confidence": 95,
-                        "ai_rationale": "The bill covers excavating to reduce levels, breaking out existing hard pavings and foundations, and ground preparation."
-                    },
-                    "source_evidence": [
-                        "D GROUNDWORK D20 EXCAVATING AND FILLING Excavating To reduce levels 1 m maximum depth",
-                        "Breaking out existing hard pavings Break out existing tarmac/ concrete flags or block paving depth to be confirmed on site",
-                        "Concrete ground floor slab; with reinforcement depth to be confirmed on site",
-                        "Foundations Break out existing foundations to Trafford Court Block B; to a depth of 1m",
-                        "Disposal Disposal of water surface water",
-                        "ground water",
-                        "Excavated material off site",
-                        "Hot spot of hazardous materials in TP09 identified in Arc environmental report 12th September 2024. Assumed 5m x 5m x 5m deep",
-                        "Surface treatments Compacting bottom of excavations",
-                        "Description"
-                    ]
-                },
-                {
                     "id": "bill_50",
                     "name": "Bill 50: Phase 8.2 (278 Wks) - Cut & Fill",
                     "attributes": {
                         "bill_number": 50,
-                        "suggested_trade": "Groundworker",
+                        "suggested_trade": "Groundworks and civil engineering contractor",
                         "package_confidence": 95,
                         "trade_confidence": 98,
-                        "ai_rationale": "Scope includes general site clearance, excavating to reduce levels, and breaking out existing hard pavings."
+                        "ai_rationale": "The dominant scope is preparatory civil groundworks comprising site clearance, reduced-level excavation, breakout of roads, footways and kerbs, disposal and compaction."
                     },
                     "source_evidence": [
                         "C EXISTING SITE / BUILDINGS / SERVICES C90 ALTERATIONS - SPOT ITEMS Removing fittings and fixtures Existing gully pot, grate and frame to be taken up and removed from site, resulting void to be infilled with ST5 concrete mix and vibrated to remove any air bubbles generally",
@@ -905,10 +969,10 @@
                     "name": "Bill 54: Phase 8.3 (278 Wks) - Cut & Fill",
                     "attributes": {
                         "bill_number": 54,
-                        "suggested_trade": "Groundworker",
+                        "suggested_trade": "Groundworks and civil engineering contractor",
                         "package_confidence": 95,
                         "trade_confidence": 98,
-                        "ai_rationale": "Scope includes site clearance, reducing levels, and breaking out existing road pavings."
+                        "ai_rationale": "The dominant works are preparatory groundworks involving site clearance, reduced-level excavation to 1 m, breakout of existing pavings and kerbs, disposal and compaction."
                     },
                     "source_evidence": [
                         "C EXISTING SITE / BUILDINGS / SERVICES C90 ALTERATIONS - SPOT ITEMS Removing fittings and fixtures Existing manhole/ inspection chambers, covers and frames to be adjusted to match new levels in carriageway, new D400 covers required and class B Engineering brick with class 1 mortar bed to be finished surface course, any polished or damaged covers will need replacing generally",
@@ -928,26 +992,10 @@
                     "name": "Bill 58: Phase 8.4 (278 Wks) - Cut & Fill",
                     "attributes": {
                         "bill_number": 58,
-                        "suggested_trade": "Groundworker",
-                        "package_confidence": 95,
-                        "trade_confidence": 98,
-                        "ai_rationale": "Scope includes site clearance and breaking out existing kerbs and hard materials."
-                    },
-                    "source_evidence": [
-                        "D GROUNDWORK D20 EXCAVATING AND FILLING Site preparation General site clearance; and existing road markings to be removed generally",
-                        "Breaking out existing materials Break out existing kerb/ channel/ edging plus concrete bed and haunch; to be either reused or recycled for fill generally",
-                        "Description"
-                    ]
-                },
-                {
-                    "id": "bill_62",
-                    "name": "Bill 62: Phase 8.5 (278 Wks) - Cut & Fill",
-                    "attributes": {
-                        "bill_number": 62,
-                        "suggested_trade": "Groundworker",
-                        "package_confidence": 95,
-                        "trade_confidence": 95,
-                        "ai_rationale": "Scope covers general site clearance, excavation, and filling for cut and fill works."
+                        "suggested_trade": "Groundworks and civil engineering contractor",
+                        "package_confidence": 91,
+                        "trade_confidence": 97,
+                        "ai_rationale": "The scope consists of site clearance and breakout of existing kerbs, channels and concrete haunches as preparatory civil groundworks."
                     },
                     "source_evidence": [
                         "D GROUNDWORK D20 EXCAVATING AND FILLING Site preparation General site clearance; and existing road markings to be removed generally",
@@ -960,10 +1008,10 @@
                     "name": "Bill 68: Vac Exc Works",
                     "attributes": {
                         "bill_number": 68,
-                        "suggested_trade": "Groundworker",
-                        "package_confidence": 92,
-                        "trade_confidence": 95,
-                        "ai_rationale": "Scope covers vacuum excavation works as part of preparatory groundworks."
+                        "suggested_trade": "Vacuum excavation and specialist groundworks contractor",
+                        "package_confidence": 78,
+                        "trade_confidence": 98,
+                        "ai_rationale": "The bill consists of specialist vacuum excavation undertaken across several phases to expose or work around existing services."
                     },
                     "source_evidence": [
                         "D GROUNDWORK D20 EXCAVATING AND FILLING Vac-excavation Allow for all vac-excavation works to specialist Sub-Contractor's design and methodology; as drawing XX-SL-DR-U-00 21 P03 Phase 0; approximate quantity (2 Days over 2no visits)",
@@ -989,10 +1037,10 @@
                     "name": "Bill 19: Phase 1 - External Works",
                     "attributes": {
                         "bill_number": 19,
-                        "suggested_trade": "Groundworker",
-                        "package_confidence": 95,
-                        "trade_confidence": 95,
-                        "ai_rationale": "The scope includes trench excavations, insitu concrete foundations, formwork, reinforcement, and precast concrete kerbs."
+                        "suggested_trade": "External works and paving contractor",
+                        "package_confidence": 80,
+                        "trade_confidence": 93,
+                        "ai_rationale": "The principal permanent items are precast kerbs, conservation edgings and reinforced bollard foundations, including excavation, concrete bedding, reinforcement and backfilling, best aligning with roads, paths and pavings."
                     },
                     "source_evidence": [
                         "D GROUNDWORK D20 EXCAVATING AND FILLING Excavating Trenches exceeding 300 wide 1 m maximum depth",
@@ -1022,10 +1070,10 @@
                     "name": "Bill 23: Phase 2 - External Works",
                     "attributes": {
                         "bill_number": 23,
-                        "suggested_trade": "Landscaper / Groundworker",
-                        "package_confidence": 95,
-                        "trade_confidence": 95,
-                        "ai_rationale": "The scope includes sub-bases, asphalt footways, kerbs, turfing, planting, and tree installations."
+                        "suggested_trade": "External works and paving contractor",
+                        "package_confidence": 74,
+                        "trade_confidence": 89,
+                        "ai_rationale": "The dominant constructed items are type 1 sub-base, buff asphalt footway, kerbs and edgings, with turfing and planting forming associated soft landscaping works."
                     },
                     "source_evidence": [
                         "D GROUNDWORK D20 EXCAVATING AND FILLING Filling to make up levels Average thickness not exceeding 0.25 m obtained off site; topsoil",
@@ -1055,10 +1103,10 @@
                     "name": "Bill 27: Phase 3 - External Works",
                     "attributes": {
                         "bill_number": 27,
-                        "suggested_trade": "Roads and Paving Contractor",
-                        "package_confidence": 95,
-                        "trade_confidence": 95,
-                        "ai_rationale": "Scope includes kerbs, sub-bases, tarmacadam footways, paving, and soft landscaping."
+                        "suggested_trade": "Hard landscaping and paving contractor",
+                        "package_confidence": 88,
+                        "trade_confidence": 94,
+                        "ai_rationale": "The dominant permanent scope is hard landscaping, including kerbs, type 1 sub-base, tarmac footway and concrete pavers, with planting and turfing as subsidiary works."
                     },
                     "source_evidence": [
                         "D GROUNDWORK D20 EXCAVATING AND FILLING Filling to make up levels Average thickness not exceeding 0.25 m obtained off site; topsoil",
@@ -1084,47 +1132,14 @@
                     ]
                 },
                 {
-                    "id": "bill_31",
-                    "name": "Bill 31: Phase 4 - External Works",
-                    "attributes": {
-                        "bill_number": 31,
-                        "suggested_trade": "Roads and Paving Contractor",
-                        "package_confidence": 95,
-                        "trade_confidence": 95,
-                        "ai_rationale": "Scope includes topsoil filling, kerbs, sub-base, paving, planting, and steel guardrails."
-                    },
-                    "source_evidence": [
-                        "D GROUNDWORK D20 EXCAVATING AND FILLING Filling to make up levels Average thickness exceeding 0.25 m obtained off site; topsoil",
-                        "Surface treatments Compacting bottom of excavations",
-                        "Preparing subsoil for topsoil generally",
-                        "Q PAVING / PLANTING / FENCING / SITE FURNITURE Q10 KERBS / EDGINGS / CHANNELS / PAVING ACCESSORIES Precast concrete kerbs by Marshalls PLC, product reference: precast concrete/ conservation kerbs; allow for all necessary excavation, disposal, consolidation of trench bottom; ST4 concrete bed and haunch; backfill with selected excavated material; make allowance for R10/R12 dowel bars, 220 long whe",
-                        "Q20 GRANULAR SUB BASES TO ROADS / PAVINGS Filling to make up levels Average thickness not exceeding 0.25 m obtained off site; dry sand blinding",
-                        "Description",
-                        "Filling to make up levels Average thickness not exceeding 0.25 m obtained off site; type 1 hardcore",
-                        "Surface treatments Compacting filling; dry sand blinding",
-                        "filling; type 1 hardcore",
-                        "bottom of excavations",
-                        "Q25 SLAB / BRICK / BLOCK / SETT / COBBLE PAVINGS Concrete pavers by Hardscape, product reference: Kellen breccia, colour: giallo, size to be confirmed x 80 thick; bond 1 Pavings level and to falls only",
-                        "Concrete pavers by Hardscape, product reference: Kellen breccia, colour: giallo, size to be confirmed x 80 thick; bond 2 Pavings level and to falls only",
-                        "Q31 EXTERNAL PLANTING Cultivating Ground 150 deep",
-                        "Surface applications; applying herbicides and fertilisers General surfaces generally",
-                        "Soft landscaping Screening mix planting as drawing ZZ-SH-L-001 P02",
-                        "Ornamental mix planting as drawing ZZ-SH-L-001 P02",
-                        "Trafford Way planting mix as drawing ZZ-SH-L-001 P02",
-                        "Mulching after planting; 50 thick bark mulch medium grade Mulching 50 thick",
-                        "Maintenance Allow for 12 months maintenance generally",
-                        "Q40 FENCING Steel pedestrian guardrail by Barrier Direct, product reference: 7654; consisting of 50 x 30 frame with 12 diameter for infill, polyester powder coated, RAL 9005; include concrete root footings; as drawing ZZ-SL-DR-L-7005 Railings 1005 high"
-                    ]
-                },
-                {
                     "id": "bill_39",
                     "name": "Bill 39: Phase 6 - External Works",
                     "attributes": {
                         "bill_number": 39,
-                        "suggested_trade": "Road Surfacing Contractor",
-                        "package_confidence": 95,
-                        "trade_confidence": 95,
-                        "ai_rationale": "The bill covers kerbs, macadam road/footway surfacing, guardrails, and bollards."
+                        "suggested_trade": "Highways and external works civils contractor",
+                        "package_confidence": 80,
+                        "trade_confidence": 94,
+                        "ai_rationale": "The dominant permanent works are the tarmac footway overlay, concrete kerbs and associated paving construction, with foundations, guardrails and bollards serving the external works."
                     },
                     "source_evidence": [
                         "D GROUNDWORK D20 EXCAVATING AND FILLING Excavating Trenches exceeding 300 wide 1 m maximum depth",
@@ -1152,10 +1167,10 @@
                     "name": "Bill 47: Phase 8.1 (278 Wks) - External Works",
                     "attributes": {
                         "bill_number": 47,
-                        "suggested_trade": "Road Surfacing Contractor",
-                        "package_confidence": 95,
-                        "trade_confidence": 95,
-                        "ai_rationale": "The bill specifies kerbs, edgings, and temporary carriageway/footway surfacings."
+                        "suggested_trade": "Highways and paving contractor",
+                        "package_confidence": 88,
+                        "trade_confidence": 96,
+                        "ai_rationale": "The permanent works are centred on concrete kerbs and edgings, with the temporary sacrificial carriageway and footway forming associated highway paving works."
                     },
                     "source_evidence": [
                         "Q PAVING / PLANTING / FENCING / SITE FURNITURE Q10 KERBS / EDGINGS / CHANNELS / PAVING ACCESSORIES Precast concrete kerbs by Marshalls PLC, product reference: precast concrete/ conservation kerbs; allow for all necessary excavation, disposal, consolidation of trench bottom; ST4 concrete bed and haunch; backfill with selected excavated material; make allowance for R10/R12 dowel bars, 220 long whe",
@@ -1173,10 +1188,10 @@
                     "name": "Bill 51: Phase 8.2 (278 Wks) - External Works",
                     "attributes": {
                         "bill_number": 51,
-                        "suggested_trade": "Roads / Paving Contractor",
-                        "package_confidence": 98,
-                        "trade_confidence": 98,
-                        "ai_rationale": "Scope covers precast concrete kerbs, granular sub-bases, coated macadam, asphalt, and concrete block paving."
+                        "suggested_trade": "Paving and highways contractor",
+                        "package_confidence": 99,
+                        "trade_confidence": 99,
+                        "ai_rationale": "The permanent works are predominantly external paving and highways construction, including concrete kerbs, Type 1 sub-bases, tarmac footways, concrete pavers and tactile paving."
                     },
                     "source_evidence": [
                         "Q PAVING / PLANTING / FENCING / SITE FURNITURE Q10 KERBS / EDGINGS / CHANNELS / PAVING ACCESSORIES Precast concrete kerbs by Marshalls PLC, product reference: precast concrete/ conservation kerbs; allow for all necessary excavation, disposal, consolidation of trench bottom; ST4 concrete bed and haunch; backfill with selected excavated material; make allowance for R10/R12 dowel bars, 220 long whe",
@@ -1202,10 +1217,10 @@
                     "name": "Bill 55: Phase 8.3 (278 Wks) - External Works",
                     "attributes": {
                         "bill_number": 55,
-                        "suggested_trade": "Roads / Paving Contractor",
-                        "package_confidence": 98,
-                        "trade_confidence": 98,
-                        "ai_rationale": "Scope includes precast concrete kerbs, granular sub-bases, asphalt carriageway overlay, and block paving."
+                        "suggested_trade": "Paving and highways contractor",
+                        "package_confidence": 99,
+                        "trade_confidence": 99,
+                        "ai_rationale": "The permanent works are predominantly external paving and highways construction, including kerbs, Type 1 sub-base, carriageway asphalt overlay, footway regulation, pavers and tactile flags."
                     },
                     "source_evidence": [
                         "Q PAVING / PLANTING / FENCING / SITE FURNITURE Q10 KERBS / EDGINGS / CHANNELS / PAVING ACCESSORIES Precast concrete kerbs by Marshalls PLC, product reference: precast concrete/ conservation kerbs; allow for all necessary excavation, disposal, consolidation of trench bottom; ST4 concrete bed and haunch; backfill with selected excavated material; make allowance for R10/R12 dowel bars, 220 long whe",
@@ -1227,10 +1242,10 @@
                     "name": "Bill 59: Phase 8.4 (278 Wks) - External Works",
                     "attributes": {
                         "bill_number": 59,
-                        "suggested_trade": "Roads / Paving Contractor",
-                        "package_confidence": 98,
-                        "trade_confidence": 98,
-                        "ai_rationale": "Scope covers kerbs, granular sub-bases, asphalt carriageway overlay, and block paving."
+                        "suggested_trade": "Paving and highways contractor",
+                        "package_confidence": 99,
+                        "trade_confidence": 99,
+                        "ai_rationale": "The permanent works are predominantly external paving and highways construction, including conservation kerbs, Type 1 sub-base, carriageway asphalt overlay, footway works, pavers and tactile paving."
                     },
                     "source_evidence": [
                         "Q PAVING / PLANTING / FENCING / SITE FURNITURE Q10 KERBS / EDGINGS / CHANNELS / PAVING ACCESSORIES Precast concrete kerbs by Marshalls PLC, product reference: precast concrete/ conservation kerbs; allow for all necessary excavation, disposal, consolidation of trench bottom; ST4 concrete bed and haunch; backfill with selected excavated material; make allowance for R10/R12 dowel bars, 220 long whe",
@@ -1252,10 +1267,10 @@
                     "name": "Bill 63: Phase 8.5 (278 Wks) - External Works",
                     "attributes": {
                         "bill_number": 63,
-                        "suggested_trade": "Road Surfacing / Paving Contractor",
-                        "package_confidence": 98,
-                        "trade_confidence": 98,
-                        "ai_rationale": "Scope includes kerbs, edgings, asphalt roads, pavings, and line markings."
+                        "suggested_trade": "Highways and road surfacing contractor",
+                        "package_confidence": 91,
+                        "trade_confidence": 95,
+                        "ai_rationale": "The dominant permanent work is external carriageway construction comprising precast kerbs, SMA and asphalt courses, with line markings and signage as associated highway works."
                     },
                     "source_evidence": [
                         "Q PAVING / PLANTING / FENCING / SITE FURNITURE Q10 KERBS / EDGINGS / CHANNELS / PAVING ACCESSORIES Precast concrete kerbs by Marshalls PLC, product reference: precast concrete/ conservation kerbs; allow for all necessary excavation, disposal, consolidation of trench bottom; ST4 concrete bed and haunch; backfill with selected excavated material; make allowance for R10/R12 dowel bars, 220 long whe",
@@ -1282,10 +1297,10 @@
                     "name": "Bill 66: Phase 9 - Trafford Way Making Good Works",
                     "attributes": {
                         "bill_number": 66,
-                        "suggested_trade": "Road Surfacing Contractor",
-                        "package_confidence": 95,
-                        "trade_confidence": 95,
-                        "ai_rationale": "Scope covers making good existing kerbs, edgings, carriageway resurfacing, and paving."
+                        "suggested_trade": "Highways and road surfacing contractor",
+                        "package_confidence": 93,
+                        "trade_confidence": 96,
+                        "ai_rationale": "The dominant making-good work is carriageway resurfacing involving planing, surface preparation, regulation, tack coating and laying a new SMA surface course, with kerbs, paving and markings ancillary."
                     },
                     "source_evidence": [
                         "Risk items following construction period Make an allowance for the following works making good existing areas damaged during construction period",
@@ -1304,16 +1319,58 @@
                     "name": "Bill 67: Phase 10 - West Street Resurfacing Works",
                     "attributes": {
                         "bill_number": 67,
-                        "suggested_trade": "Road Surfacing Contractor",
-                        "package_confidence": 98,
-                        "trade_confidence": 98,
-                        "ai_rationale": "Scope covers carriageway resurfacing, planning off road surface, and asphalt overlay."
+                        "suggested_trade": "Highways and road surfacing contractor",
+                        "package_confidence": 88,
+                        "trade_confidence": 94,
+                        "ai_rationale": "Although coal-tar contamination makes the milled arisings hazardous, the dominant work is the 200 mm planing and replacement of the existing carriageway with asphalt and SMA courses."
                     },
                     "source_evidence": [
                         "West Street Resurfacing Works Plane off/cold mill existing road surface to a depth of 200mm",
                         "Disposal of arisings; coal tar idetified; assumed hazardous",
                         "Q22 COATED MACADAM / ASPHALT ROADS / PAVINGS Proposed carriageway overlay; 30 thick 10 thick SMA 50 pen h/stone surface course, 70 thick AC20 heavy duty dense bin 40/60 binder course and 100mm of 32mm DBA base course; as drawing XX-DR-D-0007 Roads level and to falls only (200mm total thickness)",
                         "Description"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "wd_137",
+            "name": "8.3.2 - External planting",
+            "attributes": {
+                "package_type": "wd_template"
+            },
+            "children": [
+                {
+                    "id": "bill_31",
+                    "name": "Bill 31: Phase 4 - External Works",
+                    "attributes": {
+                        "bill_number": 31,
+                        "suggested_trade": "Soft landscaping contractor",
+                        "package_confidence": 91,
+                        "trade_confidence": 98,
+                        "ai_rationale": "The principal permanent works are topsoil preparation, ornamental and screening planting, bark mulch and maintenance, with paving and guardrails as secondary items."
+                    },
+                    "source_evidence": [
+                        "D GROUNDWORK D20 EXCAVATING AND FILLING Filling to make up levels Average thickness exceeding 0.25 m obtained off site; topsoil",
+                        "Surface treatments Compacting bottom of excavations",
+                        "Preparing subsoil for topsoil generally",
+                        "Q PAVING / PLANTING / FENCING / SITE FURNITURE Q10 KERBS / EDGINGS / CHANNELS / PAVING ACCESSORIES Precast concrete kerbs by Marshalls PLC, product reference: precast concrete/ conservation kerbs; allow for all necessary excavation, disposal, consolidation of trench bottom; ST4 concrete bed and haunch; backfill with selected excavated material; make allowance for R10/R12 dowel bars, 220 long whe",
+                        "Q20 GRANULAR SUB BASES TO ROADS / PAVINGS Filling to make up levels Average thickness not exceeding 0.25 m obtained off site; dry sand blinding",
+                        "Description",
+                        "Filling to make up levels Average thickness not exceeding 0.25 m obtained off site; type 1 hardcore",
+                        "Surface treatments Compacting filling; dry sand blinding",
+                        "filling; type 1 hardcore",
+                        "bottom of excavations",
+                        "Q25 SLAB / BRICK / BLOCK / SETT / COBBLE PAVINGS Concrete pavers by Hardscape, product reference: Kellen breccia, colour: giallo, size to be confirmed x 80 thick; bond 1 Pavings level and to falls only",
+                        "Concrete pavers by Hardscape, product reference: Kellen breccia, colour: giallo, size to be confirmed x 80 thick; bond 2 Pavings level and to falls only",
+                        "Q31 EXTERNAL PLANTING Cultivating Ground 150 deep",
+                        "Surface applications; applying herbicides and fertilisers General surfaces generally",
+                        "Soft landscaping Screening mix planting as drawing ZZ-SH-L-001 P02",
+                        "Ornamental mix planting as drawing ZZ-SH-L-001 P02",
+                        "Trafford Way planting mix as drawing ZZ-SH-L-001 P02",
+                        "Mulching after planting; 50 thick bark mulch medium grade Mulching 50 thick",
+                        "Maintenance Allow for 12 months maintenance generally",
+                        "Q40 FENCING Steel pedestrian guardrail by Barrier Direct, product reference: 7654; consisting of 50 x 30 frame with 12 diameter for infill, polyester powder coated, RAL 9005; include concrete root footings; as drawing ZZ-SL-DR-L-7005 Railings 1005 high"
                     ]
                 }
             ]
@@ -1330,10 +1387,10 @@
                     "name": "Bill 35: Phase 5 - External Works",
                     "attributes": {
                         "bill_number": 35,
-                        "suggested_trade": "Bricklayer / Mason",
-                        "package_confidence": 92,
-                        "trade_confidence": 95,
-                        "ai_rationale": "Scope includes concrete foundations, clay facing brick walling, damp-proof courses, and associated handrails."
+                        "suggested_trade": "Bricklayer and masonry contractor",
+                        "package_confidence": 89,
+                        "trade_confidence": 98,
+                        "ai_rationale": "The main permanent construction is clay facing brick walling with brick copings and damp-proof courses, supported by concrete foundations and associated handrails, aligning with external walls and screens."
                     },
                     "source_evidence": [
                         "D GROUNDWORK D20 EXCAVATING AND FILLING Excavating Trenches exceeding 300 wide 1 m maximum depth",
@@ -1363,10 +1420,10 @@
                     "name": "Bill 43: Phase 7 - External Works",
                     "attributes": {
                         "bill_number": 43,
-                        "suggested_trade": "Bricklayer / Stonemason",
-                        "package_confidence": 90,
+                        "suggested_trade": "Natural stone mason",
+                        "package_confidence": 78,
                         "trade_confidence": 95,
-                        "ai_rationale": "The bill features natural stone walling as a prominent permanent construction element."
+                        "ai_rationale": "The principal identifiable permanent feature is the 250 mm natural stone walling, supported by its concrete foundations, reinforcement and excavation."
                     },
                     "source_evidence": [
                         "D GROUNDWORK D20 EXCAVATING AND FILLING Excavating Trenches exceeding 300 wide 1 m maximum depth",
@@ -1394,36 +1451,6 @@
             ]
         },
         {
-            "id": "wd_141",
-            "name": "8.4.3 - Retaining walls",
-            "attributes": {
-                "package_type": "wd_template"
-            },
-            "children": [
-                {
-                    "id": "bill_70",
-                    "name": "Bill 70: Defence Mounds (Valley Garden)",
-                    "attributes": {
-                        "bill_number": 70,
-                        "suggested_trade": "Groundworker / Specialist Earthworks",
-                        "package_confidence": 90,
-                        "trade_confidence": 92,
-                        "ai_rationale": "Scope covers crib walls, cellular structure/gabions, and filling to form defence mounds."
-                    },
-                    "source_evidence": [
-                        "D GROUNDWORK D20 EXCAVATING AND FILLING Surface treatments Waveform erosion control matting for reinforcement; installaed to manufacturers instructions; as drawing generally; phase 1",
-                        "generally; phase 2",
-                        "D41 CRIB WALLS / GABIONS / REINFORCED EARTH Defencell 300 geoceill structure within bund; Defencell profil 300 potection system, textile, cellular, containment system; layered construction system; installated to manufacturers instructions as drawing SL-DR-L-7008 P01 Defencell; phase 1 size 3500 x 1250 high; 50 degree slope; by specialist Sub-Contractor",
-                        "Filling to make up levels; to form mounds Sand, gravel and small rocks (assumed 75% of mound volume)",
-                        "Topsoil (assumed 25% of mound volume)",
-                        "Defencell; phase 2 size 3500 x 1250 high; 50 degree slope; by specialist Sub-Contractor",
-                        "Filling to make up levels; to form mounds Sand, gravel and small rocks (assumed 75% of mound voilume)",
-                        "Description"
-                    ]
-                }
-            ]
-        },
-        {
             "id": "wd_145",
             "name": "8.6.1 - Surface water and foul water drainage",
             "attributes": {
@@ -1435,10 +1462,10 @@
                     "name": "Bill 17: Phase 0 - Substructure Drainage",
                     "attributes": {
                         "bill_number": 17,
-                        "suggested_trade": "Groundworker",
-                        "package_confidence": 98,
-                        "trade_confidence": 98,
-                        "ai_rationale": "The scope includes drainage channels, trench excavation, pipe beds and surrounds, and vitrified clay pipework."
+                        "suggested_trade": "Below-ground drainage contractor",
+                        "package_confidence": 95,
+                        "trade_confidence": 97,
+                        "ai_rationale": "The bill comprises below-ground drainage channels, trench excavation, clay pipework, granular and concrete beds and surrounds, bends and outlets, aligning with external surface and foul water drainage."
                     },
                     "source_evidence": [
                         "Q PAVING / PLANTING / FENCING / SITE FURNITURE Q10 KERBS / EDGINGS / CHANNELS / PAVING ACCESSORIES Channels ACO Q-max 225 drainage channels; 50 thick sand blinding; 150 thick C20/25A concrete bed and surround; as drawing DWG1-BJB-Z0-SL-DR-C-00611; include for all excavation and disposal of surplus excavated material off site straight",
@@ -1468,10 +1495,10 @@
                     "name": "Bill 20: Phase 1 - Drainage",
                     "attributes": {
                         "bill_number": 20,
-                        "suggested_trade": "Groundworker",
-                        "package_confidence": 98,
-                        "trade_confidence": 98,
-                        "ai_rationale": "The scope covers ACO multidrain drainage channels, excavation, disposal, and concrete bed and haunch."
+                        "suggested_trade": "Surface water drainage contractor",
+                        "package_confidence": 96,
+                        "trade_confidence": 97,
+                        "ai_rationale": "The bill comprises ACO surface drainage channels with excavation, concrete bed and haunch, outlets and stop ends, aligning with external drainage works."
                     },
                     "source_evidence": [
                         "Q PAVING / PLANTING / FENCING / SITE FURNITURE Q10 KERBS / EDGINGS / CHANNELS / PAVING ACCESSORIES Channels ACO Multidrain M200D 20.0 drainage channels; as drawing DGW1-BJB-Z0-SL-DR-C-0603; include for all excavation, disposal of surplus excavated material off site and concrete bed and haunch straight",
@@ -1485,10 +1512,10 @@
                     "name": "Bill 24: Phase 2 - Drainage",
                     "attributes": {
                         "bill_number": 24,
-                        "suggested_trade": "Groundworker",
-                        "package_confidence": 98,
-                        "trade_confidence": 98,
-                        "ai_rationale": "The scope covers trench excavation, pipework, precast concrete manholes, land drainage, and CCTV inspection."
+                        "suggested_trade": "Below-ground drainage and civils contractor",
+                        "package_confidence": 92,
+                        "trade_confidence": 96,
+                        "ai_rationale": "The dominant scope is below-ground surface water drainage comprising clay pipework, catchpit manholes, connection to an existing manhole, testing and CCTV inspection, with land drainage subsidiary."
                     },
                     "source_evidence": [
                         "R DISPOSAL SYSTEMS R12 DRAINAGE BELOW GROUND Excavating trenches; include for disposal of surplus excavated material off site, earthwork support, consolidation of trench bottom, working space and backfill with selected excavated material For pipes; not exceeding 200 nominal size 1500 average depth",
@@ -1515,10 +1542,10 @@
                     "name": "Bill 28: Phase 3 - Drainage",
                     "attributes": {
                         "bill_number": 28,
-                        "suggested_trade": "Drainage Contractor",
+                        "suggested_trade": "Drainage contractor",
                         "package_confidence": 98,
-                        "trade_confidence": 98,
-                        "ai_rationale": "Scope includes ACO drainage channels, below-ground vitrified clay pipework, and testing."
+                        "trade_confidence": 99,
+                        "ai_rationale": "The bill is principally for ACO channels, below-ground drainage trenches, concrete pipe surrounds, vitrified clay pipework, testing and CCTV inspection."
                     },
                     "source_evidence": [
                         "Q PAVING / PLANTING / FENCING / SITE FURNITURE Q10 KERBS / EDGINGS / CHANNELS / PAVING ACCESSORIES Channels ACO Q-max 225 drainage channels; 50 thick sand blinding; 150 thick C20/25A concrete bed and surround; as drawing DWG1-BJB-Z0-SL-DR-C-00611; include for all excavation and disposal of surplus excavated material off site straight",
@@ -1541,10 +1568,10 @@
                     "name": "Bill 32: Phase 4 - Drainage",
                     "attributes": {
                         "bill_number": 32,
-                        "suggested_trade": "Drainage Contractor",
+                        "suggested_trade": "Drainage contractor",
                         "package_confidence": 98,
-                        "trade_confidence": 98,
-                        "ai_rationale": "Scope includes ACO channels, below-ground drainage trenches, vitrified clay pipes, and CCTV inspection."
+                        "trade_confidence": 99,
+                        "ai_rationale": "The bill comprises ACO drainage channels and below-ground vitrified clay pipe drainage with concrete beds, surrounds, testing, CCTV inspection and cleaning."
                     },
                     "source_evidence": [
                         "Q PAVING / PLANTING / FENCING / SITE FURNITURE Q10 KERBS / EDGINGS / CHANNELS / PAVING ACCESSORIES Channels ACO Q-max 225 drainage channels; 50 thick sand blinding; 150 thick C20/25A concrete bed and surround; as drawing DWG1-BJB-Z0-SL-DR-C-00611; include for all excavation and disposal of surplus excavated material off site straight",
@@ -1567,10 +1594,10 @@
                     "name": "Bill 36: Phase 5 - Drainage",
                     "attributes": {
                         "bill_number": 36,
-                        "suggested_trade": "Drainage Contractor",
-                        "package_confidence": 98,
-                        "trade_confidence": 98,
-                        "ai_rationale": "Scope includes ACO drainage channels, below-ground trenches, vitrified clay pipework, and testing."
+                        "suggested_trade": "Drainage contractor",
+                        "package_confidence": 99,
+                        "trade_confidence": 99,
+                        "ai_rationale": "The scope is dominated by ACO channels and below-ground 110/150 mm vitrified clay drainage pipework with concrete surrounds, testing and CCTV inspection."
                     },
                     "source_evidence": [
                         "Q PAVING / PLANTING / FENCING / SITE FURNITURE Q10 KERBS / EDGINGS / CHANNELS / PAVING ACCESSORIES Channels ACO Q-max 350 drainage channels; 50 thick sand blinding; 150 thick C20/25A concrete bed and surround; as drawing DWG1-BJB-Z0-SL-DR-C-00611; include for all excavation and disposal of surplus excavated material off site straight",
@@ -1591,29 +1618,14 @@
                     ]
                 },
                 {
-                    "id": "bill_40",
-                    "name": "Bill 40: Phase 6 - Drainage",
-                    "attributes": {
-                        "bill_number": 40,
-                        "suggested_trade": "Drainage Contractor",
-                        "package_confidence": 80,
-                        "trade_confidence": 85,
-                        "ai_rationale": "The bill represents a nil section for drainage works."
-                    },
-                    "source_evidence": [
-                        "No works in this section 1 ITEM",
-                        "Description"
-                    ]
-                },
-                {
                     "id": "bill_44",
                     "name": "Bill 44: Phase 7 - Drainage",
                     "attributes": {
                         "bill_number": 44,
-                        "suggested_trade": "Drainage Contractor",
-                        "package_confidence": 98,
-                        "trade_confidence": 98,
-                        "ai_rationale": "The bill details drainage channels, below-ground pipework, and precast concrete manholes."
+                        "suggested_trade": "Below-ground drainage contractor",
+                        "package_confidence": 99,
+                        "trade_confidence": 99,
+                        "ai_rationale": "The bill comprises below-ground surface-water drainage, including ACO channels, vitrified clay pipework, manholes, existing-network connections, testing and CCTV inspection."
                     },
                     "source_evidence": [
                         "Q PAVING / PLANTING / FENCING / SITE FURNITURE Q10 KERBS / EDGINGS / CHANNELS / PAVING ACCESSORIES Channels ACO Multidrain M200D 20.0 drainage channels; as drawing DGW1-BJB-Z0-SL-DR-C-0603; include for all excavation, disposal of surplus excavated material off site and concrete bed and haunch straight",
@@ -1643,10 +1655,10 @@
                     "name": "Bill 48: Phase 8.1 (278 Wks) - Drainage",
                     "attributes": {
                         "bill_number": 48,
-                        "suggested_trade": "Drainage Contractor",
-                        "package_confidence": 98,
-                        "trade_confidence": 98,
-                        "ai_rationale": "The bill includes below-ground pipework, trench excavation, and gully connections."
+                        "suggested_trade": "Below-ground drainage contractor",
+                        "package_confidence": 99,
+                        "trade_confidence": 99,
+                        "ai_rationale": "The bill comprises below-ground surface-water pipework, road gullies, sewer connections, deep excavations, surfacing reinstatement, testing and CCTV inspection."
                     },
                     "source_evidence": [
                         "R DISPOSAL SYSTEMS R12 DRAINAGE BELOW GROUND Excavating trenches; include for disposal of surplus excavated material off site, earthwork support, consolidation of trench bottom, working space and backfill with selected excavated material For pipes; not exceeding 200 nominal size 500 average depth",
@@ -1672,10 +1684,10 @@
                     "name": "Bill 52: Phase 8.2 (278 Wks) - Drainage",
                     "attributes": {
                         "bill_number": 52,
-                        "suggested_trade": "Drainage Contractor",
-                        "package_confidence": 98,
-                        "trade_confidence": 98,
-                        "ai_rationale": "Scope covers below-ground drainage trenches, vitrified clay pipework, and manhole connections."
+                        "suggested_trade": "Drainage and underground utilities contractor",
+                        "package_confidence": 99,
+                        "trade_confidence": 99,
+                        "ai_rationale": "The scope comprises below-ground surface-water drainage, including 150 mm vitrified clay pipework, road gullies, sewer connections, trenching, testing and CCTV inspection."
                     },
                     "source_evidence": [
                         "R DISPOSAL SYSTEMS R12 DRAINAGE BELOW GROUND Excavating trenches; include for disposal of surplus excavated material off site, earthwork support, consolidation of trench bottom, working space and backfill with selected excavated material For pipes; not exceeding 200 nominal size 500 average depth",
@@ -1701,10 +1713,10 @@
                     "name": "Bill 56: Phase 8.3 (278 Wks) - Drainage",
                     "attributes": {
                         "bill_number": 56,
-                        "suggested_trade": "Drainage Contractor",
-                        "package_confidence": 98,
-                        "trade_confidence": 98,
-                        "ai_rationale": "Scope details below-ground drainage pipework, trench excavation, and sewer connections."
+                        "suggested_trade": "Drainage and underground utilities contractor",
+                        "package_confidence": 99,
+                        "trade_confidence": 99,
+                        "ai_rationale": "The scope is below-ground surface-water drainage comprising deep trenching, granular pipe surrounds, 150 mm vitrified clay pipework, sewer connection, gully works and testing."
                     },
                     "source_evidence": [
                         "R DISPOSAL SYSTEMS R12 DRAINAGE BELOW GROUND Excavating trenches; include for disposal of surplus excavated material off site, earthwork support, consolidation of trench bottom, working space and backfill with selected excavated material For pipes; not exceeding 200 nominal size 1750 average depth",
@@ -1727,10 +1739,10 @@
                     "name": "Bill 60: Phase 8.4 (278 Wks) - Drainage",
                     "attributes": {
                         "bill_number": 60,
-                        "suggested_trade": "Drainage Contractor",
-                        "package_confidence": 98,
-                        "trade_confidence": 98,
-                        "ai_rationale": "Scope details below-ground drainage, pipework, trenching, and sewer connections."
+                        "suggested_trade": "Drainage and underground utilities contractor",
+                        "package_confidence": 99,
+                        "trade_confidence": 99,
+                        "ai_rationale": "The scope comprises below-ground surface-water drainage with deep trenching, 150 mm vitrified clay pipework, combined-sewer connection, gully reinstatement, testing and CCTV inspection."
                     },
                     "source_evidence": [
                         "R DISPOSAL SYSTEMS R12 DRAINAGE BELOW GROUND Excavating trenches; include for disposal of surplus excavated material off site, earthwork support, consolidation of trench bottom, working space and backfill with selected excavated material For pipes; not exceeding 200 nominal size 1750 average depth",
@@ -1751,138 +1763,41 @@
             ]
         },
         {
-            "id": "wd_149",
-            "name": "8.7.1 - Water mains supply",
+            "id": "wd_157",
+            "name": "8.7.9 - External street lighting systems",
             "attributes": {
                 "package_type": "wd_template"
             },
             "children": [
                 {
-                    "id": "bill_37",
-                    "name": "Bill 37: Phase 5 - External Services",
+                    "id": "bill_45",
+                    "name": "Bill 45: Phase 7 - External Services",
                     "attributes": {
-                        "bill_number": 37,
-                        "suggested_trade": "Civil Engineering Contractor",
-                        "package_confidence": 90,
-                        "trade_confidence": 95,
-                        "ai_rationale": "The bill covers trenches, ducting, and water main installations for external utility services."
+                        "bill_number": 45,
+                        "suggested_trade": "External lighting and electrical services contractor",
+                        "package_confidence": 95,
+                        "trade_confidence": 98,
+                        "ai_rationale": "The scope is dedicated to external lighting ducts, draw pits, lighting bollard connections, identification tapes and associated builders' work."
                     },
                     "source_evidence": [
                         "P BUILDING FABRIC SUNDRIES P30 TRENCHES / PIPEWAYS / PITS FOR BURIED ENGINEERING SERVICES Excavating trenches; include for disposal of surplus excavated material off site, earthwork support, consolidation of trench bottom, working space and backfill For services; not exceeding 200 nominal size 750 average depth; to accommodate external lighting ducts",
-                        "750 average depth; to accommodate internal DNO supplies/ LV ducts",
-                        "750 average depth; to accommodate water main ducts",
-                        "For multiple services in the same trench; not exceeding 200 nominal size 750 average depth; to accommodate 2 No. external lighting ducts",
-                        "750 average depth; to accommodate DNO feeder cables/ LV ducts",
                         "Beds and surrounds 100 thick bed; 150 thick surround; granular material; obtained off site for external lighting ducts",
-                        "for DNO feeder cables/ LV ducts",
-                        "for DNO supplies/ LV ducts",
-                        "for water main ducts",
-                        "Description",
-                        "Stop cock pits, valve chambers and the like IDNO heavy duty cutout metering unit internal DNO supplies/ LV",
-                        "Draw pits for external lighting",
+                        "Stop cock pits, valve chambers and the like Draw pits external lighting ducts",
+                        "Bollards for external lighting",
                         "Underground ducts for engineering services PVC ducts; complete with draw strings 100 diameter for external lighting",
-                        "150 diameter for external lighting",
-                        "diameter unknown for DNO feeder cables/LV ducts",
-                        "diameter unknown for DNO supplies/LV duct",
-                        "MDPE pipe; include for all fittings diameter unknown for water pipe mains",
-                        "Items extra over the duct in which they occur Special treatment to ends connection into external lighting; external lighting",
+                        "Items extra over the duct in which they occur Special treatment to ends connection into bollards; external lighting",
+                        "connection into external lighting; external lighting",
                         "connection into draw pits; external lighting",
-                        "connection into 1DNO heavy duty cutout metering unit; DNO supplies/LV"
-                    ]
-                },
-                {
-                    "id": "bill_41",
-                    "name": "Bill 41: Phase 6 - External Services",
-                    "attributes": {
-                        "bill_number": 41,
-                        "suggested_trade": "Civil Engineering Contractor",
-                        "package_confidence": 90,
-                        "trade_confidence": 95,
-                        "ai_rationale": "The bill covers utility trenches, ducting, and water mains supply installations."
-                    },
-                    "source_evidence": [
-                        "P BUILDING FABRIC SUNDRIES P30 TRENCHES / PIPEWAYS / PITS FOR BURIED ENGINEERING SERVICES Excavating trenches; include for disposal of surplus excavated material off site, earthwork support of trench bottom, backfill with imported granular material obtained off site For services; not exceeding 200 nominal size 750 average depth; to accommodate external lighting ducts",
-                        "750 average depth; to accommodate water main ducts",
-                        "750 average depth; to HV Ducts",
-                        "For multiple services in the same trench; not exceeding 200 nominal size 750 average depth; to accommodate 2 No. external lighting ducts",
-                        "750 average depth; to accommodate DNO feeder cables/ LV ducts",
-                        "750 average depth; to accommodate 3 no. water main ducts",
-                        "Beds and surrounds 100 thick bed; 150 thick surround; granular material; obtained off site for external lighting ducts",
-                        "for DNO feeder cables/ LV ducts",
-                        "for water main ducts",
-                        "for HV ducts",
-                        "Description",
-                        "Stop cock pits, valve chambers and the like Draw pits for external lighting",
-                        "Water meters water mains",
-                        "Underground ducts for engineering services MDPE pipe; include for all fittings diameter unknown for water pipe mains",
-                        "PVC ducts; complete with draw strings 100 diameter for external lighting",
-                        "150 diameter for external lighting",
-                        "diameter unknown for HV ducts",
-                        "diameter unknown for DNO feeder cables/LV ducts",
-                        "Items extra over the duct in which they occur Special treatment to ends connection into external lighting; external lighting",
-                        "connection into draw pits; external lighting"
-                    ]
-                },
-                {
-                    "id": "bill_49",
-                    "name": "Bill 49: Phase 8.1 (278 Wks) - External Services",
-                    "attributes": {
-                        "bill_number": 49,
-                        "suggested_trade": "External Services Contractor",
-                        "package_confidence": 70,
-                        "trade_confidence": 75,
-                        "ai_rationale": "The bill states no works in this section for external services."
-                    },
-                    "source_evidence": [
-                        "No works in this section 1 ITEM",
-                        "Description"
-                    ]
-                },
-                {
-                    "id": "bill_53",
-                    "name": "Bill 53: Phase 8.2 (278 Wks) - External Services",
-                    "attributes": {
-                        "bill_number": 53,
-                        "suggested_trade": "External Services Contractor",
-                        "package_confidence": 90,
-                        "trade_confidence": 92,
-                        "ai_rationale": "Scope includes service trenches, ducting for external lighting, and water main pipes."
-                    },
-                    "source_evidence": [
-                        "P BUILDING FABRIC SUNDRIES P30 TRENCHES / PIPEWAYS / PITS FOR BURIED ENGINEERING SERVICES Excavating trenches; include for disposal of surplus excavated material off site, earthwork support, consolidation of trench bottom, working space and backfill For services; not exceeding 200 nominal size 750 average depth; to accommodate external lighting ducts",
-                        "750 average depth; to accommodate water main ducts",
-                        "Beds and surrounds 100 thick bed; 150 thick surround; granular material; obtained off site for external lighting ducts",
-                        "for water main ducts",
-                        "Underground ducts for engineering services PVC ducts; complete with draw strings 100 diameter for external lighting",
-                        "MDPE pipe; include for all fittings diameter unknown for water pipe mains",
-                        "Items extra over the duct in which they occur Special treatment to ends connection into water meter; water main",
                         "Description",
                         "Identification tapes Incorporating metallic strip; laid in service trenches for external lighting ducts",
-                        "for water mains duct",
-                        "Builders work Allow for cutting holes, chases etc and building in ducts for main services water mains",
-                        "external lighting"
-                    ]
-                },
-                {
-                    "id": "bill_57",
-                    "name": "Bill 57: Phase 8.3 (278 Wks) - External Services",
-                    "attributes": {
-                        "bill_number": 57,
-                        "suggested_trade": "External Services Contractor",
-                        "package_confidence": 70,
-                        "trade_confidence": 75,
-                        "ai_rationale": "The bill states no works in this section for external services."
-                    },
-                    "source_evidence": [
-                        "No works in this section 1 ITEM",
-                        "Description"
+                        "Builders work Allow for cutting holes, chases etc and building in ducts for main services external lighting"
                     ]
                 }
             ]
         },
         {
-            "id": "wd_154",
-            "name": "8.7.6 - Telecommunication and other communication system connections",
+            "id": "wd_159",
+            "name": "8.7.11 - Builder's work in connection with external services",
             "attributes": {
                 "package_type": "wd_template"
             },
@@ -1892,10 +1807,10 @@
                     "name": "Bill 29: Phase 3 - External Services",
                     "attributes": {
                         "bill_number": 29,
-                        "suggested_trade": "Multi-Utility Contractor",
-                        "package_confidence": 90,
-                        "trade_confidence": 90,
-                        "ai_rationale": "Scope includes trenches for external lighting, communication ducts, and water main service ducts."
+                        "suggested_trade": "Utilities and service ducting contractor",
+                        "package_confidence": 86,
+                        "trade_confidence": 96,
+                        "ai_rationale": "The permanent works comprise service trenches, draw pits, water and electrical/communications ducts, bedding, surrounds and building connections for external services."
                     },
                     "source_evidence": [
                         "P BUILDING FABRIC SUNDRIES P30 TRENCHES / PIPEWAYS / PITS FOR BURIED ENGINEERING SERVICES Excavating trenches; include for disposal of excavated material, earthwork support, consolidation of trench bottom, backfill with imported material obtained off site For services; not exceeding 200 nominal size 750 average depth; to accommodate external lighting ducts",
@@ -1925,10 +1840,10 @@
                     "name": "Bill 33: Phase 4 - External Services",
                     "attributes": {
                         "bill_number": 33,
-                        "suggested_trade": "Multi-Utility Contractor",
-                        "package_confidence": 90,
-                        "trade_confidence": 90,
-                        "ai_rationale": "Scope includes service trenches, PVC ducts, draw pits, and identification tapes for external services."
+                        "suggested_trade": "Utilities and service ducting contractor",
+                        "package_confidence": 88,
+                        "trade_confidence": 97,
+                        "ai_rationale": "The dominant scope is buried external service infrastructure, including service trenches, communication and lighting ducts, draw pits, identification tapes and building connections."
                     },
                     "source_evidence": [
                         "P BUILDING FABRIC SUNDRIES P30 TRENCHES / PIPEWAYS / PITS FOR BURIED ENGINEERING SERVICES Excavating trenches; include for disposal of surplus excavated material off site, earthwork support, consolidation of trench bottom, working space and backfill For services; not exceeding 200 nominal size 750 average depth; to accommodate external lighting ducts",
@@ -1949,58 +1864,107 @@
                         "Builders work Allow for cutting holes, chases etc and building in ducts for main services external lighting",
                         "communications"
                     ]
-                }
-            ]
-        },
-        {
-            "id": "wd_157",
-            "name": "8.7.9 - External street lighting systems",
-            "attributes": {
-                "package_type": "wd_template"
-            },
-            "children": [
+                },
                 {
-                    "id": "bill_45",
-                    "name": "Bill 45: Phase 7 - External Services",
+                    "id": "bill_37",
+                    "name": "Bill 37: Phase 5 - External Services",
                     "attributes": {
-                        "bill_number": 45,
-                        "suggested_trade": "Electrical Contractor",
-                        "package_confidence": 90,
+                        "bill_number": 37,
+                        "suggested_trade": "External services civils and utility ducting contractor",
+                        "package_confidence": 84,
                         "trade_confidence": 92,
-                        "ai_rationale": "The bill covers external lighting trenches, draw pits, and identification tapes."
+                        "ai_rationale": "The bill comprises service trenches, granular beds and surrounds, draw pits and ducts serving external lighting, DNO/LV and water services, so it is best classified as builders' work in connection with external services."
                     },
                     "source_evidence": [
                         "P BUILDING FABRIC SUNDRIES P30 TRENCHES / PIPEWAYS / PITS FOR BURIED ENGINEERING SERVICES Excavating trenches; include for disposal of surplus excavated material off site, earthwork support, consolidation of trench bottom, working space and backfill For services; not exceeding 200 nominal size 750 average depth; to accommodate external lighting ducts",
+                        "750 average depth; to accommodate internal DNO supplies/ LV ducts",
+                        "750 average depth; to accommodate water main ducts",
+                        "For multiple services in the same trench; not exceeding 200 nominal size 750 average depth; to accommodate 2 No. external lighting ducts",
+                        "750 average depth; to accommodate DNO feeder cables/ LV ducts",
                         "Beds and surrounds 100 thick bed; 150 thick surround; granular material; obtained off site for external lighting ducts",
-                        "Stop cock pits, valve chambers and the like Draw pits external lighting ducts",
-                        "Bollards for external lighting",
+                        "for DNO feeder cables/ LV ducts",
+                        "for DNO supplies/ LV ducts",
+                        "for water main ducts",
+                        "Description",
+                        "Stop cock pits, valve chambers and the like IDNO heavy duty cutout metering unit internal DNO supplies/ LV",
+                        "Draw pits for external lighting",
                         "Underground ducts for engineering services PVC ducts; complete with draw strings 100 diameter for external lighting",
-                        "Items extra over the duct in which they occur Special treatment to ends connection into bollards; external lighting",
-                        "connection into external lighting; external lighting",
+                        "150 diameter for external lighting",
+                        "diameter unknown for DNO feeder cables/LV ducts",
+                        "diameter unknown for DNO supplies/LV duct",
+                        "MDPE pipe; include for all fittings diameter unknown for water pipe mains",
+                        "Items extra over the duct in which they occur Special treatment to ends connection into external lighting; external lighting",
                         "connection into draw pits; external lighting",
+                        "connection into 1DNO heavy duty cutout metering unit; DNO supplies/LV"
+                    ]
+                },
+                {
+                    "id": "bill_41",
+                    "name": "Bill 41: Phase 6 - External Services",
+                    "attributes": {
+                        "bill_number": 41,
+                        "suggested_trade": "External services civils and utility ducting contractor",
+                        "package_confidence": 85,
+                        "trade_confidence": 92,
+                        "ai_rationale": "The scope comprises mixed-service trenches, ducts, draw pits and water-main pipework for external lighting, HV and DNO/LV supplies, best classified as builders' work in connection with external services."
+                    },
+                    "source_evidence": [
+                        "P BUILDING FABRIC SUNDRIES P30 TRENCHES / PIPEWAYS / PITS FOR BURIED ENGINEERING SERVICES Excavating trenches; include for disposal of surplus excavated material off site, earthwork support of trench bottom, backfill with imported granular material obtained off site For services; not exceeding 200 nominal size 750 average depth; to accommodate external lighting ducts",
+                        "750 average depth; to accommodate water main ducts",
+                        "750 average depth; to HV Ducts",
+                        "For multiple services in the same trench; not exceeding 200 nominal size 750 average depth; to accommodate 2 No. external lighting ducts",
+                        "750 average depth; to accommodate DNO feeder cables/ LV ducts",
+                        "750 average depth; to accommodate 3 no. water main ducts",
+                        "Beds and surrounds 100 thick bed; 150 thick surround; granular material; obtained off site for external lighting ducts",
+                        "for DNO feeder cables/ LV ducts",
+                        "for water main ducts",
+                        "for HV ducts",
+                        "Description",
+                        "Stop cock pits, valve chambers and the like Draw pits for external lighting",
+                        "Water meters water mains",
+                        "Underground ducts for engineering services MDPE pipe; include for all fittings diameter unknown for water pipe mains",
+                        "PVC ducts; complete with draw strings 100 diameter for external lighting",
+                        "150 diameter for external lighting",
+                        "diameter unknown for HV ducts",
+                        "diameter unknown for DNO feeder cables/LV ducts",
+                        "Items extra over the duct in which they occur Special treatment to ends connection into external lighting; external lighting",
+                        "connection into draw pits; external lighting"
+                    ]
+                },
+                {
+                    "id": "bill_53",
+                    "name": "Bill 53: Phase 8.2 (278 Wks) - External Services",
+                    "attributes": {
+                        "bill_number": 53,
+                        "suggested_trade": "External utilities and services contractor",
+                        "package_confidence": 82,
+                        "trade_confidence": 94,
+                        "ai_rationale": "The dominant permanent works are buried external-service infrastructure, comprising excavated service trenches, granular beds and surrounds, external lighting ducts, water-main MDPE pipework, draw strings and identification tapes."
+                    },
+                    "source_evidence": [
+                        "P BUILDING FABRIC SUNDRIES P30 TRENCHES / PIPEWAYS / PITS FOR BURIED ENGINEERING SERVICES Excavating trenches; include for disposal of surplus excavated material off site, earthwork support, consolidation of trench bottom, working space and backfill For services; not exceeding 200 nominal size 750 average depth; to accommodate external lighting ducts",
+                        "750 average depth; to accommodate water main ducts",
+                        "Beds and surrounds 100 thick bed; 150 thick surround; granular material; obtained off site for external lighting ducts",
+                        "for water main ducts",
+                        "Underground ducts for engineering services PVC ducts; complete with draw strings 100 diameter for external lighting",
+                        "MDPE pipe; include for all fittings diameter unknown for water pipe mains",
+                        "Items extra over the duct in which they occur Special treatment to ends connection into water meter; water main",
                         "Description",
                         "Identification tapes Incorporating metallic strip; laid in service trenches for external lighting ducts",
-                        "Builders work Allow for cutting holes, chases etc and building in ducts for main services external lighting"
+                        "for water mains duct",
+                        "Builders work Allow for cutting holes, chases etc and building in ducts for main services water mains",
+                        "external lighting"
                     ]
-                }
-            ]
-        },
-        {
-            "id": "wd_159",
-            "name": "8.7.11 - Builder\u2019s work in connection with external services",
-            "attributes": {
-                "package_type": "wd_template"
-            },
-            "children": [
+                },
                 {
                     "id": "bill_69",
                     "name": "Bill 69: Ext Services (Disconnect/Connect/Divert)",
                     "attributes": {
                         "bill_number": 69,
-                        "suggested_trade": "Utility / Civils Contractor",
-                        "package_confidence": 85,
-                        "trade_confidence": 90,
-                        "ai_rationale": "Scope covers external service connections, utility diversions, and associated builder's work."
+                        "suggested_trade": "Multi-utility infrastructure contractor",
+                        "package_confidence": 68,
+                        "trade_confidence": 94,
+                        "ai_rationale": "The scope is a multi-utility external infrastructure package covering permanent electric, water, gas and telecommunications connections and diversions, together with service ducts, draw pits and a substation interface."
                     },
                     "source_evidence": [
                         "External Services New Connections Electric",
@@ -2038,10 +2002,10 @@
                     "name": "Bill 21: Phase 1 - External Services",
                     "attributes": {
                         "bill_number": 21,
-                        "suggested_trade": "General Contractor",
+                        "suggested_trade": "Not applicable",
                         "package_confidence": 100,
                         "trade_confidence": 100,
-                        "ai_rationale": "The section explicitly states no works in this section."
+                        "ai_rationale": "The section expressly states that no works are included, so there is no substantive construction trade or works package to allocate."
                     },
                     "source_evidence": [
                         "No works in this section 1 ITEM",
@@ -2053,10 +2017,55 @@
                     "name": "Bill 25: Phase 2 - External Services",
                     "attributes": {
                         "bill_number": 25,
-                        "suggested_trade": "General Builder",
+                        "suggested_trade": "No applicable trade",
+                        "package_confidence": 99,
+                        "trade_confidence": 99,
+                        "ai_rationale": "The section expressly states that no works are included, so there is no identifiable permanent trade scope to allocate."
+                    },
+                    "source_evidence": [
+                        "No works in this section 1 ITEM",
+                        "Description"
+                    ]
+                },
+                {
+                    "id": "bill_40",
+                    "name": "Bill 40: Phase 6 - Drainage",
+                    "attributes": {
+                        "bill_number": 40,
+                        "suggested_trade": "Not applicable",
                         "package_confidence": 100,
                         "trade_confidence": 100,
-                        "ai_rationale": "There are no works specified in this section, representing an empty bill or general placeholder."
+                        "ai_rationale": "The section expressly states that there are no works."
+                    },
+                    "source_evidence": [
+                        "No works in this section 1 ITEM",
+                        "Description"
+                    ]
+                },
+                {
+                    "id": "bill_49",
+                    "name": "Bill 49: Phase 8.1 (278 Wks) - External Services",
+                    "attributes": {
+                        "bill_number": 49,
+                        "suggested_trade": "No applicable trade",
+                        "package_confidence": 100,
+                        "trade_confidence": 100,
+                        "ai_rationale": "The bill expressly states that no works are included, so there is no substantive construction scope to allocate."
+                    },
+                    "source_evidence": [
+                        "No works in this section 1 ITEM",
+                        "Description"
+                    ]
+                },
+                {
+                    "id": "bill_57",
+                    "name": "Bill 57: Phase 8.3 (278 Wks) - External Services",
+                    "attributes": {
+                        "bill_number": 57,
+                        "suggested_trade": "No applicable trade",
+                        "package_confidence": 100,
+                        "trade_confidence": 100,
+                        "ai_rationale": "The bill expressly states that no works are included, so there is no substantive construction scope to allocate."
                     },
                     "source_evidence": [
                         "No works in this section 1 ITEM",
@@ -2068,10 +2077,10 @@
                     "name": "Bill 61: Phase 8.4 (278 Wks) - External Services",
                     "attributes": {
                         "bill_number": 61,
-                        "suggested_trade": "General Contractor",
-                        "package_confidence": 90,
-                        "trade_confidence": 90,
-                        "ai_rationale": "The bill contains no works for external services."
+                        "suggested_trade": "Not applicable",
+                        "package_confidence": 99,
+                        "trade_confidence": 99,
+                        "ai_rationale": "No works are identified in this section, so there is no substantive construction trade to allocate."
                     },
                     "source_evidence": [
                         "No works in this section 1 ITEM",
@@ -2083,10 +2092,10 @@
                     "name": "Bill 64: Phase 8.5 (278 Wks) - Drainage",
                     "attributes": {
                         "bill_number": 64,
-                        "suggested_trade": "General Contractor",
-                        "package_confidence": 90,
-                        "trade_confidence": 90,
-                        "ai_rationale": "The bill contains no works for drainage."
+                        "suggested_trade": "Not applicable",
+                        "package_confidence": 99,
+                        "trade_confidence": 99,
+                        "ai_rationale": "No works are identified in this drainage section, so there is no substantive drainage installation to allocate."
                     },
                     "source_evidence": [
                         "No works in this section 1 ITEM",
@@ -2098,10 +2107,10 @@
                     "name": "Bill 65: Phase 8.5 (278 Wks) - External Services",
                     "attributes": {
                         "bill_number": 65,
-                        "suggested_trade": "General Contractor",
-                        "package_confidence": 90,
-                        "trade_confidence": 90,
-                        "ai_rationale": "The bill contains no works for external services."
+                        "suggested_trade": "Not applicable",
+                        "package_confidence": 99,
+                        "trade_confidence": 99,
+                        "ai_rationale": "No works are identified in this external services section, so there is no substantive services installation to allocate."
                     },
                     "source_evidence": [
                         "No works in this section 1 ITEM",
@@ -2113,10 +2122,10 @@
                     "name": "Bill 71: Gap Analysis",
                     "attributes": {
                         "bill_number": 71,
-                        "suggested_trade": "General Contractor",
-                        "package_confidence": 95,
-                        "trade_confidence": 90,
-                        "ai_rationale": "The bill is a miscellaneous gap analysis covering multiple trades and mixed items."
+                        "suggested_trade": "Multi-trade design and construction coordination",
+                        "package_confidence": 96,
+                        "trade_confidence": 92,
+                        "ai_rationale": "The gap analysis combines unrelated archaeology, demolition, services, drainage, fa\u00e7ade, roof, stair, balcony, superstructure and lift requirements without a single dominant permanent trade."
                     },
                     "source_evidence": [
                         "GAP ANALYSIS A - Specifications Archeological Excavation",

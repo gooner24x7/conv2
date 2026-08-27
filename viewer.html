@@ -375,8 +375,8 @@
                 
                 <label for="template-select" style="font-weight: 500; font-size: 14px; color: #475569; margin-left: 10px;">Works Template:</label>
                 <select id="template-select" class="model-select">
-                    <option value="WD template.xlsx" selected>WD template.xlsx</option>
-                    <option value="NRM1 template.xlsx">NRM1 template.xlsx</option>
+                    <option value="WD template.csv" selected>WD template.csv</option>
+                    <option value="NRM1 template.csv">NRM1 template.csv</option>
                 </select>
 
                 <button id="run-btn" class="run-btn" onclick="triggerProcessing()">
@@ -513,7 +513,7 @@
                     // Deduplicate to get the latest per model + template combination
                     const latestByRun = {};
                     data.forEach(run => { 
-                        const key = `${run.model}::${run.template || 'WD template.xlsx'}`;
+                        const key = `${run.model}::${run.template || 'WD template.csv'}`;
                         latestByRun[key] = run; 
                     });
                     leagueData = Object.values(latestByRun);
@@ -559,7 +559,7 @@
                 if (index % 2 === 1) tr.style.background = '#f8fafc';
                 
                 const dateStr = new Date(row.timestamp).toLocaleString();
-                const tmpl = row.template || 'WD template.xlsx'; // fallback for old data
+                const tmpl = row.template || 'WD template.csv'; // fallback for old data
                 const mappingPct = row.mapping_rate ? (row.mapping_rate * 100).toFixed(1) + '%' : (row.mapped_bills ? Math.round((row.mapped_bills/row.total_bills)*100) + '%' : 'N/A');
                 
                 tr.innerHTML = `
@@ -617,12 +617,12 @@
             // Get the latest run for each model + template combination
             const latestByRun = {};
             history.forEach(run => {
-                const key = `${run.model}::${run.template || 'WD template.xlsx'}`;
+                const key = `${run.model}::${run.template || 'WD template.csv'}`;
                 latestByRun[key] = run;
             });
             const latestRuns = Object.values(latestByRun);
             const models = latestRuns.map(r => {
-                const t = r.template ? ` (${r.template.replace('.xlsx','')})` : '';
+                const t = r.template ? ` (${r.template.replace('.csv','')})` : '';
                 return `${r.model}${t}`;
             });
             const allColors = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#6366f1'];
@@ -866,7 +866,7 @@
             const modelSelect = document.getElementById('model-select');
             const model = modelSelect ? modelSelect.value : 'gemini-flash';
             const templateSelect = document.getElementById('template-select');
-            const template = templateSelect ? templateSelect.value : 'WD template.xlsx';
+            const template = templateSelect ? templateSelect.value : 'WD template.csv';
 
             runBtn.style.display = 'none';
             cancelBtn.style.display = 'flex';
@@ -953,7 +953,7 @@
                         const opt = document.createElement('option');
                         opt.value = t;
                         opt.textContent = t;
-                        if (t === 'WD template.xlsx') opt.selected = true;
+                        if (t === 'WD template.csv') opt.selected = true;
                         select.appendChild(opt);
                     });
                 }
@@ -963,8 +963,8 @@
                 const select = document.getElementById('template-select');
                 if (select) {
                     select.innerHTML = `
-                        <option value="WD template.xlsx" selected>WD template.xlsx</option>
-                        <option value="NRM1 template.xlsx">NRM1 template.xlsx</option>
+                        <option value="WD template.csv" selected>WD template.csv</option>
+                        <option value="NRM1 template.csv">NRM1 template.csv</option>
                     `;
                 }
             });

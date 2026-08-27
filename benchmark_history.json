@@ -1,145 +1,68 @@
 [
     {
-        "timestamp": "2026-08-20 09:20:40",
-        "model": "OpenAI GPT-5.6 Sol (Flagship)",
-        "total_bills": 71,
-        "mapped_bills": 62,
-        "mapping_rate": 0.8732394366197183,
-        "accuracy": 88.4,
-        "execution_time_sec": 245.28,
-        "cost": 0.8911368679245282,
-        "template": "WD template.xlsx"
-    },
-    {
-        "timestamp": "2026-08-20 09:23:36",
-        "model": "OpenAI GPT-5.6 Terra (Balanced)",
-        "total_bills": 71,
-        "mapped_bills": 60,
-        "mapping_rate": 0.8450704225352113,
-        "accuracy": 87.1,
-        "execution_time_sec": 175.49,
-        "cost": 0.316635380952381,
-        "template": "WD template.xlsx"
-    },
-    {
-        "timestamp": "2026-08-20 09:26:22",
-        "model": "OpenAI GPT-5.6 Luna (Lightweight)",
-        "total_bills": 71,
-        "mapped_bills": 62,
-        "mapping_rate": 0.8732394366197183,
-        "accuracy": 86.9,
-        "execution_time_sec": 166.72,
-        "cost": 0.03478816984126984,
-        "template": "WD template.xlsx"
-    },
-    {
-        "timestamp": "2026-08-20 11:46:50",
-        "model": "Google Gemini 3.1 Pro (Deep Reasoning)",
-        "template": "NRM1 template.xlsx",
-        "total_bills": 71,
-        "mapped_bills": 61,
-        "mapping_rate": 0.8591549295774648,
-        "accuracy": 91.8,
-        "execution_time_sec": 399.34,
-        "cost": 0.5847443174603175
-    },
-    {
-        "timestamp": "2026-08-20 11:51:09",
-        "model": "OpenAI GPT-5.6 Sol (Flagship)",
-        "template": "NRM1 template.xlsx",
-        "total_bills": 71,
-        "mapped_bills": 61,
-        "mapping_rate": 0.8591549295774648,
-        "accuracy": 90.4,
-        "execution_time_sec": 259.2,
-        "cost": 1.516175283018868
-    },
-    {
-        "timestamp": "2026-08-20 11:54:15",
-        "model": "OpenAI GPT-5.6 Terra (Balanced)",
-        "template": "NRM1 template.xlsx",
-        "total_bills": 71,
-        "mapped_bills": 59,
-        "mapping_rate": 0.8309859154929577,
-        "accuracy": 87.8,
-        "execution_time_sec": 185.77,
-        "cost": 0.5966828730158731
-    },
-    {
-        "timestamp": "2026-08-20 11:56:43",
-        "model": "OpenAI GPT-5.6 Luna (Lightweight)",
-        "template": "NRM1 template.xlsx",
-        "total_bills": 71,
-        "mapped_bills": 57,
-        "mapping_rate": 0.8028169014084507,
-        "accuracy": 89.8,
-        "execution_time_sec": 147.33,
-        "cost": 0.06126899365079364
-    },
-    {
-        "timestamp": "2026-08-20 12:29:44",
-        "model": "Google Gemini 3.5 Flash (Ultra-Fast)",
-        "template": "NRM1 template.xlsx",
-        "total_bills": 71,
-        "mapped_bills": 60,
-        "mapping_rate": 0.8450704225352113,
-        "accuracy": 91.1,
-        "execution_time_sec": 174.15,
-        "cost": 0.43608933333333333
-    },
-    {
-        "timestamp": "2026-08-20 12:33:13",
-        "model": "Anthropic Claude 3.7 Sonnet",
-        "template": "NRM1 template.xlsx",
-        "total_bills": 71,
-        "mapped_bills": 0,
-        "mapping_rate": 0,
-        "accuracy": 0,
-        "execution_time_sec": 0.14,
-        "cost": 0
-    },
-    {
-        "timestamp": "2026-08-20 13:35:05",
-        "model": "Google Gemini 3.1 Pro (Deep Reasoning)",
-        "template": "WD template.xlsx",
-        "total_bills": 71,
-        "mapped_bills": 58,
-        "mapping_rate": 0.8169014084507042,
-        "accuracy": 90.5,
-        "execution_time_sec": 359.74,
-        "cost": 0.320152
-    },
-    {
-        "timestamp": "2026-08-20 15:00:45",
-        "model": "Google Gemini 3.7 Flash (Ultra-Fast)",
-        "template": "NRM1 template.xlsx",
-        "total_bills": 71,
-        "mapped_bills": 61,
-        "mapping_rate": 0.8591549295774648,
-        "accuracy": 91.6,
-        "execution_time_sec": 455.64,
-        "cost": 0.415287
-    },
-    {
-        "timestamp": "2026-08-21 12:28:45",
-        "model": "Google Gemini 3.5 Flash (Ultra-Fast)",
-        "template": "WD template.xlsx",
-        "total_bills": 71,
-        "mapped_bills": 60,
-        "mapping_rate": 0.8450704225352113,
-        "accuracy": 91.7,
-        "execution_time_sec": 405.69,
-        "cost": 0.24071849999999995
-    },
-    {
-        "timestamp": "2026-08-21 15:37:55",
+        "timestamp": "2026-08-27 10:10:24",
         "model": "Google Gemini 3.5 Flash-Lite",
-        "template": "NRM1 template.xlsx",
+        "template": "NRM2 template.csv",
         "total_bills": 71,
-        "mapped_bills": 65,
-        "mapping_rate": 0.9154929577464789,
-        "accuracy": 92.7,
-        "execution_time_sec": 57.52,
-        "cost": 0.020470425
+        "mapped_bills": 64,
+        "mapping_rate": 0.9014084507042254,
+        "accuracy": 91.8,
+        "execution_time_sec": 52.24,
+        "cost": 0.012242475
+    },
+    {
+        "timestamp": "2026-08-27 10:16:32",
+        "model": "OpenAI GPT-5.6 Luna",
+        "template": "NRM2 template.csv",
+        "total_bills": 71,
+        "mapped_bills": 61,
+        "mapping_rate": 0.8591549295774648,
+        "accuracy": 90.7,
+        "execution_time_sec": 217.49,
+        "cost": 0.044815
+    },
+    {
+        "timestamp": "2026-08-27 10:24:33",
+        "model": "OpenAI GPT-5.6 Terra",
+        "template": "NRM2 template.csv",
+        "total_bills": 71,
+        "mapped_bills": 61,
+        "mapping_rate": 0.8591549295774648,
+        "accuracy": 90,
+        "execution_time_sec": 174.53,
+        "cost": 0.4074399999999999
+    },
+    {
+        "timestamp": "2026-08-27 10:31:15",
+        "model": "Google Gemini 3.6 Flash",
+        "template": "NRM2 template.csv",
+        "total_bills": 71,
+        "mapped_bills": 62,
+        "mapping_rate": 0.8732394366197183,
+        "accuracy": 91.9,
+        "execution_time_sec": 363.19,
+        "cost": 0.2569905
+    },
+    {
+        "timestamp": "2026-08-27 10:34:03",
+        "model": "Google Gemini 3.5 Flash-Lite",
+        "template": "NRM1 template.csv",
+        "total_bills": 71,
+        "mapped_bills": 68,
+        "mapping_rate": 0.9577464788732394,
+        "accuracy": 90.6,
+        "execution_time_sec": 70.03,
+        "cost": 0.020973375000000006
+    },
+    {
+        "timestamp": "2026-08-27 10:38:05",
+        "model": "OpenAI GPT-5.6 Luna",
+        "template": "NRM1 template.csv",
+        "total_bills": 71,
+        "mapped_bills": 62,
+        "mapping_rate": 0.8732394366197183,
+        "accuracy": 89.2,
+        "execution_time_sec": 209.72,
+        "cost": 0.0653078
     }
 ]

@@ -59,7 +59,7 @@ if (isset($_GET['model'])) {
 }
 
 // Determine Selected Template
-$selectedTemplate = 'WD template.xlsx'; // default
+$selectedTemplate = 'WD template.csv'; // default
 if (isset($_GET['template'])) {
     $selectedTemplate = trim($_GET['template']);
 } elseif (isset($_POST['template'])) {
@@ -85,6 +85,37 @@ emitStatus("Using Works Package Template: " . $selectedTemplate);
 // ============================================================
 // EXCEL PARSER - Native ZIP/XML reader
 // ============================================================
+function parseCsv(string $csvPath): array {
+    if (!file_exists($csvPath)) throw new Exception("Cannot find $csvPath");
+    $rows = [];
+    if (($handle = fopen($csvPath, "r")) !== FALSE) {
+        // To handle UTF-8 BOM if present
+        $firstLine = true;
+        while (($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
+            if ($firstLine) {
+                if (isset($data[0])) {
+                    // Strip BOM
+                    $data[0] = preg_replace('/^\xEF\xBB\xBF/', '', $data[0]);
+                }
+                $firstLine = false;
+            }
+            $rd = [];
+            foreach ($data as $colIndex => $value) {
+                $letter = '';
+                $n = $colIndex;
+                while ($n >= 0) {
+                    $letter = chr(65 + ($n % 26)) . $letter;
+                    $n = floor($n / 26) - 1;
+                }
+                $rd[$letter] = $value;
+            }
+            $rows[] = $rd;
+        }
+        fclose($handle);
+    }
+    return ['Sheet1' => $rows];
+}
+
 function parseXlsx(string $xlsxPath): array {
     $zip = new ZipArchive();
     if ($zip->open($xlsxPath) !== true) throw new Exception("Cannot open $xlsxPath");
@@ -143,21 +174,69 @@ function cleanText(string $s): string {
 // PHASE 1: Load Works Packages
 // ============================================================
 emitStatus("Phase 1: Loading Works Packages from $selectedTemplate...");
-$wdData = parseXlsx($templatePath);
+if (strtolower(pathinfo($templatePath, PATHINFO_EXTENSION)) === 'csv') {
+    $wdData = parseCsv($templatePath);
+} else {
+    $wdData = parseXlsx($templatePath);
+}
 $wdSheet = $wdData['Sheet1'] ?? reset($wdData);
 
 $wdPackages = [];
 $wdList = [];
-foreach ($wdSheet as $row) {
-    $name = trim($row['A'] ?? '');
-    $desc = trim($row['B'] ?? ''); // Extract Strategy #2 Description Column
+
+// Auto-detect template format: 4-column NRM2 hierarchy vs 2-column standard package list
+$is4ColumnNrm = false;
+if (!empty($wdSheet)) {
+    $firstRow = $wdSheet[0] ?? [];
+    if (isset($firstRow['C']) || (isset($firstRow['A']) && stripos($firstRow['A'], 'Work Section Number') !== false)) {
+        $is4ColumnNrm = true;
+    }
+}
+
+if ($is4ColumnNrm) {
+    // 4-column NRM format: Group items by Work Section to form clear Trade Packages
+    $sectionGroups = [];
+    foreach ($wdSheet as $idx => $row) {
+        if ($idx === 0) continue; // Skip header row
+        $secNum = trim($row['A'] ?? '');
+        $secName = trim($row['B'] ?? '');
+        $itemNum = trim($row['C'] ?? '');
+        $itemName = trim($row['D'] ?? '');
+        
+        if ($secNum === '' || $secName === '') continue;
+        
+        if (!isset($sectionGroups[$secNum])) {
+            $sectionGroups[$secNum] = [
+                'name' => "Section $secNum: $secName",
+                'items' => []
+            ];
+        }
+        if ($itemName !== '') {
+            $sectionGroups[$secNum]['items'][] = $itemName;
+        }
+    }
     
-    // Skip if empty or if it's the header row
-    if ($name === '' || stripos($name, 'Works Package') !== false || stripos($name, 'wd_') !== false) continue;
-    
-    $id = 'wd_' . count($wdPackages);
-    $wdPackages[$name] = $id;
-    $wdList[] = ['id' => $id, 'name' => $name, 'description' => $desc];
+    foreach ($sectionGroups as $secNum => $g) {
+        $id = 'wd_' . $secNum;
+        $name = $g['name'];
+        $itemsList = $g['items'];
+        $desc = "Includes: " . implode(', ', array_slice($itemsList, 0, 12)) . (count($itemsList) > 12 ? '...' : '.');
+        $wdPackages[$name] = $id;
+        $wdList[] = ['id' => $id, 'name' => $name, 'description' => $desc];
+    }
+} else {
+    // 2-column standard format (WD template, NRM1 template)
+    foreach ($wdSheet as $row) {
+        $name = trim($row['A'] ?? '');
+        $desc = trim($row['B'] ?? '');
+        
+        // Skip if empty or if it's the header row
+        if ($name === '' || stripos($name, 'Works Package') !== false || stripos($name, 'wd_') !== false) continue;
+        
+        $id = 'wd_' . count($wdPackages);
+        $wdPackages[$name] = $id;
+        $wdList[] = ['id' => $id, 'name' => $name, 'description' => $desc];
+    }
 }
 emitStatus("  -> Identified " . count($wdList) . " target Works Packages.");
 
@@ -350,11 +429,10 @@ if (count($unmappedForAi) > 0) {
 emitStatus("Phase 6: Compiling Final Allocation Hierarchy...");
 
 $output = [];
-$mappedCount = 0;
 $unmappedChildren = [];
-$totalPkgConfidence = 0;
-$totalTradeConfidence = 0;
-$scoredCount = 0;
+$totalPkgConfidence = 0.0;
+$totalTradeConfidence = 0.0;
+$allocatedBillIds = [];
 
 foreach ($wdList as $wp) {
     $node = [
@@ -368,7 +446,7 @@ foreach ($wdList as $wp) {
         if ($mapData['target'] === $wp['id']) {
             $node['children'][] = [
                 'id' => 'bill_' . $bn,
-                'name' => "Bill $bn: " . $bills[$bn],
+                'name' => "Bill $bn: " . ($bills[$bn] ?? "Bill $bn"),
                 'attributes' => [
                     'bill_number' => $bn,
                     'suggested_trade' => $mapData['trade'],
@@ -378,18 +456,17 @@ foreach ($wdList as $wp) {
                 ],
                 'source_evidence' => $billContext[$bn] ?? []
             ];
-            $mappedCount++;
-            $totalPkgConfidence += $mapData['package_confidence'];
-            $totalTradeConfidence += $mapData['trade_confidence'];
-            $scoredCount++;
+            $allocatedBillIds[$bn] = true;
+            $totalPkgConfidence += (float)$mapData['package_confidence'];
+            $totalTradeConfidence += (float)$mapData['trade_confidence'];
         }
     }
     if (count($node['children']) > 0) $output[] = $node;
 }
 
 foreach ($bills as $bn => $name) {
-    $mapData = $billMappings[$bn] ?? null;
-    if (!$mapData || $mapData['target'] === 'wd_unmapped') {
+    if (!isset($allocatedBillIds[$bn])) {
+        $mapData = $billMappings[$bn] ?? null;
         $unmappedChildren[] = [
             'id' => 'bill_' . $bn,
             'name' => "Bill $bn: $name",
@@ -414,12 +491,20 @@ if (count($unmappedChildren) > 0) {
     ];
 }
 
-// Calculate Overall Accuracy Score
+// Calculate Robust, Strictly Bounded Metrics (0% - 100%)
+$totalBillsCount = count($bills);
+$mappedCount = count($allocatedBillIds);
+$scoredCount = $mappedCount;
+
 $avgPkgConf = $scoredCount > 0 ? round($totalPkgConfidence / $scoredCount, 1) : 0;
 $avgTradeConf = $scoredCount > 0 ? round($totalTradeConfidence / $scoredCount, 1) : 0;
-// Overall accuracy combines allocation rate and average confidence
-$mappingRate = count($bills) > 0 ? ($mappedCount / count($bills)) : 0;
-$overallAccuracy = round((($avgPkgConf * 0.95) + ($avgTradeConf * 0.05)) * ($mappingRate * 0.2 + 0.8), 1);
+
+// Mapping rate strictly between 0.0 and 1.0 (0% - 100%)
+$mappingRate = $totalBillsCount > 0 ? min(1.0, max(0.0, $mappedCount / $totalBillsCount)) : 0.0;
+
+// Overall accuracy relies strictly on Works Package confidence and allocation coverage (0% - 100%)
+$rawAccuracy = $avgPkgConf * ($mappingRate * 0.2 + 0.8);
+$overallAccuracy = round(min(100.0, max(0.0, $rawAccuracy)), 1);
 
 $finalOutput = [
     'metadata' => [
@@ -465,7 +550,7 @@ $newRun = [
 $updatedHistory = [];
 foreach ($history as $run) {
     if (is_array($run) && isset($run['model'])) {
-        $runTemplate = $run['template'] ?? 'WD template.xlsx';
+        $runTemplate = $run['template'] ?? 'WD template.csv';
         // Keep runs if they are a different model OR a different template
         if ($run['model'] !== $newRun['model'] || $runTemplate !== $newRun['template']) {
             $updatedHistory[] = $run;

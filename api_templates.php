@@ -5,7 +5,7 @@ $files = [];
 if (is_dir($dir)) {
     $scanned = scandir($dir);
     foreach ($scanned as $file) {
-        if (pathinfo($file, PATHINFO_EXTENSION) === 'xlsx' && strpos($file, '~$') !== 0) {
+        if (pathinfo($file, PATHINFO_EXTENSION) === 'csv' && strpos($file, '~$') !== 0) {
             $files[] = $file;
         }
     }

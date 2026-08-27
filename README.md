@@ -1,6 +1,6 @@
 # BoQ to Works Package Allocation Engine
 
-This application uses Advanced AI Models (Google Gemini, OpenAI GPT-5.6, and Anthropic Claude) to automatically analyse and allocate unmapped Bill of Quantities (BoQ) items into standard Works Packages.
+This application uses Advanced AI Models (Google Gemini, OpenAI GPT-5.6, Anthropic Claude, and Local Llama) to automatically analyze and allocate unmapped Bill of Quantities (BoQ) items into standard Works Packages.
 
 ## 1. Setup & Configuration
 
@@ -12,12 +12,12 @@ This application uses Advanced AI Models (Google Gemini, OpenAI GPT-5.6, and Ant
    ANTHROPIC_API_KEY=your_anthropic_key
    ```
 2. **Start the Server**
-   Start the local PHP web server from the terminal (or run with Laravel Herd via `http://conv2.test`):
+   Start the local PHP web server from the terminal:
    ```bash
    php -S localhost:8000
    ```
 3. **Access the App**
-   Open your browser and navigate to `http://localhost:8000/viewer.html` or `http://conv2.test`.
+   Open your browser and navigate to `http://localhost:8000/viewer.html`.
 
 ## 2. Using the Web Interface
 
@@ -42,42 +42,42 @@ You can inject your own specific commercial rules into the AI without touching t
 *(Advanced)*: If you want to completely override the application's own prompts, you can place it inside a `custom_prompt.txt` file. Use the tag `[TARGET_WORKS_PACKAGES]` where you want the template packages injected.
 
 ### How it works
-Here is how the hierarchy works:
+ Here is how the hierarchy works:
 
-### 1. custom_prompt.txt 
-If you create this file and it is not empty, the engine will completely ignore the default system prompt and use exactly what you wrote.
-* **Safety Net:** Because the AI needs to know what works packages are available, use the macro tag `[TARGET_WORKS_PACKAGES]` anywhere in this text file, and the engine will automatically swap it out for the active template's package list.
-* **Warning:** If you use this, you are fully responsible for instructing the AI to output the precise JSON array schema the UI expects!
+  ### 1. custom_prompt.txt 
 
-### 2. custom_rules.txt
-If `custom_prompt.txt` is missing or empty, the engine will look for `custom_rules.txt`.
-If it finds it, it will keep all the robust JSON formatting instructions and Few-Shot examples, but it will dynamically inject your text under a heavily-weighted `USER SPECIFIC OVERRIDE RULES (PRIORITIZE THESE):` section right into the core constraints.
+  If you create this file and it is not empty, the engine will completely ignore the default system prompt and use exactly what you wrote.
 
-### 3. Reverting to Default
-If neither file is present, or if both are empty, the engine will seamlessly fall back to the optimized, model-specific default prompts.
+  • Safety Net: Because the AI needs to know what works packages are available, I added a macro tag. If you write [TARGET_WORKS_PACKAGES] anywhere in
+  this text file, the engine will automatically swap it out for the active template's package list.
+  • Warning: If you use this, you are fully responsible for instructing the AI to output the precise JSON array schema the UI expects!
+
+  ### 2. custom_rules.txt
+
+  If custom_prompt.txt is missing or empty, the engine will look for custom_rules.txt.
+  If it finds it, it will keep all the robust JSON formatting instructions and Few-Shot examples, but it will dynamically inject your text under a
+  heavily-weighted USER SPECIFIC OVERRIDE RULES (PRIORITIZE THESE): section right into the core constraints.
+
+  ### 3. Reverting to Default
+
+  If neither file is present (which is the current state of your folder), or if both are totally empty, the engine will seamlessly fall back to the
+  optimized, model-specific default prompts we just built.
+
+  You can now just drop either .txt file into the folder whenever you want to steer the AI.
 
 ## 4. Running via Command Line (CLI)
 
 You can trigger the AI allocation pipeline directly from your terminal. 
 
 ```bash
-php process_boq_wd.php --model=gemini-3.6-flash --template="NRM1 template.xlsx"
+php process_boq_wd.php --model=gemini-flash --template="NRM1 template.xlsx"
 ```
 
 **Supported Model Flags:**
-* **Google Gemini:**
-  * `--model=gemini-3.7-flash` (Gemini 3.7 Flash)
-  * `--model=gemini-3.6-flash` (Gemini 3.6 Flash - Default)
-  * `--model=gemini-3.5-flash` (Gemini 3.5 Flash)
-  * `--model=gemini-3.5-flash-lite` (Gemini 3.5 Flash-Lite)
-  * `--model=gemini-3.1-pro` (Gemini 3.1 Pro)
-  * *Any custom Gemini model string, e.g. `--model=gemini-2.5-flash`*
-* **OpenAI:**
-  * `--model=openai-sol` (GPT-5.6 Sol)
-  * `--model=openai-terra` (GPT-5.6 Terra)
-  * `--model=openai-luna` (GPT-5.6 Luna)
-* **Anthropic Claude:**
-  * `--model=claude-sonnet` (Claude 3.7 Sonnet)
-  * `--model=claude-opus` (Claude Opus)
+* `--model=gemini-flash` (Gemini 3.7 Flash)
+* `--model=gemini-pro` (Gemini 3.1 Pro)
+* `--model=openai-sol` (GPT-5.6 Sol)
+* `--model=openai-terra` (GPT-5.6 Terra)
+* `--model=openai-luna` (GPT-5.6 Luna)
 
 The script will stream its progress to the terminal and automatically save the results so they appear in your Web UI's League Table the next time you refresh.

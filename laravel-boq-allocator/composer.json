@@ -1,0 +1,25 @@
+{
+    "name": "construction/boq-allocator",
+    "description": "AI-Powered Bill of Quantities (BoQ) to Works Package Allocation Engine for Laravel",
+    "type": "library",
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "BoqAllocator\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.1|^8.2|^8.3|^8.4",
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-zip": "*",
+        "ext-json": "*"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BoqAllocator\\Providers\\BoqAllocatorServiceProvider"
+            ]
+        }
+    }
+}
