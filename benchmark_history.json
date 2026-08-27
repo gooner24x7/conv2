@@ -22,17 +22,6 @@
         "cost": 0.044815
     },
     {
-        "timestamp": "2026-08-27 10:31:15",
-        "model": "Google Gemini 3.6 Flash",
-        "template": "NRM2 template.csv",
-        "total_bills": 71,
-        "mapped_bills": 62,
-        "mapping_rate": 0.8732394366197183,
-        "accuracy": 91.9,
-        "execution_time_sec": 363.19,
-        "cost": 0.2569905
-    },
-    {
         "timestamp": "2026-08-27 10:34:03",
         "model": "Google Gemini 3.5 Flash-Lite",
         "template": "NRM1 template.csv",
