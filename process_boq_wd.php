@@ -4,6 +4,8 @@
  * Multi-Engine Architecture with Dual-Confidence Scoring & Web-Trigger Support
  */
 
+error_reporting(E_ALL & ~E_DEPRECATED);
+
 $globalStartTime = microtime(true);
 
 // Disable PHP execution time limit for long AI requests
@@ -91,7 +93,7 @@ function parseCsv(string $csvPath): array {
     if (($handle = fopen($csvPath, "r")) !== FALSE) {
         // To handle UTF-8 BOM if present
         $firstLine = true;
-        while (($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
+        while (($data = fgetcsv($handle, 10000, ",", '"', "\\")) !== FALSE) {
             if ($firstLine) {
                 if (isset($data[0])) {
                     // Strip BOM

@@ -428,6 +428,19 @@
                 </div>
             </div>
 
+            <!-- Hierarchy Tree Header & Controls -->
+            <div class="tree-controls" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; margin-top: 8px;">
+                <div style="font-weight: 600; color: #475569; font-size: 0.95em;">Works Package Hierarchy</div>
+                <div style="display: flex; gap: 8px;">
+                    <button type="button" class="btn-tree-toggle" onclick="expandAllWorkPackages()" style="padding: 6px 12px; font-size: 0.85em; font-weight: 500; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 4px; color: #334155; transition: all 0.2s;">
+                        <span>➕</span> Expand All
+                    </button>
+                    <button type="button" class="btn-tree-toggle" onclick="collapseAllWorkPackages()" style="padding: 6px 12px; font-size: 0.85em; font-weight: 500; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 4px; color: #334155; transition: all 0.2s;">
+                        <span>➖</span> Collapse All
+                    </button>
+                </div>
+            </div>
+
             <!-- Hierarchy Tree Container -->
             <div id="tree">Loading package hierarchy...</div>
         </div>
@@ -468,6 +481,7 @@
                             <th onclick="sortLeagueTable('execution_time_sec')" style="padding: 16px; cursor: pointer; user-select: none;">Execution Time <span class="sort-icon"></span></th>
                             <th onclick="sortLeagueTable('cost')" style="padding: 16px; cursor: pointer; user-select: none;">Total Cost <span class="sort-icon"></span></th>
                             <th onclick="sortLeagueTable('timestamp')" style="padding: 16px; cursor: pointer; user-select: none;">Last Run <span class="sort-icon"></span></th>
+                            <th style="padding: 16px; text-align: center; user-select: none;">Action</th>
                         </tr>
                     </thead>
                     <tbody id="league-table-body">
@@ -509,7 +523,11 @@
             fetch('benchmark_history.json?t=' + Date.now())
                 .then(res => res.json())
                 .then(data => {
-                    if (!data || data.length === 0) return;
+                    if (!data || data.length === 0) {
+                        leagueData = [];
+                        renderLeagueTable();
+                        return;
+                    }
                     // Deduplicate to get the latest per model + template combination
                     const latestByRun = {};
                     data.forEach(run => { 
@@ -519,12 +537,21 @@
                     leagueData = Object.values(latestByRun);
                     renderLeagueTable();
                 })
-                .catch(err => console.log('No historical data yet.'));
+                .catch(err => {
+                    console.log('No historical data yet.');
+                    leagueData = [];
+                    renderLeagueTable();
+                });
         }
 
         function renderLeagueTable() {
             const tbody = document.getElementById('league-table-body');
             tbody.innerHTML = '';
+
+            if (leagueData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" style="padding: 24px; text-align: center; color: #94a3b8;">No benchmark records found.</td></tr>`;
+                return;
+            }
 
             // Sort data
             leagueData.sort((a, b) => {
@@ -545,10 +572,12 @@
             const ths = document.querySelectorAll('#league-table th');
             ths.forEach(th => {
                 const icon = th.querySelector('.sort-icon');
-                if (th.getAttribute('onclick').includes(currentSortColumn)) {
-                    icon.textContent = currentSortAsc ? ' ▲' : ' ▼';
-                } else {
-                    icon.textContent = '';
+                if (icon) {
+                    if (th.getAttribute('onclick') && th.getAttribute('onclick').includes(currentSortColumn)) {
+                        icon.textContent = currentSortAsc ? ' ▲' : ' ▼';
+                    } else {
+                        icon.textContent = '';
+                    }
                 }
             });
 
@@ -563,16 +592,53 @@
                 const mappingPct = row.mapping_rate ? (row.mapping_rate * 100).toFixed(1) + '%' : (row.mapped_bills ? Math.round((row.mapped_bills/row.total_bills)*100) + '%' : 'N/A');
                 
                 tr.innerHTML = `
-                    <td style="padding: 16px; font-weight: 600;">${row.model}</td>
+                    <td style="padding: 16px; font-weight: 600;">${escapeHtml(row.model)}</td>
                     <td style="padding: 16px;">${row.accuracy.toFixed(1)}%</td>
                     <td style="padding: 16px;">${mappingPct}</td>
-                    <td style="padding: 16px;">${tmpl}</td>
+                    <td style="padding: 16px;">${escapeHtml(tmpl)}</td>
                     <td style="padding: 16px;">${row.execution_time_sec.toFixed(1)}s</td>
                     <td style="padding: 16px;">$${row.cost.toFixed(5)}</td>
                     <td style="padding: 16px; color: #64748b; font-size: 0.9em;">${dateStr}</td>
+                    <td style="padding: 16px; text-align: center;">
+                        <button type="button" onclick="deleteLeagueEntry('${row.timestamp}', '${escapeHtml(row.model)}', '${escapeHtml(tmpl)}')"
+                                title="Delete this entry"
+                                style="padding: 5px 12px; border-radius: 6px; border: 1px solid #fecdd3; background: #fff1f2; color: #e11d48; cursor: pointer; font-size: 0.82em; font-weight: 600; transition: all 0.2s;">
+                            🗑️ Delete
+                        </button>
+                    </td>
                 `;
                 tbody.appendChild(tr);
             });
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function deleteLeagueEntry(timestamp, model, template) {
+            if (!confirm(`Are you sure you want to delete the entry for "${model}" (${template})?`)) {
+                return;
+            }
+            fetch('delete_history_item.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ timestamp, model, template })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    loadLeagueTable();
+                } else {
+                    alert("Failed to delete entry: " + (data.message || 'Unknown error'));
+                }
+            })
+            .catch(err => alert("Error deleting entry: " + err));
         }
 
         function sortLeagueTable(column) {
@@ -722,6 +788,24 @@
             });
         }
 
+        function expandAllWorkPackages() {
+            const treeContainer = document.getElementById('tree');
+            if (!treeContainer) return;
+            const allDetails = treeContainer.querySelectorAll('details');
+            allDetails.forEach(d => {
+                if (d.querySelector('.wd-package')) {
+                    d.open = true;
+                }
+            });
+        }
+
+        function collapseAllWorkPackages() {
+            const treeContainer = document.getElementById('tree');
+            if (!treeContainer) return;
+            const allDetails = treeContainer.querySelectorAll('details');
+            allDetails.forEach(d => d.open = false);
+        }
+
         function loadHierarchy() {
             return fetch('output_wd.json?t=' + Date.now())
                 .then(res => res.json())
@@ -751,7 +835,7 @@
 
                     data.work_packages.forEach(wdPkg => {
                         const wdDetails = document.createElement('details');
-                        if (wdPkg.children && wdPkg.children.length > 0) wdDetails.open = true;
+                        wdDetails.open = false; // Collapsed by default
 
                         const wdSummary = document.createElement('summary');
                         wdSummary.className = 'wd-package';
