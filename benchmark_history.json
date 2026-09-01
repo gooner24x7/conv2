@@ -48,18 +48,6 @@
         "output_file": "runs\/run_cac097058422bd293bda31102c0dc4a7.json"
     },
     {
-        "timestamp": "2026-08-27 10:51:46",
-        "model": "Google Gemini 3.5 Flash-Lite",
-        "template": "WD template.csv",
-        "total_bills": 71,
-        "mapped_bills": 61,
-        "mapping_rate": 0.8591549295774648,
-        "accuracy": 90.9,
-        "execution_time_sec": 52.99,
-        "cost": 0.010225274999999999,
-        "output_file": "runs\/run_28aa60f5d251cc11520be4cc5a91966b.json"
-    },
-    {
         "timestamp": "2026-08-27 15:36:27",
         "model": "Google Gemini 3.5 Flash-Lite",
         "template": "NRM2 template.csv",
@@ -82,5 +70,29 @@
         "execution_time_sec": 341.45,
         "cost": 0.262146,
         "output_file": "runs\/run_46a1cda7b3e9a9268f61dfdfdbc4f1f3.json"
+    },
+    {
+        "timestamp": "2026-09-01 12:45:18",
+        "model": "Google Gemini 3.6 Flash (Fast & Balanced)",
+        "template": "WD template.csv",
+        "total_bills": 71,
+        "mapped_bills": 0,
+        "mapping_rate": 0,
+        "accuracy": 0,
+        "execution_time_sec": 2.17,
+        "cost": 0,
+        "output_file": "runs\/run_d79fd39cc27a54c7abb069febddce874.json"
+    },
+    {
+        "timestamp": "2026-09-01 12:46:26",
+        "model": "Google Gemini 3.5 Flash-Lite",
+        "template": "WD template.csv",
+        "total_bills": 71,
+        "mapped_bills": 70,
+        "mapping_rate": 0.9859154929577465,
+        "accuracy": 89.1,
+        "execution_time_sec": 15.65,
+        "cost": 0.00244,
+        "output_file": "runs\/run_28aa60f5d251cc11520be4cc5a91966b.json"
     }
 ]

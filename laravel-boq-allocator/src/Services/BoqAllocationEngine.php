@@ -14,7 +14,7 @@ class BoqAllocationEngine
     public function __construct(?BoqParserService $parser = null, array $config = [])
     {
         $this->parser = $parser ?: new BoqParserService();
-        $this->config = $config ?: config('boq-allocator', []);
+        $this->config = $config ?: (function_exists('config') ? config('boq-allocator', []) : []);
     }
 
     /**

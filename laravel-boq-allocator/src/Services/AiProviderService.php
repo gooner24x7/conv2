@@ -12,41 +12,50 @@ class AiProviderService
 
     public function __construct(?string $modelKey = null, array $config = [])
     {
-        $this->config = $config ?: config('boq-allocator', []);
-        $this->modelKey = $modelKey ?: ($this->config['default_model'] ?? 'gemini-3.6-flash');
+        $this->config = $config ?: (function_exists('config') ? config('boq-allocator', []) : []);
+        $this->modelKey = $modelKey ?: ($this->config['default_model'] ?? getenv('BOQ_DEFAULT_MODEL') ?: 'gemini-3.6-flash');
+
+        // Fallback for standalone usage
+        if (empty($this->config['api_keys'])) {
+            $this->config['api_keys'] = [
+                'gemini' => getenv('GEMINI_API_KEY') ?: '',
+                'openai' => getenv('OPENAI_API_KEY') ?: '',
+                'anthropic' => getenv('ANTHROPIC_API_KEY') ?: '',
+            ];
+        }
 
         $this->modelCatalog = [
             'gemini-3.6-flash' => [
                 'provider' => 'gemini',
-                'name' => 'gemini-2.5-flash',
+                'name' => 'gemini-3.6-flash',
                 'label' => 'Google Gemini 3.6 Flash (Fast & Balanced)',
                 'cost_in_per_m' => 0.075,
                 'cost_out_per_m' => 0.30
             ],
             'gemini-3.7-flash' => [
                 'provider' => 'gemini',
-                'name' => 'gemini-2.5-flash',
+                'name' => 'gemini-3.7-flash',
                 'label' => 'Google Gemini 3.7 Flash (Ultra-Fast)',
                 'cost_in_per_m' => 0.075,
                 'cost_out_per_m' => 0.30
             ],
             'gemini-3.5-flash' => [
                 'provider' => 'gemini',
-                'name' => 'gemini-2.0-flash',
+                'name' => 'gemini-3.5-flash',
                 'label' => 'Google Gemini 3.5 Flash',
                 'cost_in_per_m' => 0.10,
                 'cost_out_per_m' => 0.40
             ],
             'gemini-3.5-flash-lite' => [
                 'provider' => 'gemini',
-                'name' => 'gemini-2.0-flash-lite',
+                'name' => 'gemini-3.5-flash-lite',
                 'label' => 'Google Gemini 3.5 Flash-Lite',
                 'cost_in_per_m' => 0.075,
                 'cost_out_per_m' => 0.30
             ],
             'gemini-3.1-pro' => [
                 'provider' => 'gemini',
-                'name' => 'gemini-2.5-pro',
+                'name' => 'gemini-3.1-pro',
                 'label' => 'Google Gemini 3.1 Pro (Deep Reasoning)',
                 'cost_in_per_m' => 1.25,
                 'cost_out_per_m' => 5.00
@@ -119,7 +128,7 @@ class AiProviderService
 
     protected function callGemini(string $model, string $systemPrompt, string $userPrompt): array
     {
-        $apiKey = $this->config['api_keys']['gemini'] ?? env('GEMINI_API_KEY', '');
+        $apiKey = $this->config['api_keys']['gemini'] ?? '';
         if (empty($apiKey)) {
             throw new Exception("GEMINI_API_KEY is not configured.");
         }
@@ -154,7 +163,7 @@ class AiProviderService
 
     protected function callOpenAi(string $model, string $systemPrompt, string $userPrompt): array
     {
-        $apiKey = $this->config['api_keys']['openai'] ?? env('OPENAI_API_KEY', '');
+        $apiKey = $this->config['api_keys']['openai'] ?? '';
         if (empty($apiKey)) {
             throw new Exception("OPENAI_API_KEY is not configured.");
         }
@@ -187,7 +196,7 @@ class AiProviderService
 
     protected function callAnthropic(string $model, string $systemPrompt, string $userPrompt): array
     {
-        $apiKey = $this->config['api_keys']['anthropic'] ?? env('ANTHROPIC_API_KEY', '');
+        $apiKey = $this->config['api_keys']['anthropic'] ?? '';
         if (empty($apiKey)) {
             throw new Exception("ANTHROPIC_API_KEY is not configured.");
         }
@@ -227,7 +236,8 @@ class AiProviderService
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => json_encode($data),
             CURLOPT_HTTPHEADER => $headers,
-            CURLOPT_TIMEOUT => 180
+            CURLOPT_TIMEOUT => 180,
+            CURLOPT_SSL_VERIFYPEER => false
         ]);
 
         $resp = curl_exec($ch);

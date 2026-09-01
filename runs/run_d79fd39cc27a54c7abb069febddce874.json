@@ -1,0 +1,883 @@
+{
+    "metadata": {
+        "total_bills": 71,
+        "mapped_bills": 0,
+        "unmapped_bills": 71,
+        "packages_used": 0,
+        "engine": "Google Gemini 3.6 Flash (Fast & Balanced)",
+        "template": "WD template.csv",
+        "execution_time": "2.17s",
+        "overall_accuracy_score": "0%",
+        "avg_package_confidence": "0%",
+        "avg_trade_confidence": "0%",
+        "token_usage": {
+            "input": 0,
+            "output": 0,
+            "total": 0
+        },
+        "estimated_cost": "$0.00000"
+    },
+    "work_packages": [
+        {
+            "id": "wd_unmapped",
+            "name": "Unmapped / General Scope",
+            "attributes": {
+                "package_type": "wd_template"
+            },
+            "children": [
+                {
+                    "id": "bill_1",
+                    "name": "Bill 1: Demolition & Initial Earthworks",
+                    "attributes": {
+                        "bill_number": 1,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_2",
+                    "name": "Bill 2: Substructure",
+                    "attributes": {
+                        "bill_number": 2,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_3",
+                    "name": "Bill 3: Frame",
+                    "attributes": {
+                        "bill_number": 3,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_4",
+                    "name": "Bill 4: Upper Floors",
+                    "attributes": {
+                        "bill_number": 4,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_5",
+                    "name": "Bill 5: Roof",
+                    "attributes": {
+                        "bill_number": 5,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_6",
+                    "name": "Bill 6: Stairs",
+                    "attributes": {
+                        "bill_number": 6,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_7",
+                    "name": "Bill 7: External Walls",
+                    "attributes": {
+                        "bill_number": 7,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_8",
+                    "name": "Bill 8: Windows & External Doors",
+                    "attributes": {
+                        "bill_number": 8,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_9",
+                    "name": "Bill 9: Internal Walls",
+                    "attributes": {
+                        "bill_number": 9,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_10",
+                    "name": "Bill 10: Internal Doors",
+                    "attributes": {
+                        "bill_number": 10,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_11",
+                    "name": "Bill 11: Wall Finishes",
+                    "attributes": {
+                        "bill_number": 11,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_12",
+                    "name": "Bill 12: Floor Finishes",
+                    "attributes": {
+                        "bill_number": 12,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_13",
+                    "name": "Bill 13: Ceiling Finishes",
+                    "attributes": {
+                        "bill_number": 13,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_14",
+                    "name": "Bill 14: FF&E",
+                    "attributes": {
+                        "bill_number": 14,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_15",
+                    "name": "Bill 15: Sanitaryware",
+                    "attributes": {
+                        "bill_number": 15,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_16",
+                    "name": "Bill 16: M&E",
+                    "attributes": {
+                        "bill_number": 16,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_17",
+                    "name": "Bill 17: Phase 0 - Substructure Drainage",
+                    "attributes": {
+                        "bill_number": 17,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_18",
+                    "name": "Bill 18: Phase 1 - Cut & Fill",
+                    "attributes": {
+                        "bill_number": 18,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_19",
+                    "name": "Bill 19: Phase 1 - External Works",
+                    "attributes": {
+                        "bill_number": 19,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_20",
+                    "name": "Bill 20: Phase 1 - Drainage",
+                    "attributes": {
+                        "bill_number": 20,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_21",
+                    "name": "Bill 21: Phase 1 - External Services",
+                    "attributes": {
+                        "bill_number": 21,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_22",
+                    "name": "Bill 22: Phase 2 - Cut & Fill",
+                    "attributes": {
+                        "bill_number": 22,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_23",
+                    "name": "Bill 23: Phase 2 - External Works",
+                    "attributes": {
+                        "bill_number": 23,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_24",
+                    "name": "Bill 24: Phase 2 - Drainage",
+                    "attributes": {
+                        "bill_number": 24,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_25",
+                    "name": "Bill 25: Phase 2 - External Services",
+                    "attributes": {
+                        "bill_number": 25,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_26",
+                    "name": "Bill 26: Phase 3 - Cut & Fill",
+                    "attributes": {
+                        "bill_number": 26,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_27",
+                    "name": "Bill 27: Phase 3 - External Works",
+                    "attributes": {
+                        "bill_number": 27,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_28",
+                    "name": "Bill 28: Phase 3 - Drainage",
+                    "attributes": {
+                        "bill_number": 28,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_29",
+                    "name": "Bill 29: Phase 3 - External Services",
+                    "attributes": {
+                        "bill_number": 29,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_30",
+                    "name": "Bill 30: Phase 4 - Cut & Fill",
+                    "attributes": {
+                        "bill_number": 30,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_31",
+                    "name": "Bill 31: Phase 4 - External Works",
+                    "attributes": {
+                        "bill_number": 31,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_32",
+                    "name": "Bill 32: Phase 4 - Drainage",
+                    "attributes": {
+                        "bill_number": 32,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_33",
+                    "name": "Bill 33: Phase 4 - External Services",
+                    "attributes": {
+                        "bill_number": 33,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_34",
+                    "name": "Bill 34: Phase 5 - Cut & Fill",
+                    "attributes": {
+                        "bill_number": 34,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_35",
+                    "name": "Bill 35: Phase 5 - External Works",
+                    "attributes": {
+                        "bill_number": 35,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_36",
+                    "name": "Bill 36: Phase 5 - Drainage",
+                    "attributes": {
+                        "bill_number": 36,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_37",
+                    "name": "Bill 37: Phase 5 - External Services",
+                    "attributes": {
+                        "bill_number": 37,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_38",
+                    "name": "Bill 38: Phase 6 - Cut & Fill",
+                    "attributes": {
+                        "bill_number": 38,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_39",
+                    "name": "Bill 39: Phase 6 - External Works",
+                    "attributes": {
+                        "bill_number": 39,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_40",
+                    "name": "Bill 40: Phase 6 - Drainage",
+                    "attributes": {
+                        "bill_number": 40,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_41",
+                    "name": "Bill 41: Phase 6 - External Services",
+                    "attributes": {
+                        "bill_number": 41,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_42",
+                    "name": "Bill 42: Phase 7 - Cut & Fill",
+                    "attributes": {
+                        "bill_number": 42,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_43",
+                    "name": "Bill 43: Phase 7 - External Works",
+                    "attributes": {
+                        "bill_number": 43,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_44",
+                    "name": "Bill 44: Phase 7 - Drainage",
+                    "attributes": {
+                        "bill_number": 44,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_45",
+                    "name": "Bill 45: Phase 7 - External Services",
+                    "attributes": {
+                        "bill_number": 45,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_46",
+                    "name": "Bill 46: Phase 8.1 (278 Wks) - Cut & Fill",
+                    "attributes": {
+                        "bill_number": 46,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_47",
+                    "name": "Bill 47: Phase 8.1 (278 Wks) - External Works",
+                    "attributes": {
+                        "bill_number": 47,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_48",
+                    "name": "Bill 48: Phase 8.1 (278 Wks) - Drainage",
+                    "attributes": {
+                        "bill_number": 48,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_49",
+                    "name": "Bill 49: Phase 8.1 (278 Wks) - External Services",
+                    "attributes": {
+                        "bill_number": 49,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_50",
+                    "name": "Bill 50: Phase 8.2 (278 Wks) - Cut & Fill",
+                    "attributes": {
+                        "bill_number": 50,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_51",
+                    "name": "Bill 51: Phase 8.2 (278 Wks) - External Works",
+                    "attributes": {
+                        "bill_number": 51,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_52",
+                    "name": "Bill 52: Phase 8.2 (278 Wks) - Drainage",
+                    "attributes": {
+                        "bill_number": 52,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_53",
+                    "name": "Bill 53: Phase 8.2 (278 Wks) - External Services",
+                    "attributes": {
+                        "bill_number": 53,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_54",
+                    "name": "Bill 54: Phase 8.3 (278 Wks) - Cut & Fill",
+                    "attributes": {
+                        "bill_number": 54,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_55",
+                    "name": "Bill 55: Phase 8.3 (278 Wks) - External Works",
+                    "attributes": {
+                        "bill_number": 55,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_56",
+                    "name": "Bill 56: Phase 8.3 (278 Wks) - Drainage",
+                    "attributes": {
+                        "bill_number": 56,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_57",
+                    "name": "Bill 57: Phase 8.3 (278 Wks) - External Services",
+                    "attributes": {
+                        "bill_number": 57,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_58",
+                    "name": "Bill 58: Phase 8.4 (278 Wks) - Cut & Fill",
+                    "attributes": {
+                        "bill_number": 58,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_59",
+                    "name": "Bill 59: Phase 8.4 (278 Wks) - External Works",
+                    "attributes": {
+                        "bill_number": 59,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_60",
+                    "name": "Bill 60: Phase 8.4 (278 Wks) - Drainage",
+                    "attributes": {
+                        "bill_number": 60,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_61",
+                    "name": "Bill 61: Phase 8.4 (278 Wks) - External Services",
+                    "attributes": {
+                        "bill_number": 61,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_62",
+                    "name": "Bill 62: Phase 8.5 (278 Wks) - Cut & Fill",
+                    "attributes": {
+                        "bill_number": 62,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_63",
+                    "name": "Bill 63: Phase 8.5 (278 Wks) - External Works",
+                    "attributes": {
+                        "bill_number": 63,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_64",
+                    "name": "Bill 64: Phase 8.5 (278 Wks) - Drainage",
+                    "attributes": {
+                        "bill_number": 64,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_65",
+                    "name": "Bill 65: Phase 8.5 (278 Wks) - External Services",
+                    "attributes": {
+                        "bill_number": 65,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_66",
+                    "name": "Bill 66: Phase 9 - Trafford Way Making Good Works",
+                    "attributes": {
+                        "bill_number": 66,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_67",
+                    "name": "Bill 67: Phase 10 - West Street Resurfacing Works",
+                    "attributes": {
+                        "bill_number": 67,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_68",
+                    "name": "Bill 68: Vac Exc Works",
+                    "attributes": {
+                        "bill_number": 68,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_69",
+                    "name": "Bill 69: Ext Services (Disconnect/Connect/Divert)",
+                    "attributes": {
+                        "bill_number": 69,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_70",
+                    "name": "Bill 70: Defence Mounds (Valley Garden)",
+                    "attributes": {
+                        "bill_number": 70,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_71",
+                    "name": "Bill 71: Gap Analysis",
+                    "attributes": {
+                        "bill_number": 71,
+                        "suggested_trade": "General / Allowance",
+                        "package_confidence": 0,
+                        "trade_confidence": 50,
+                        "ai_rationale": "Identified as general allowance or unallocated scope."
+                    },
+                    "source_evidence": []
+                }
+            ]
+        }
+    ]
+}

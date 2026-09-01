@@ -2,5 +2,10 @@
     "require": {
         "phpoffice/phpspreadsheet": "*",
         "smalot/pdfparser": "^2.12"
+    },
+    "autoload": {
+        "psr-4": {
+            "BoqAllocator\\": "laravel-boq-allocator/src/"
+        }
     }
 }
