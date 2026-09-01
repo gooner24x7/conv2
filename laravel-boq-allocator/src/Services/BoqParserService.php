@@ -139,23 +139,29 @@ class BoqParserService
 
         $wdPackages = [];
         $wdList = [];
+        $tier2Map = [];
+        $isTiered = false;
 
-        // Auto-detect 4-column NRM2 format vs 2-column Works Package format
         $is4ColumnNrm = false;
+        $isNrm1 = false;
+
         if (!empty($sheet)) {
             $firstRow = $sheet[0] ?? [];
             if (isset($firstRow['C']) || (isset($firstRow['A']) && stripos($firstRow['A'], 'Work Section Number') !== false)) {
                 $is4ColumnNrm = true;
+            } elseif (isset($sheet[1]['B']) && stripos($sheet[1]['B'], 'Context: Belongs to Group Element:') !== false) {
+                $isNrm1 = true;
             }
         }
 
         if ($is4ColumnNrm) {
-            // Group granular NRM2 work items by Work Section to form clear Trade Packages
+            $isTiered = true;
             $sectionGroups = [];
             foreach ($sheet as $idx => $row) {
-                if ($idx === 0) continue; // Skip header row
+                if ($idx === 0) continue;
                 $secNum = trim($row['A'] ?? '');
                 $secName = trim($row['B'] ?? '');
+                $itemNum = trim($row['C'] ?? '');
                 $itemName = trim($row['D'] ?? '');
 
                 if ($secNum === '' || $secName === '') continue;
@@ -167,24 +173,62 @@ class BoqParserService
                     ];
                 }
                 if ($itemName !== '') {
-                    $sectionGroups[$secNum]['items'][] = $itemName;
+                    $sectionGroups[$secNum]['items'][] = [
+                        'id' => 't2_' . md5($secNum . $itemName . $itemNum),
+                        'name' => $itemNum !== '' ? "$itemNum $itemName" : $itemName,
+                        'description' => "Detailed item: $itemName"
+                    ];
                 }
             }
 
             foreach ($sectionGroups as $secNum => $g) {
                 $id = 'wd_' . $secNum;
                 $name = $g['name'];
-                $itemsList = $g['items'];
-                $desc = "Includes: " . implode(', ', array_slice($itemsList, 0, 12)) . (count($itemsList) > 12 ? '...' : '.');
+                
+                $itemNames = array_column($g['items'], 'name');
+                $desc = "Includes: " . implode(', ', array_slice($itemNames, 0, 12)) . (count($itemNames) > 12 ? '...' : '.');
+                
                 $wdPackages[$name] = $id;
                 $wdList[] = ['id' => $id, 'name' => $name, 'description' => $desc];
+                $tier2Map[$id] = $g['items'];
             }
-        } else {
-            // 2-column standard format (WD template, NRM1 template)
-            foreach ($sheet as $row) {
+        } elseif ($isNrm1) {
+            $isTiered = true;
+            $groupElements = [];
+            foreach ($sheet as $idx => $row) {
+                if ($idx === 0) continue;
                 $name = trim($row['A'] ?? '');
                 $desc = trim($row['B'] ?? '');
 
+                if (preg_match("/Group Element:\s*'([^']+)'/", $desc, $m)) {
+                    $groupName = $m[1];
+                    if (!isset($groupElements[$groupName])) {
+                        $groupElements[$groupName] = [];
+                    }
+                    $groupElements[$groupName][] = [
+                        'id' => 't2_' . md5($groupName . $name),
+                        'name' => $name,
+                        'description' => $desc
+                    ];
+                }
+            }
+
+            $groupIdx = 1;
+            foreach ($groupElements as $gName => $items) {
+                $id = 'wd_g' . $groupIdx++;
+                
+                $itemNames = array_column($items, 'name');
+                $desc = "Includes: " . implode(', ', array_slice($itemNames, 0, 12)) . (count($itemNames) > 12 ? '...' : '.');
+                
+                $wdPackages[$gName] = $id;
+                $wdList[] = ['id' => $id, 'name' => "Group: $gName", 'description' => $desc];
+                $tier2Map[$id] = $items;
+            }
+        } else {
+            // Flat WD Template
+            foreach ($sheet as $row) {
+                $name = trim($row['A'] ?? '');
+                $desc = trim($row['B'] ?? '');
                 if ($name === '' || stripos($name, 'Works Package') !== false || stripos($name, 'wd_') !== false) continue;
 
                 $id = 'wd_' . count($wdPackages);
@@ -194,8 +238,10 @@ class BoqParserService
         }
 
         return [
+            'is_tiered' => $isTiered,
             'packages' => $wdPackages,
-            'list' => $wdList
+            'list' => $wdList,
+            'tier2_map' => $tier2Map
         ];
     }
 

@@ -189,6 +189,70 @@ PROMPT;
         }
 
         // ----------------------------------------------------
+        // PHASE 5.5: Tier 2 Detailed Sub-Allocation (if tiered)
+        // ----------------------------------------------------
+        $tier2Map = $templateData['tier2_map'] ?? [];
+        if (!empty($tier2Map)) {
+            $emit("Phase 5.5: Processing Tier 2 (Granular Work Item) assignments...", 85);
+
+            $billsByTier1 = [];
+            foreach ($billMappings as $bn => $mapData) {
+                $t1 = $mapData['target'];
+                if ($t1 !== 'wd_unmapped' && isset($tier2Map[$t1])) {
+                    if (!isset($billsByTier1[$t1])) $billsByTier1[$t1] = [];
+                    $billsByTier1[$t1][] = $bn;
+                }
+            }
+
+            foreach ($billsByTier1 as $t1Id => $bns) {
+                $microItems = $tier2Map[$t1Id];
+                
+                $t2Rules = "AVAILABLE GRANULAR ITEMS (ID | Name | Description):\n";
+                foreach ($microItems as $mi) {
+                    $t2Rules .= "- ID: {$mi['id']} | Name: {$mi['name']} | Scope: {$mi['description']}\n";
+                }
+                $t2Rules .= "- ID: t2_unmapped | Name: General to Section | Scope: Belongs to this section but no specific granular item matches.\n";
+
+                $t2SysPrompt = "You are a Senior Construction Commercial Manager.\nYou are performing a Tier 2 allocation. These Bills have already been mapped to the parent Work Section.\nYour task is to assign each Bill to the single most appropriate *Granular Item* within this section.\n\n$t2Rules\n\nRESPONSE FORMAT:\nYou must output a single JSON array:\n[\n  {\n    \"bill_number\": 1,\n    \"target_tier2_id\": \"t2_xxx\"\n  }\n]";
+                
+                $t2Batches = array_chunk($bns, $batchSize);
+                foreach ($t2Batches as $t2BatchBills) {
+                    $t2Payload = [];
+                    foreach ($t2BatchBills as $bn) {
+                        $t2Payload[] = [
+                            'bill_number' => $bn,
+                            'bill_name' => $bills[$bn],
+                            'detailed_context_items' => $billContext[$bn] ?? []
+                        ];
+                    }
+                    $t2UserPrompt = "Allocate these Bills to the granular items:\n" . json_encode($t2Payload, JSON_PRETTY_PRINT);
+                    if (!$isOpenAI) {
+                        $t2UserPrompt .= "\n\nRemember to write your <scratchpad> reasoning first, followed by the ```json block.";
+                    }
+
+                    try {
+                        $t2Response = $this->aiProvider->sendChat($t2SysPrompt, $t2UserPrompt);
+                        $totalInTokens += $t2Response['input_tokens'];
+                        $totalOutTokens += $t2Response['output_tokens'];
+
+                        $t2Json = $this->extractJson($t2Response['text']);
+                        $t2Parsed = json_decode($t2Json, true);
+                        if (is_array($t2Parsed)) {
+                            if (isset($t2Parsed['allocations'])) $t2Parsed = $t2Parsed['allocations'];
+                            foreach ($t2Parsed as $item) {
+                                $bn = (int)($item['bill_number'] ?? 0);
+                                $t2Target = trim($item['target_tier2_id'] ?? 't2_unmapped');
+                                if ($bn > 0 && isset($billMappings[$bn])) {
+                                    $billMappings[$bn]['target_tier2'] = $t2Target;
+                                }
+                            }
+                        }
+                    } catch (Exception $e) { }
+                }
+            }
+        }
+
+        // ----------------------------------------------------
         // PHASE 6: Compile Hierarchy & Calculate Metrics
         // ----------------------------------------------------
         $emit("Phase 6: Compiling Final Package Hierarchy & Accuracy Metrics...", 95);
@@ -207,9 +271,27 @@ PROMPT;
                 'children' => []
             ];
 
+            $tier2Nodes = [];
+            if (isset($tier2Map[$wp['id']])) {
+                foreach ($tier2Map[$wp['id']] as $t2m) {
+                    $tier2Nodes[$t2m['id']] = [
+                        'id' => $t2m['id'],
+                        'name' => $t2m['name'],
+                        'attributes' => ['package_type' => 'tier2_item'],
+                        'children' => []
+                    ];
+                }
+                $tier2Nodes['t2_unmapped'] = [
+                    'id' => 't2_unmapped',
+                    'name' => 'General / Section Level',
+                    'attributes' => ['package_type' => 'tier2_item'],
+                    'children' => []
+                ];
+            }
+
             foreach ($billMappings as $bn => $mapData) {
                 if ($mapData['target'] === $wp['id']) {
-                    $node['children'][] = [
+                    $billNode = [
                         'id' => 'bill_' . $bn,
                         'name' => "Bill $bn: " . ($bills[$bn] ?? "Bill $bn"),
                         'attributes' => [
@@ -221,11 +303,29 @@ PROMPT;
                         ],
                         'source_evidence' => $billContext[$bn] ?? []
                     ];
+                    
+                    if (!empty($tier2Nodes)) {
+                        $t2Id = $mapData['target_tier2'] ?? 't2_unmapped';
+                        if (!isset($tier2Nodes[$t2Id])) $t2Id = 't2_unmapped';
+                        $tier2Nodes[$t2Id]['children'][] = $billNode;
+                    } else {
+                        $node['children'][] = $billNode;
+                    }
+
                     $allocatedBillIds[$bn] = true;
                     $totalPkgConfidence += (float)$mapData['package_confidence'];
                     $totalTradeConfidence += (float)$mapData['trade_confidence'];
                 }
             }
+            
+            if (!empty($tier2Nodes)) {
+                foreach ($tier2Nodes as $t2n) {
+                    if (count($t2n['children']) > 0) {
+                        $node['children'][] = $t2n;
+                    }
+                }
+            }
+
             if (count($node['children']) > 0) {
                 $outputTree[] = $node;
             }

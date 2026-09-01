@@ -872,58 +872,92 @@
                         const wdDetails = document.createElement('details');
                         wdDetails.open = false; // Collapsed by default
 
+                        let totalBills = 0;
+                        if (wdPkg.children) {
+                            wdPkg.children.forEach(child => {
+                                if (child.attributes && child.attributes.package_type === 'tier2_item') {
+                                    totalBills += child.children ? child.children.length : 0;
+                                } else {
+                                    totalBills++;
+                                }
+                            });
+                        }
+
                         const wdSummary = document.createElement('summary');
                         wdSummary.className = 'wd-package';
                         wdSummary.innerHTML = `
                             📁 <strong>${wdPkg.name}</strong> 
-                            <span class="badge" style="margin-left: auto;">${wdPkg.children ? wdPkg.children.length : 0} Bills</span>
+                            <span class="badge" style="margin-left: auto;">${totalBills} Bills</span>
                         `;
                         wdDetails.appendChild(wdSummary);
 
+                        const renderBill = (bill, container) => {
+                            const billDetails = document.createElement('details');
+                            billDetails.open = false;
+
+                            const billSummary = document.createElement('summary');
+                            billSummary.className = 'boq-package';
+
+                            const trade = bill.attributes?.suggested_trade || 'General';
+                            const pkgConf = bill.attributes?.package_confidence || 85;
+                            const tradeConf = bill.attributes?.trade_confidence || 85;
+                            const rationale = bill.attributes?.ai_rationale || 'Mapped via AI reasoning.';
+
+                            billSummary.innerHTML = `
+                                <span>📄 ${bill.name}</span>
+                                <span class="badge-trade">🔨 ${trade}</span>
+                                <span class="badge-conf-pkg">📦 Pkg Match: ${pkgConf}%</span>
+                                <span class="badge-conf-trade">🛠️ Trade Match: ${tradeConf}%</span>
+                            `;
+                            billDetails.appendChild(billSummary);
+
+                            const inspectorPanel = document.createElement('div');
+                            inspectorPanel.className = 'inspector-panel';
+
+                            let evidenceHtml = '';
+                            if (bill.source_evidence && bill.source_evidence.length > 0) {
+                                bill.source_evidence.forEach(item => {
+                                    evidenceHtml += `<div class="evidence-item">• ${item}</div>`;
+                                });
+                            } else {
+                                evidenceHtml = '<div class="evidence-item"><em>No detailed items available for this bill.</em></div>';
+                            }
+
+                            inspectorPanel.innerHTML = `
+                                <div style="font-size: 13px; color: #4b5563; margin-bottom: 12px; background: #fffbeb; padding: 10px; border-left: 3px solid #f59e0b;">
+                                    <strong>AI Commercial Rationale:</strong><br/>
+                                    ${rationale}
+                                </div>
+                                <div style="font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 8px;">SCOPE SAMPLES:</div>
+                                ${evidenceHtml}
+                            `;
+                            billDetails.appendChild(inspectorPanel);
+                            container.appendChild(billDetails);
+                        };
+
                         if (wdPkg.children) {
-                            wdPkg.children.forEach(bill => {
-                                const billDetails = document.createElement('details');
-                                billDetails.open = false;
-
-                                const billSummary = document.createElement('summary');
-                                billSummary.className = 'boq-package';
-
-                                const trade = bill.attributes?.suggested_trade || 'General';
-                                const pkgConf = bill.attributes?.package_confidence || 85;
-                                const tradeConf = bill.attributes?.trade_confidence || 85;
-                                const rationale = bill.attributes?.ai_rationale || 'Mapped via AI reasoning.';
-
-                                billSummary.innerHTML = `
-                                    <span>📄 ${bill.name}</span>
-                                    <span class="badge-trade">🔨 ${trade}</span>
-                                    <span class="badge-conf-pkg">📦 Pkg Match: ${pkgConf}%</span>
-                                    <span class="badge-conf-trade">🛠️ Trade Match: ${tradeConf}%</span>
-                                `;
-                                billDetails.appendChild(billSummary);
-
-                                const inspectorPanel = document.createElement('div');
-                                inspectorPanel.className = 'inspector-panel';
-
-                                let evidenceHtml = '';
-                                if (bill.source_evidence && bill.source_evidence.length > 0) {
-                                    bill.source_evidence.forEach(item => {
-                                        evidenceHtml += `<div class="evidence-item">• ${item}</div>`;
-                                    });
+                            wdPkg.children.forEach(child => {
+                                if (child.attributes && child.attributes.package_type === 'tier2_item') {
+                                    const t2Details = document.createElement('details');
+                                    t2Details.open = false;
+                                    t2Details.style.marginLeft = "20px";
+                                    
+                                    const t2Summary = document.createElement('summary');
+                                    t2Summary.className = 'wd-package';
+                                    t2Summary.style.background = '#f8fafc';
+                                    t2Summary.innerHTML = `
+                                        📂 <strong>${child.name}</strong>
+                                        <span class="badge" style="margin-left: auto;">${child.children ? child.children.length : 0} Bills</span>
+                                    `;
+                                    t2Details.appendChild(t2Summary);
+                                    
+                                    if (child.children) {
+                                        child.children.forEach(bill => renderBill(bill, t2Details));
+                                    }
+                                    wdDetails.appendChild(t2Details);
                                 } else {
-                                    evidenceHtml = '<div class="evidence-item"><em>No detailed items available for this bill.</em></div>';
+                                    renderBill(child, wdDetails);
                                 }
-
-                                inspectorPanel.innerHTML = `
-                                    <div style="font-size: 13px; color: #4b5563; margin-bottom: 12px; background: #fffbeb; padding: 10px; border-left: 3px solid #f59e0b;">
-                                        <strong>AI Commercial Rationale:</strong><br/>
-                                        ${rationale}
-                                    </div>
-                                    <div style="font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 8px;">SCOPE SAMPLES:</div>
-                                    ${evidenceHtml}
-                                `;
-
-                                billDetails.appendChild(inspectorPanel);
-                                wdDetails.appendChild(billDetails);
                             });
                         }
                         treeContainer.appendChild(wdDetails);

@@ -72,30 +72,6 @@
         "output_file": "runs\/run_61df4e2eea72e82053b4edb86b71a595.json"
     },
     {
-        "timestamp": "2026-09-01 13:04:37",
-        "model": "Google Gemini 3.5 Flash-Lite",
-        "template": "WD template.csv",
-        "total_bills": 71,
-        "mapped_bills": 68,
-        "mapping_rate": 0.9577464788732394,
-        "accuracy": 90.1,
-        "execution_time_sec": 19.16,
-        "cost": 0.00488,
-        "output_file": "runs\/run_28aa60f5d251cc11520be4cc5a91966b.json"
-    },
-    {
-        "timestamp": "2026-09-01 13:06:08",
-        "model": "Google Gemini 3.5 Flash-Lite",
-        "template": "NRM2 template.csv",
-        "total_bills": 71,
-        "mapped_bills": 68,
-        "mapping_rate": 0.9577464788732394,
-        "accuracy": 90,
-        "execution_time_sec": 19.46,
-        "cost": 0.00554,
-        "output_file": "runs\/run_b6250822dcaf2c4a2e7720e6f3d7a234.json"
-    },
-    {
         "timestamp": "2026-09-01 13:08:48",
         "model": "Google Gemini 3.5 Flash-Lite",
         "template": "NRM1 template.csv",
@@ -106,5 +82,29 @@
         "execution_time_sec": 19.97,
         "cost": 0.00821,
         "output_file": "runs\/run_9679e01bac2569c14dcc2fd30df34baf.json"
+    },
+    {
+        "timestamp": "2026-09-01 13:11:39",
+        "model": "Google Gemini 3.5 Flash-Lite",
+        "template": "WD template.csv",
+        "total_bills": 71,
+        "mapped_bills": 68,
+        "mapping_rate": 0.9577464788732394,
+        "accuracy": 89.9,
+        "execution_time_sec": 40.1,
+        "cost": 0.01029,
+        "output_file": "runs\/run_28aa60f5d251cc11520be4cc5a91966b.json"
+    },
+    {
+        "timestamp": "2026-09-01 13:22:38",
+        "model": "Google Gemini 3.5 Flash-Lite",
+        "template": "NRM2 template.csv",
+        "total_bills": 71,
+        "mapped_bills": 68,
+        "mapping_rate": 0.9577464788732394,
+        "accuracy": 91,
+        "execution_time_sec": 52.66,
+        "cost": 0.0176,
+        "output_file": "runs\/run_b6250822dcaf2c4a2e7720e6f3d7a234.json"
     }
 ]
