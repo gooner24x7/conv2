@@ -135,12 +135,33 @@ PROMPT;
 
             $userPrompt = "Analyze and allocate the following batch of Bills:\n" . json_encode($batchPayload, JSON_PRETTY_PRINT);
 
-            try {
-                $response = $this->aiProvider->sendChat($systemPrompt, $userPrompt);
-                $totalInTokens += $response['input_tokens'];
-                $totalOutTokens += $response['output_tokens'];
+            $isOpenAI = $this->aiProvider->getProvider() === 'openai';
+            if (!$isOpenAI) {
+                $userPrompt .= "\n\nRemember to write your <scratchpad> reasoning first, followed by the ```json block.";
+            }
 
-                $cleanJson = $this->extractJson($response['text']);
+            try {
+                // PASS 1: Generate Draft Mapping
+                $emit("  -> [Pass 1] Generating draft mapping...", $pct);
+                $draftResponse = $this->aiProvider->sendChat($systemPrompt, $userPrompt);
+                $totalInTokens += $draftResponse['input_tokens'];
+                $totalOutTokens += $draftResponse['output_tokens'];
+
+                // PASS 2: Self-Reflection & Critique
+                $emit("  -> [Pass 2] Self-Reflecting and correcting errors...", $pct + 2);
+                $baseReflect = "ORIGINAL BILLS TO MAP:\n" . json_encode($batchPayload, JSON_PRETTY_PRINT) . "\n\nYOUR DRAFT MAPPING:\n" . $draftResponse['text'] . "\n\nREVIEW AND REFINE:\nCritique your draft mapping above against the original bills. Check strictly against the RULES & CONSTRAINTS. Specifically:\n1. Did you map a bill to 'wd_unmapped' just because it contained minor scaffolding/fixings? If so, correct it to the dominant permanent trade.\n2. Ensure the 'rationale' justifies the final choice based on the DOMINANT items.\n\n";
+                
+                if ($isOpenAI) {
+                    $reflectionPrompt = $baseReflect . "Output ONLY the final, corrected JSON array containing the refined mappings in the exact same format. No markdown, pure JSON.";
+                } else {
+                    $reflectionPrompt = $baseReflect . "First, put your reflection in a <scratchpad>. Then output the final, corrected JSON array in a ```json block.";
+                }
+
+                $finalResponse = $this->aiProvider->sendChat($systemPrompt, $reflectionPrompt);
+                $totalInTokens += $finalResponse['input_tokens'];
+                $totalOutTokens += $finalResponse['output_tokens'];
+
+                $cleanJson = $this->extractJson($finalResponse['text']);
                 $parsed = json_decode($cleanJson, true);
 
                 if (is_array($parsed)) {
