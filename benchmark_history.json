@@ -12,18 +12,6 @@
         "output_file": "runs\/run_af4064c5ef314b628e94348a5cc55d2d.json"
     },
     {
-        "timestamp": "2026-08-27 10:34:03",
-        "model": "Google Gemini 3.5 Flash-Lite",
-        "template": "NRM1 template.csv",
-        "total_bills": 71,
-        "mapped_bills": 68,
-        "mapping_rate": 0.9577464788732394,
-        "accuracy": 90.6,
-        "execution_time_sec": 70.03,
-        "cost": 0.020973375000000006,
-        "output_file": "runs\/run_9679e01bac2569c14dcc2fd30df34baf.json"
-    },
-    {
         "timestamp": "2026-08-27 10:38:05",
         "model": "OpenAI GPT-5.6 Luna",
         "template": "NRM1 template.csv",
@@ -46,18 +34,6 @@
         "execution_time_sec": 212.83,
         "cost": 0.0397006,
         "output_file": "runs\/run_cac097058422bd293bda31102c0dc4a7.json"
-    },
-    {
-        "timestamp": "2026-08-27 15:36:27",
-        "model": "Google Gemini 3.5 Flash-Lite",
-        "template": "NRM2 template.csv",
-        "total_bills": 71,
-        "mapped_bills": 62,
-        "mapping_rate": 0.8732394366197183,
-        "accuracy": 91.8,
-        "execution_time_sec": 51.72,
-        "cost": 0.011913075,
-        "output_file": "runs\/run_b6250822dcaf2c4a2e7720e6f3d7a234.json"
     },
     {
         "timestamp": "2026-08-27 15:40:27",
@@ -84,15 +60,51 @@
         "output_file": "runs\/run_d79fd39cc27a54c7abb069febddce874.json"
     },
     {
-        "timestamp": "2026-09-01 12:46:26",
+        "timestamp": "2026-09-01 12:56:09",
         "model": "Google Gemini 3.5 Flash-Lite",
-        "template": "WD template.csv",
+        "template": "NRM1 template.csv",
         "total_bills": 71,
         "mapped_bills": 70,
         "mapping_rate": 0.9859154929577465,
-        "accuracy": 89.1,
-        "execution_time_sec": 15.65,
-        "cost": 0.00244,
+        "accuracy": 91.1,
+        "execution_time_sec": 18.01,
+        "cost": 0.0058,
+        "output_file": "runs\/run_9679e01bac2569c14dcc2fd30df34baf.json"
+    },
+    {
+        "timestamp": "2026-09-01 12:57:39",
+        "model": "Google Gemini 3.5 Flash-Lite",
+        "template": "NRM2 template.csv",
+        "total_bills": 71,
+        "mapped_bills": 70,
+        "mapping_rate": 0.9859154929577465,
+        "accuracy": 91.1,
+        "execution_time_sec": 17.4,
+        "cost": 0.0032,
+        "output_file": "runs\/run_b6250822dcaf2c4a2e7720e6f3d7a234.json"
+    },
+    {
+        "timestamp": "2026-09-01 13:00:55",
+        "model": "Google Gemini 3.6 Flash (Fast & Balanced)",
+        "template": "NRM2 template.csv",
+        "total_bills": 71,
+        "mapped_bills": 70,
+        "mapping_rate": 0.9859154929577465,
+        "accuracy": 91.1,
+        "execution_time_sec": 126.72,
+        "cost": 0.00334,
+        "output_file": "runs\/run_61df4e2eea72e82053b4edb86b71a595.json"
+    },
+    {
+        "timestamp": "2026-09-01 13:04:37",
+        "model": "Google Gemini 3.5 Flash-Lite",
+        "template": "WD template.csv",
+        "total_bills": 71,
+        "mapped_bills": 68,
+        "mapping_rate": 0.9577464788732394,
+        "accuracy": 90.1,
+        "execution_time_sec": 19.16,
+        "cost": 0.00488,
         "output_file": "runs\/run_28aa60f5d251cc11520be4cc5a91966b.json"
     }
 ]

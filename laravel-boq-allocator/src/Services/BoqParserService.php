@@ -223,17 +223,16 @@ class BoqParserService
 
         foreach ($billItems as $row) {
             $colA = trim($row['A'] ?? '');
-            $colB = trim($row['B'] ?? '');
-            $colC = trim($row['C'] ?? '');
+            $colE = trim($row['E'] ?? '');
 
-            if (preg_match('/^Bill\s+(\d+)/i', $colA, $m)) {
-                $lastBillNum = (int)$m[1];
+            if ($colA !== '' && ctype_digit($colA)) {
+                $lastBillNum = (int)$colA;
             }
 
-            if ($lastBillNum && $colC !== '') {
-                $desc = $this->cleanText($colC);
+            if ($lastBillNum !== null && isset($bills[$lastBillNum]) && $colE !== '') {
+                $desc = $this->cleanText(mb_substr($colE, 0, 400));
                 // Filter out standard page headers, totals, and boilerplate
-                if (!preg_match('/(to collection|brought forward|carried forward|page total|summary)/i', $desc) && strlen($desc) > 8) {
+                if (!preg_match('/(to collection|brought forward|carried forward|page total|summary)/i', $desc) && strlen($desc) > 3) {
                     if (!isset($billContext[$lastBillNum])) {
                         $billContext[$lastBillNum] = [];
                     }

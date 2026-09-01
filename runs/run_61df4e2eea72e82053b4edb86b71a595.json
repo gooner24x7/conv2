@@ -3,19 +3,19 @@
         "total_bills": 71,
         "mapped_bills": 70,
         "unmapped_bills": 1,
-        "packages_used": 19,
-        "engine": "Google Gemini 3.5 Flash-Lite",
+        "packages_used": 17,
+        "engine": "Google Gemini 3.6 Flash (Fast & Balanced)",
         "template": "NRM2 template.csv",
-        "execution_time": "17.4s",
+        "execution_time": "126.72s",
         "overall_accuracy_score": "91.1%",
         "avg_package_confidence": "91.4%",
         "avg_trade_confidence": "90.9%",
         "token_usage": {
             "input": 17193,
-            "output": 6373,
-            "total": 23566
+            "output": 6819,
+            "total": 24012
         },
-        "estimated_cost": "$0.00320"
+        "estimated_cost": "$0.00334"
     },
     "work_packages": [
         {
@@ -30,31 +30,10 @@
                     "name": "Bill 1: Demolition & Initial Earthworks",
                     "attributes": {
                         "bill_number": 1,
-                        "suggested_trade": "Demolition Contractor",
-                        "package_confidence": 95,
-                        "trade_confidence": 95,
-                        "ai_rationale": "Demolition and initial site clearance fall directly under Section 3 (Demolitions)."
-                    },
-                    "source_evidence": []
-                }
-            ]
-        },
-        {
-            "id": "wd_4",
-            "name": "Section 4: Alterations, repairs and conservation",
-            "attributes": {
-                "package_type": "wd_template"
-            },
-            "children": [
-                {
-                    "id": "bill_66",
-                    "name": "Bill 66: Phase 9 - Trafford Way Making Good Works",
-                    "attributes": {
-                        "bill_number": 66,
-                        "suggested_trade": "Civils Alteration Contractor",
-                        "package_confidence": 80,
-                        "trade_confidence": 80,
-                        "ai_rationale": "Making good works on existing public highways or structures map best to alterations, repairs, and conservation (Section 4)."
+                        "suggested_trade": "Demolition Subcontractor",
+                        "package_confidence": 90,
+                        "trade_confidence": 90,
+                        "ai_rationale": "Demolition and initial clearing of existing site structures aligns directly with Section 3 Demolitions."
                     },
                     "source_evidence": []
                 }
@@ -72,10 +51,10 @@
                     "name": "Bill 18: Phase 1 - Cut & Fill",
                     "attributes": {
                         "bill_number": 18,
-                        "suggested_trade": "Earthworks Contractor",
+                        "suggested_trade": "Earthworks Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Cut and fill operations fall directly under excavating and filling."
+                        "ai_rationale": "Cut & fill earth moving activities fall directly into Section 5 Excavating and filling."
                     },
                     "source_evidence": []
                 },
@@ -84,10 +63,10 @@
                     "name": "Bill 22: Phase 2 - Cut & Fill",
                     "attributes": {
                         "bill_number": 22,
-                        "suggested_trade": "Groundworks Subcontractor",
+                        "suggested_trade": "Earthworks Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Cut and fill operations directly fall under excavating, filling, site clearance, and earthwork components of Section 5."
+                        "ai_rationale": "Cut & Fill activities involve site levelling, bulk excavation, and filling, matching Section 5: Excavating and filling."
                     },
                     "source_evidence": []
                 },
@@ -96,10 +75,10 @@
                     "name": "Bill 26: Phase 3 - Cut & Fill",
                     "attributes": {
                         "bill_number": 26,
-                        "suggested_trade": "Groundworks Subcontractor",
+                        "suggested_trade": "Earthworks Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Phase 3 cut and fill operations involve bulk excavation, disposal, and imported filling."
+                        "ai_rationale": "Phase 3 Cut & Fill comprises bulk excavation, site preparation, and fill placement, falling directly into Section 5."
                     },
                     "source_evidence": []
                 },
@@ -108,10 +87,10 @@
                     "name": "Bill 30: Phase 4 - Cut & Fill",
                     "attributes": {
                         "bill_number": 30,
-                        "suggested_trade": "Groundworks Subcontractor",
+                        "suggested_trade": "Earthworks Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Earthwork cut and fill activities correspond directly to excavating and filling packages."
+                        "ai_rationale": "Phase 4 Cut & Fill covers major land re-profiling, bulk excavation, and structural filling under Section 5."
                     },
                     "source_evidence": []
                 },
@@ -120,10 +99,10 @@
                     "name": "Bill 34: Phase 5 - Cut & Fill",
                     "attributes": {
                         "bill_number": 34,
-                        "suggested_trade": "Groundworks Subcontractor",
+                        "suggested_trade": "Earthworks Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Bulk earthworks, excavation, and filling activities for Phase 5."
+                        "ai_rationale": "Phase 5 Cut & Fill involves bulk ground cut and fill earthmoving operations, directly matching Section 5: Excavating and filling."
                     },
                     "source_evidence": []
                 },
@@ -132,10 +111,10 @@
                     "name": "Bill 38: Phase 6 - Cut & Fill",
                     "attributes": {
                         "bill_number": 38,
-                        "suggested_trade": "Earthworks Contractor",
+                        "suggested_trade": "Earthworks Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Cut and fill operations fall directly under excavating and filling works."
+                        "ai_rationale": "Cut & Fill works relate directly to earth moving, ground levelling, bulk excavation, and filling covered in Section 5."
                     },
                     "source_evidence": []
                 },
@@ -144,10 +123,10 @@
                     "name": "Bill 42: Phase 7 - Cut & Fill",
                     "attributes": {
                         "bill_number": 42,
-                        "suggested_trade": "Earthworks Contractor",
+                        "suggested_trade": "Earthworks Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Cut and fill operations fall directly under excavating and filling works."
+                        "ai_rationale": "Phase 7 Cut & Fill involves earthworks, ground re-profiling, cut to fill operations, and site preparation under Section 5."
                     },
                     "source_evidence": []
                 },
@@ -156,10 +135,10 @@
                     "name": "Bill 46: Phase 8.1 (278 Wks) - Cut & Fill",
                     "attributes": {
                         "bill_number": 46,
-                        "suggested_trade": "Earthworks Contractor",
+                        "suggested_trade": "Earthworks Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Cut and fill operations fall directly under excavating and filling works for Section 278 highway/external works."
+                        "ai_rationale": "Section 278 Highway Cut & Fill works involve site clearance, topsoil stripping, bulk earth excavation, and filling under Section 5."
                     },
                     "source_evidence": []
                 },
@@ -168,10 +147,10 @@
                     "name": "Bill 50: Phase 8.2 (278 Wks) - Cut & Fill",
                     "attributes": {
                         "bill_number": 50,
-                        "suggested_trade": "Earthworks Contractor",
+                        "suggested_trade": "Earthworks Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Cut and fill operations fall directly under excavating and filling works for Section 278 highway/external works."
+                        "ai_rationale": "Bulk excavating, filling, and ground levelling for Section 278 Phase 8.2 highway realignments."
                     },
                     "source_evidence": []
                 },
@@ -180,10 +159,10 @@
                     "name": "Bill 54: Phase 8.3 (278 Wks) - Cut & Fill",
                     "attributes": {
                         "bill_number": 54,
-                        "suggested_trade": "Earthworks Contractor",
+                        "suggested_trade": "Earthworks Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Cut and fill operations fall directly under excavating and filling works for Section 278 highway/external works."
+                        "ai_rationale": "Cut & Fill earthworks for Phase 8.3 Section 278 works mapped to Section 5 Excavating and Filling."
                     },
                     "source_evidence": []
                 },
@@ -195,7 +174,7 @@
                         "suggested_trade": "Earthworks Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Cut & Fill operations relate directly to excavation, site preparation, and filling activities covered under Section 5 Excavating and filling."
+                        "ai_rationale": "Cut and fill earthworks operations involve site excavation and filling in accordance with Section 5 Excavating and Filling."
                     },
                     "source_evidence": []
                 },
@@ -207,7 +186,7 @@
                         "suggested_trade": "Earthworks Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Cut & Fill scopes involve bulk excavation and filling activities under Section 5."
+                        "ai_rationale": "Bulk earthworks cut & fill operations fall strictly within Section 5 Excavating and Filling."
                     },
                     "source_evidence": []
                 },
@@ -216,10 +195,10 @@
                     "name": "Bill 68: Vac Exc Works",
                     "attributes": {
                         "bill_number": 68,
-                        "suggested_trade": "Earthworks / Specialist Excavation Subcontractor",
+                        "suggested_trade": "Vacuum Excavation Subcontractor",
                         "package_confidence": 90,
                         "trade_confidence": 90,
-                        "ai_rationale": "Vacuum excavation works are specialised excavation methods falling under Section 5 Excavating and filling."
+                        "ai_rationale": "Vacuum excavation is a non-destructive method of soil excavation, mapping to Section 5 Excavating and Filling."
                     },
                     "source_evidence": []
                 },
@@ -231,7 +210,7 @@
                         "suggested_trade": "Earthworks Subcontractor",
                         "package_confidence": 85,
                         "trade_confidence": 85,
-                        "ai_rationale": "Construction of earth mounds involves bulk excavating and filling operations under Section 5."
+                        "ai_rationale": "Formation of defense mounds and bunds involves earthmoving and material placement under Section 5."
                     },
                     "source_evidence": []
                 }
@@ -249,10 +228,10 @@
                     "name": "Bill 2: Substructure",
                     "attributes": {
                         "bill_number": 2,
-                        "suggested_trade": "Concrete Subcontractor",
+                        "suggested_trade": "Groundworks & Concrete Subcontractor",
                         "package_confidence": 85,
-                        "trade_confidence": 90,
-                        "ai_rationale": "Substructure works primarily encompass in-situ concrete foundations, ground beams, and slabs."
+                        "trade_confidence": 85,
+                        "ai_rationale": "Substructure works typically comprise mass and reinforced in-situ concrete foundations, ground slabs, and beam elements."
                     },
                     "source_evidence": []
                 }
@@ -270,10 +249,10 @@
                     "name": "Bill 4: Upper Floors",
                     "attributes": {
                         "bill_number": 4,
-                        "suggested_trade": "Precast Concrete Contractor",
-                        "package_confidence": 85,
-                        "trade_confidence": 85,
-                        "ai_rationale": "Upper floors often consist of precast or composite concrete planks and decking units."
+                        "suggested_trade": "Precast Concrete Subcontractor",
+                        "package_confidence": 80,
+                        "trade_confidence": 80,
+                        "ai_rationale": "Upper floors in multi-storey modern developments primarily utilize precast concrete planks or composite slabs falling under Section 12."
                     },
                     "source_evidence": []
                 }
@@ -291,10 +270,10 @@
                     "name": "Bill 7: External Walls",
                     "attributes": {
                         "bill_number": 7,
-                        "suggested_trade": "Bricklayer / Masonry Contractor",
+                        "suggested_trade": "Masonry Subcontractor",
                         "package_confidence": 85,
-                        "trade_confidence": 90,
-                        "ai_rationale": "External walls commonly involve masonry construction, cavity walls, and brickwork/blockwork."
+                        "trade_confidence": 85,
+                        "ai_rationale": "External walls constructed from blockwork, brickwork, or stone cavity construction fall into Section 14 Masonry."
                     },
                     "source_evidence": []
                 }
@@ -312,10 +291,10 @@
                     "name": "Bill 3: Frame",
                     "attributes": {
                         "bill_number": 3,
-                        "suggested_trade": "Steel Erector / Structural Fabricator",
+                        "suggested_trade": "Steelwork Contractor",
                         "package_confidence": 90,
                         "trade_confidence": 90,
-                        "ai_rationale": "The structural frame of a building is typically composed of structural metalwork or reinforced concrete framing."
+                        "ai_rationale": "Structural framing is standardly categorized under Section 15 Structural metalwork."
                     },
                     "source_evidence": []
                 }
@@ -333,10 +312,10 @@
                     "name": "Bill 5: Roof",
                     "attributes": {
                         "bill_number": 5,
-                        "suggested_trade": "Roofing Contractor",
+                        "suggested_trade": "Roofing Subcontractor",
                         "package_confidence": 85,
-                        "trade_confidence": 90,
-                        "ai_rationale": "Roof elements correspond to sheet roof coverings, felts, or profiled roofing systems."
+                        "trade_confidence": 85,
+                        "ai_rationale": "General roof construction and standard pitched/flat profile sheet coverings fall primarily into Section 17 Sheet roof coverings."
                     },
                     "source_evidence": []
                 }
@@ -354,10 +333,10 @@
                     "name": "Bill 9: Internal Walls",
                     "attributes": {
                         "bill_number": 9,
-                        "suggested_trade": "Drylining Contractor",
+                        "suggested_trade": "Drylining Subcontractor",
                         "package_confidence": 90,
                         "trade_confidence": 90,
-                        "ai_rationale": "Internal walls are generally constructed using proprietary framing, partitions, and drylining systems."
+                        "ai_rationale": "Internal walls and partitions formed using proprietary studs and drywall systems belong to Section 20."
                     },
                     "source_evidence": []
                 }
@@ -375,10 +354,10 @@
                     "name": "Bill 8: Windows & External Doors",
                     "attributes": {
                         "bill_number": 8,
-                        "suggested_trade": "Fenestration Contractor",
-                        "package_confidence": 95,
-                        "trade_confidence": 95,
-                        "ai_rationale": "Windows and external doors fall directly under windows, screens, and glazed openings."
+                        "suggested_trade": "Glazing & Window Subcontractor",
+                        "package_confidence": 90,
+                        "trade_confidence": 90,
+                        "ai_rationale": "Windows and external glazing systems fall under Section 23 Windows, screens and lights."
                     },
                     "source_evidence": []
                 }
@@ -396,10 +375,10 @@
                     "name": "Bill 10: Internal Doors",
                     "attributes": {
                         "bill_number": 10,
-                        "suggested_trade": "Joinery Contractor",
+                        "suggested_trade": "Joinery Subcontractor",
                         "package_confidence": 95,
-                        "trade_confidence": 90,
-                        "ai_rationale": "Internal doors, frames, and ironmongery belong to doors, shutters, and hatches package."
+                        "trade_confidence": 95,
+                        "ai_rationale": "Internal door sets, frames, stops, and associated fire stops fall directly into Section 24 Doors, shutters and hatches."
                     },
                     "source_evidence": []
                 }
@@ -417,10 +396,10 @@
                     "name": "Bill 6: Stairs",
                     "attributes": {
                         "bill_number": 6,
-                        "suggested_trade": "Staircase / Metalwork Contractor",
+                        "suggested_trade": "Architectural Metalwork Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 90,
-                        "ai_rationale": "Stairs, walkways, and associated balustrades align directly with Section 25."
+                        "ai_rationale": "Section 25 explicitly includes staircase structures, walkways, balustrades, and associated handrails."
                     },
                     "source_evidence": []
                 }
@@ -438,10 +417,10 @@
                     "name": "Bill 11: Wall Finishes",
                     "attributes": {
                         "bill_number": 11,
-                        "suggested_trade": "Plasterer / Finishes Contractor",
+                        "suggested_trade": "Plastering & Finishes Subcontractor",
                         "package_confidence": 90,
                         "trade_confidence": 90,
-                        "ai_rationale": "Wall finishes such as plastering, rendering, and tiling are categorized under floor, wall, ceiling and roof finishings."
+                        "ai_rationale": "Wall finishes such as plaster, render, and applied surface beds fall into Section 28 Floor, wall, ceiling and roof finishings."
                     },
                     "source_evidence": []
                 },
@@ -450,31 +429,22 @@
                     "name": "Bill 12: Floor Finishes",
                     "attributes": {
                         "bill_number": 12,
-                        "suggested_trade": "Flooring Contractor",
+                        "suggested_trade": "Flooring Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 90,
-                        "ai_rationale": "Floor finishes (screeds, carpets, tiles, vinyl) are covered under Section 28 finishings."
+                        "ai_rationale": "Floor screeds and decorative surface floor finishes fall within Section 28."
                     },
                     "source_evidence": []
-                }
-            ]
-        },
-        {
-            "id": "wd_30",
-            "name": "Section 30: Suspended ceilings",
-            "attributes": {
-                "package_type": "wd_template"
-            },
-            "children": [
+                },
                 {
                     "id": "bill_13",
                     "name": "Bill 13: Ceiling Finishes",
                     "attributes": {
                         "bill_number": 13,
-                        "suggested_trade": "Suspended Ceiling Contractor",
-                        "package_confidence": 90,
-                        "trade_confidence": 95,
-                        "ai_rationale": "Ceiling finishes and suspended ceiling systems map directly to Section 30."
+                        "suggested_trade": "Ceilings & Finishes Subcontractor",
+                        "package_confidence": 85,
+                        "trade_confidence": 85,
+                        "ai_rationale": "Applied plaster skim or direct ceiling surface finishes map directly into Section 28."
                     },
                     "source_evidence": []
                 }
@@ -492,10 +462,10 @@
                     "name": "Bill 14: FF&E",
                     "attributes": {
                         "bill_number": 14,
-                        "suggested_trade": "FF&E Specialist",
+                        "suggested_trade": "FF&E Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Furniture, fittings, and equipment are explicitly covered under Section 32."
+                        "ai_rationale": "Furniture, Fittings, and Equipment (FF&E) aligns precisely with Section 32 Furniture, fittings and equipment."
                     },
                     "source_evidence": []
                 }
@@ -513,10 +483,10 @@
                     "name": "Bill 17: Phase 0 - Substructure Drainage",
                     "attributes": {
                         "bill_number": 17,
-                        "suggested_trade": "Groundworker / Drainage Contractor",
-                        "package_confidence": 95,
-                        "trade_confidence": 95,
-                        "ai_rationale": "Substructure drainage consists of below-ground drain runs, manholes, and pipework."
+                        "suggested_trade": "Civil Engineering Subcontractor",
+                        "package_confidence": 90,
+                        "trade_confidence": 90,
+                        "ai_rationale": "Substructure and below ground drainage elements including drain runs, manholes, and soakaways are classified under Section 34."
                     },
                     "source_evidence": []
                 },
@@ -525,10 +495,10 @@
                     "name": "Bill 20: Phase 1 - Drainage",
                     "attributes": {
                         "bill_number": 20,
-                        "suggested_trade": "Groundworks Subcontractor",
+                        "suggested_trade": "Drainage Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Drainage bills explicitly encompass underground drainage runs, manholes, inspection chambers, and associated accessories."
+                        "ai_rationale": "Phase 1 Drainage encompasses drain runs, manholes, inspection chambers, and soakaways, matching Section 34."
                     },
                     "source_evidence": []
                 },
@@ -537,10 +507,10 @@
                     "name": "Bill 24: Phase 2 - Drainage",
                     "attributes": {
                         "bill_number": 24,
-                        "suggested_trade": "Groundworks Subcontractor",
+                        "suggested_trade": "Drainage Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Phase 2 drainage works cover subterranean drainage pipe runs, manholes, and chambers."
+                        "ai_rationale": "Phase 2 Drainage covers below-ground pipe networks, manholes, and stormwater/foul drainage systems matching Section 34."
                     },
                     "source_evidence": []
                 },
@@ -549,10 +519,10 @@
                     "name": "Bill 28: Phase 3 - Drainage",
                     "attributes": {
                         "bill_number": 28,
-                        "suggested_trade": "Groundworks Subcontractor",
+                        "suggested_trade": "Drainage Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Drainage scope covers subsurface water management infrastructure."
+                        "ai_rationale": "Phase 3 Drainage involves surface water and foul drainage installations matching Section 34."
                     },
                     "source_evidence": []
                 },
@@ -561,10 +531,10 @@
                     "name": "Bill 32: Phase 4 - Drainage",
                     "attributes": {
                         "bill_number": 32,
-                        "suggested_trade": "Groundworks Subcontractor",
+                        "suggested_trade": "Drainage Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Drainage network installation across Phase 4."
+                        "ai_rationale": "Phase 4 Drainage covers sub-surface infrastructure, chambers, gullies, and drain runs per Section 34."
                     },
                     "source_evidence": []
                 },
@@ -573,10 +543,10 @@
                     "name": "Bill 36: Phase 5 - Drainage",
                     "attributes": {
                         "bill_number": 36,
-                        "suggested_trade": "Groundworks Subcontractor",
+                        "suggested_trade": "Drainage Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Subsurface drainage pipework and associated chambers for Phase 5."
+                        "ai_rationale": "Phase 5 Drainage includes stormwater management, manholes, and foul drainage connections aligned with Section 34."
                     },
                     "source_evidence": []
                 },
@@ -585,10 +555,10 @@
                     "name": "Bill 40: Phase 6 - Drainage",
                     "attributes": {
                         "bill_number": 40,
-                        "suggested_trade": "Drainage Contractor",
+                        "suggested_trade": "Drainage Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Drainage works including drain runs, manholes, and pipe fittings are allocated to below-ground drainage."
+                        "ai_rationale": "Phase 6 Drainage relates to underground gravity drainage infrastructure, manholes, inspection chambers, and pipe runs."
                     },
                     "source_evidence": []
                 },
@@ -597,10 +567,10 @@
                     "name": "Bill 44: Phase 7 - Drainage",
                     "attributes": {
                         "bill_number": 44,
-                        "suggested_trade": "Drainage Contractor",
+                        "suggested_trade": "Drainage Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Drainage works including drain runs, manholes, and pipe fittings are allocated to below-ground drainage."
+                        "ai_rationale": "Phase 7 Drainage includes subsurface pipework, drain runs, soakaways, and surface water management."
                     },
                     "source_evidence": []
                 },
@@ -609,10 +579,10 @@
                     "name": "Bill 48: Phase 8.1 (278 Wks) - Drainage",
                     "attributes": {
                         "bill_number": 48,
-                        "suggested_trade": "Drainage Contractor",
+                        "suggested_trade": "Drainage Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Drainage works including drain runs, manholes, and pipe fittings are allocated to below-ground drainage."
+                        "ai_rationale": "Section 278 highway drainage including gullies, carrier drains, attenuation, and connection to public sewers under Section 34."
                     },
                     "source_evidence": []
                 },
@@ -621,10 +591,10 @@
                     "name": "Bill 52: Phase 8.2 (278 Wks) - Drainage",
                     "attributes": {
                         "bill_number": 52,
-                        "suggested_trade": "Drainage Contractor",
+                        "suggested_trade": "Drainage Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Drainage works including drain runs, manholes, and pipe fittings are allocated to below-ground drainage."
+                        "ai_rationale": "Underground highway drainage networks, manholes, and gullies for Phase 8.2 Section 278 works."
                     },
                     "source_evidence": []
                 },
@@ -633,10 +603,10 @@
                     "name": "Bill 56: Phase 8.3 (278 Wks) - Drainage",
                     "attributes": {
                         "bill_number": 56,
-                        "suggested_trade": "Drainage Contractor",
+                        "suggested_trade": "Drainage Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Drainage bills cover below-ground drain runs, manholes, and associated accessories corresponding to Section 34 Drainage below ground."
+                        "ai_rationale": "S278 infrastructure drainage works involve pipe runs, manholes, and gullies, matching Section 34 drainage scope."
                     },
                     "source_evidence": []
                 },
@@ -645,10 +615,10 @@
                     "name": "Bill 60: Phase 8.4 (278 Wks) - Drainage",
                     "attributes": {
                         "bill_number": 60,
-                        "suggested_trade": "Drainage Contractor",
+                        "suggested_trade": "Drainage Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Drainage works involving pipe runs, manholes, and chambers correspond to Section 34 Drainage below ground."
+                        "ai_rationale": "Phase 8.4 section 278 drainage includes underground drainage runs and inspection chambers, allocating to Section 34."
                     },
                     "source_evidence": []
                 },
@@ -657,10 +627,10 @@
                     "name": "Bill 64: Phase 8.5 (278 Wks) - Drainage",
                     "attributes": {
                         "bill_number": 64,
-                        "suggested_trade": "Drainage Contractor",
+                        "suggested_trade": "Drainage Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 95,
-                        "ai_rationale": "Below ground drainage works map directly to Section 34."
+                        "ai_rationale": "Highway and infrastructure drainage scope aligns directly with Section 34 Drainage."
                     },
                     "source_evidence": []
                 }
@@ -678,10 +648,10 @@
                     "name": "Bill 19: Phase 1 - External Works",
                     "attributes": {
                         "bill_number": 19,
-                        "suggested_trade": "Groundworks Subcontractor",
+                        "suggested_trade": "Groundworks & Hard Landscaping Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 90,
-                        "ai_rationale": "External works typically include kerbs, channels, paving, and surfacing operations covered under Section 35 Site works."
+                        "ai_rationale": "External Works covers site surfacing, paving, kerbs, and external site finishes, aligning directly with Section 35: Site works."
                     },
                     "source_evidence": []
                 },
@@ -690,10 +660,10 @@
                     "name": "Bill 23: Phase 2 - External Works",
                     "attributes": {
                         "bill_number": 23,
-                        "suggested_trade": "Groundworks Subcontractor",
+                        "suggested_trade": "Groundworks & Hard Landscaping Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 90,
-                        "ai_rationale": "Phase 2 external works involve hard landscaping, paving, and kerbing aligned with Site works."
+                        "ai_rationale": "Phase 2 External Works covers site infrastructure, surfacing, and external hard finishes, aligning with Section 35: Site works."
                     },
                     "source_evidence": []
                 },
@@ -702,10 +672,10 @@
                     "name": "Bill 27: Phase 3 - External Works",
                     "attributes": {
                         "bill_number": 27,
-                        "suggested_trade": "Groundworks Subcontractor",
+                        "suggested_trade": "Groundworks & Hard Landscaping Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 90,
-                        "ai_rationale": "External works items are standard site works including paving, macadam, and edgings."
+                        "ai_rationale": "Phase 3 External Works includes site paving, roads, kerbing, and surrounding hard landscaping per Section 35: Site works."
                     },
                     "source_evidence": []
                 },
@@ -714,10 +684,10 @@
                     "name": "Bill 31: Phase 4 - External Works",
                     "attributes": {
                         "bill_number": 31,
-                        "suggested_trade": "Groundworks Subcontractor",
+                        "suggested_trade": "Groundworks & Hard Landscaping Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 90,
-                        "ai_rationale": "External works elements include surfacing, hard landscaping, and boundary paving."
+                        "ai_rationale": "Phase 4 External Works covers external hard surfaces, footpaths, and vehicular access areas under Section 35: Site works."
                     },
                     "source_evidence": []
                 },
@@ -726,10 +696,10 @@
                     "name": "Bill 35: Phase 5 - External Works",
                     "attributes": {
                         "bill_number": 35,
-                        "suggested_trade": "Groundworks Subcontractor",
+                        "suggested_trade": "Groundworks & Hard Landscaping Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 90,
-                        "ai_rationale": "Phase 5 external works including hard paving, edgings, and site finishing."
+                        "ai_rationale": "Phase 5 External Works covers final hard landscaping, macadam/paving works, and kerbing under Section 35: Site works."
                     },
                     "source_evidence": []
                 },
@@ -738,10 +708,10 @@
                     "name": "Bill 39: Phase 6 - External Works",
                     "attributes": {
                         "bill_number": 39,
-                        "suggested_trade": "Groundworks & Civils Contractor",
+                        "suggested_trade": "Groundworks Subcontractor",
                         "package_confidence": 95,
-                        "trade_confidence": 90,
-                        "ai_rationale": "External works generally include paving, kerbs, channels, and associated hard landscaping items."
+                        "trade_confidence": 95,
+                        "ai_rationale": "Phase 6 External Works comprises site surfacing, hard landscaping, kerbing, and macadam paving captured under Section 35 Site Works."
                     },
                     "source_evidence": []
                 },
@@ -750,10 +720,10 @@
                     "name": "Bill 43: Phase 7 - External Works",
                     "attributes": {
                         "bill_number": 43,
-                        "suggested_trade": "Groundworks & Civils Contractor",
+                        "suggested_trade": "Groundworks Subcontractor",
                         "package_confidence": 95,
-                        "trade_confidence": 90,
-                        "ai_rationale": "External works generally include paving, kerbs, channels, and associated hard landscaping items."
+                        "trade_confidence": 95,
+                        "ai_rationale": "External Works for Phase 7 includes external kerbing, paving, finishes, and site works under Section 35."
                     },
                     "source_evidence": []
                 },
@@ -762,10 +732,10 @@
                     "name": "Bill 47: Phase 8.1 (278 Wks) - External Works",
                     "attributes": {
                         "bill_number": 47,
-                        "suggested_trade": "Groundworks & Civils Contractor",
+                        "suggested_trade": "Highways Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 90,
-                        "ai_rationale": "External works associated with Section 278 include kerbing, paving, and surfacing."
+                        "ai_rationale": "Section 278 External Works involve highway alignment, footways, carriageway pavements, and kerbing under Section 35."
                     },
                     "source_evidence": []
                 },
@@ -774,10 +744,10 @@
                     "name": "Bill 51: Phase 8.2 (278 Wks) - External Works",
                     "attributes": {
                         "bill_number": 51,
-                        "suggested_trade": "Groundworks & Civils Contractor",
+                        "suggested_trade": "Highways Subcontractor",
                         "package_confidence": 95,
                         "trade_confidence": 90,
-                        "ai_rationale": "External works associated with Section 278 include kerbing, paving, and surfacing."
+                        "ai_rationale": "Paved surfaces, macadam, kerbs, channels, and highway infrastructure works under Section 35."
                     },
                     "source_evidence": []
                 },
@@ -786,10 +756,10 @@
                     "name": "Bill 55: Phase 8.3 (278 Wks) - External Works",
                     "attributes": {
                         "bill_number": 55,
-                        "suggested_trade": "Groundworks and Paving Contractor",
+                        "suggested_trade": "External Works Subcontractor",
                         "package_confidence": 95,
-                        "trade_confidence": 90,
-                        "ai_rationale": "External works typically include kerbs, channels, pavings, and surfacing which fall directly under Section 35 Site works."
+                        "trade_confidence": 95,
+                        "ai_rationale": "Section 278 external works consist of highway and site works including kerbs, pavings, and footways, aligning directly with Section 35 Site Works."
                     },
                     "source_evidence": []
                 },
@@ -798,10 +768,10 @@
                     "name": "Bill 59: Phase 8.4 (278 Wks) - External Works",
                     "attributes": {
                         "bill_number": 59,
-                        "suggested_trade": "Groundworks and Paving Contractor",
+                        "suggested_trade": "External Works Subcontractor",
                         "package_confidence": 95,
-                        "trade_confidence": 90,
-                        "ai_rationale": "External works items such as pavings, kerbs, and surfacing map directly to Section 35 Site works."
+                        "trade_confidence": 95,
+                        "ai_rationale": "Phase 8.4 S278 external works covers roadworks, paving, and kerbing under Section 35 Site Works."
                     },
                     "source_evidence": []
                 },
@@ -810,10 +780,22 @@
                     "name": "Bill 63: Phase 8.5 (278 Wks) - External Works",
                     "attributes": {
                         "bill_number": 63,
-                        "suggested_trade": "Groundworks and Paving Contractor",
+                        "suggested_trade": "External Works Subcontractor",
                         "package_confidence": 95,
+                        "trade_confidence": 95,
+                        "ai_rationale": "Section 278 highway and footway external works relate to Section 35 Site Works."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_66",
+                    "name": "Bill 66: Phase 9 - Trafford Way Making Good Works",
+                    "attributes": {
+                        "bill_number": 66,
+                        "suggested_trade": "Highways Subcontractor",
+                        "package_confidence": 85,
                         "trade_confidence": 90,
-                        "ai_rationale": "External works items fall under Section 35 Site works including pavings and hard landscaping."
+                        "ai_rationale": "Making good highway works (Trafford Way) includes reinstating bituminous paving, kerbs, and footways under Section 35."
                     },
                     "source_evidence": []
                 },
@@ -822,10 +804,10 @@
                     "name": "Bill 67: Phase 10 - West Street Resurfacing Works",
                     "attributes": {
                         "bill_number": 67,
-                        "suggested_trade": "Road Surfacing Contractor",
-                        "package_confidence": 90,
-                        "trade_confidence": 90,
-                        "ai_rationale": "Resurfacing works involve coated macadam, asphalt, and paving packages under Section 35 Site works."
+                        "suggested_trade": "Surfacing Subcontractor",
+                        "package_confidence": 95,
+                        "trade_confidence": 95,
+                        "ai_rationale": "Road resurfacing works (macadam/asphalt) fall under Section 35 Site Works."
                     },
                     "source_evidence": []
                 }
@@ -843,10 +825,10 @@
                     "name": "Bill 15: Sanitaryware",
                     "attributes": {
                         "bill_number": 15,
-                        "suggested_trade": "Plumbing and Mechanical Contractor",
+                        "suggested_trade": "Plumbing Subcontractor",
                         "package_confidence": 85,
                         "trade_confidence": 90,
-                        "ai_rationale": "Sanitaryware fixtures and associated terminal equipment fall under mechanical services."
+                        "ai_rationale": "Sanitaryware supply and installation forms an integral part of mechanical services (Section 38 terminal equipment and fittings)."
                     },
                     "source_evidence": []
                 },
@@ -855,70 +837,106 @@
                     "name": "Bill 16: M&E",
                     "attributes": {
                         "bill_number": 16,
-                        "suggested_trade": "Mechanical & Electrical Contractor",
-                        "package_confidence": 80,
+                        "suggested_trade": "M&E Subcontractor",
+                        "package_confidence": 90,
                         "trade_confidence": 90,
-                        "ai_rationale": "General M&E encompasses both mechanical and electrical services packages (allocated to primary mechanical/services installation)."
+                        "ai_rationale": "Mechanical and electrical services overall packages map primarily into Section 38 Mechanical services and Section 39 Electrical services."
                     },
                     "source_evidence": []
                 },
                 {
-                    "id": "bill_37",
-                    "name": "Bill 37: Phase 5 - External Services",
+                    "id": "bill_21",
+                    "name": "Bill 21: Phase 1 - External Services",
                     "attributes": {
-                        "bill_number": 37,
-                        "suggested_trade": "Mechanical & Electrical Services Contractor",
+                        "bill_number": 21,
+                        "suggested_trade": "External Utilities / MEP Subcontractor",
                         "package_confidence": 85,
                         "trade_confidence": 85,
-                        "ai_rationale": "External services typically encompass utility connections and infrastructure covered under mechanical and electrical services."
+                        "ai_rationale": "External Services includes underground mechanical utility mains, ductwork, and pipework connections, falling under Mechanical Services (Section 38)."
                     },
                     "source_evidence": []
                 },
                 {
-                    "id": "bill_41",
-                    "name": "Bill 41: Phase 6 - External Services",
+                    "id": "bill_25",
+                    "name": "Bill 25: Phase 2 - External Services",
                     "attributes": {
-                        "bill_number": 41,
-                        "suggested_trade": "Mechanical & Electrical Services Contractor",
+                        "bill_number": 25,
+                        "suggested_trade": "External Utilities / MEP Subcontractor",
                         "package_confidence": 85,
                         "trade_confidence": 85,
-                        "ai_rationale": "External services encompass utility connections and infrastructure covered under mechanical and electrical services."
+                        "ai_rationale": "Phase 2 External Services relates to external utility mains distribution and mechanical service connections, best categorised under Section 38."
                     },
                     "source_evidence": []
                 },
                 {
-                    "id": "bill_45",
-                    "name": "Bill 45: Phase 7 - External Services",
+                    "id": "bill_29",
+                    "name": "Bill 29: Phase 3 - External Services",
                     "attributes": {
-                        "bill_number": 45,
-                        "suggested_trade": "Mechanical & Electrical Services Contractor",
+                        "bill_number": 29,
+                        "suggested_trade": "External Utilities / MEP Subcontractor",
                         "package_confidence": 85,
                         "trade_confidence": 85,
-                        "ai_rationale": "External services encompass utility connections and infrastructure covered under mechanical and electrical services."
+                        "ai_rationale": "Phase 3 External Services covers external pipework infrastructure and mechanical services connections, aligning with Section 38."
                     },
                     "source_evidence": []
                 },
                 {
-                    "id": "bill_49",
-                    "name": "Bill 49: Phase 8.1 (278 Wks) - External Services",
+                    "id": "bill_33",
+                    "name": "Bill 33: Phase 4 - External Services",
                     "attributes": {
-                        "bill_number": 49,
-                        "suggested_trade": "Mechanical & Electrical Services Contractor",
+                        "bill_number": 33,
+                        "suggested_trade": "External Utilities / MEP Subcontractor",
                         "package_confidence": 85,
                         "trade_confidence": 85,
-                        "ai_rationale": "External services encompass utility connections and infrastructure covered under mechanical and electrical services."
+                        "ai_rationale": "Phase 4 External Services covers site-wide external utility infrastructure and mechanical pipe distribution under Section 38."
                     },
                     "source_evidence": []
                 },
                 {
-                    "id": "bill_53",
-                    "name": "Bill 53: Phase 8.2 (278 Wks) - External Services",
+                    "id": "bill_57",
+                    "name": "Bill 57: Phase 8.3 (278 Wks) - External Services",
                     "attributes": {
-                        "bill_number": 53,
-                        "suggested_trade": "Mechanical & Electrical Services Contractor",
+                        "bill_number": 57,
+                        "suggested_trade": "Utilities Subcontractor",
                         "package_confidence": 85,
                         "trade_confidence": 85,
-                        "ai_rationale": "External services encompass utility connections and infrastructure covered under mechanical and electrical services."
+                        "ai_rationale": "External service mains and utility infrastructure installation align with Mechanical/Infrastructure services."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_61",
+                    "name": "Bill 61: Phase 8.4 (278 Wks) - External Services",
+                    "attributes": {
+                        "bill_number": 61,
+                        "suggested_trade": "Utilities Subcontractor",
+                        "package_confidence": 85,
+                        "trade_confidence": 85,
+                        "ai_rationale": "External services for section 278 works encompass wet and dry utility distribution networks."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_65",
+                    "name": "Bill 65: Phase 8.5 (278 Wks) - External Services",
+                    "attributes": {
+                        "bill_number": 65,
+                        "suggested_trade": "Utilities Subcontractor",
+                        "package_confidence": 85,
+                        "trade_confidence": 85,
+                        "ai_rationale": "External services infrastructure works (water/gas/mains) map to mechanical services/utilities."
+                    },
+                    "source_evidence": []
+                },
+                {
+                    "id": "bill_69",
+                    "name": "Bill 69: Ext Services (Disconnect/Connect/Divert)",
+                    "attributes": {
+                        "bill_number": 69,
+                        "suggested_trade": "Utilities Subcontractor",
+                        "package_confidence": 85,
+                        "trade_confidence": 85,
+                        "ai_rationale": "Disconnection, connection, and diversion of external utility services map to mechanical and public utility services."
                     },
                     "source_evidence": []
                 }
@@ -932,98 +950,62 @@
             },
             "children": [
                 {
-                    "id": "bill_21",
-                    "name": "Bill 21: Phase 1 - External Services",
+                    "id": "bill_37",
+                    "name": "Bill 37: Phase 5 - External Services",
                     "attributes": {
-                        "bill_number": 21,
-                        "suggested_trade": "Electrical / Utilities Contractor",
+                        "bill_number": 37,
+                        "suggested_trade": "Utilities Subcontractor",
                         "package_confidence": 85,
                         "trade_confidence": 85,
-                        "ai_rationale": "External services generally relate to utility connections, cable installations, and infrastructure work within electrical or mechanical packages."
+                        "ai_rationale": "External Services encompasses site infrastructure distribution including electrical, telecoms, gas, and water service feeds across Phase 5."
                     },
                     "source_evidence": []
                 },
                 {
-                    "id": "bill_25",
-                    "name": "Bill 25: Phase 2 - External Services",
+                    "id": "bill_41",
+                    "name": "Bill 41: Phase 6 - External Services",
                     "attributes": {
-                        "bill_number": 25,
-                        "suggested_trade": "Electrical / Utilities Contractor",
+                        "bill_number": 41,
+                        "suggested_trade": "Utilities Subcontractor",
                         "package_confidence": 85,
                         "trade_confidence": 85,
-                        "ai_rationale": "External services distribution across site infrastructure aligns with electrical and utility services."
+                        "ai_rationale": "Phase 6 External Services covers underground incoming services, ducting, lighting networks, and site infrastructure connections."
                     },
                     "source_evidence": []
                 },
                 {
-                    "id": "bill_29",
-                    "name": "Bill 29: Phase 3 - External Services",
+                    "id": "bill_45",
+                    "name": "Bill 45: Phase 7 - External Services",
                     "attributes": {
-                        "bill_number": 29,
-                        "suggested_trade": "Electrical / Utilities Contractor",
+                        "bill_number": 45,
+                        "suggested_trade": "Utilities Subcontractor",
                         "package_confidence": 85,
                         "trade_confidence": 85,
-                        "ai_rationale": "Phase 3 external services include utility connections, cables, and distribution elements."
+                        "ai_rationale": "External Services for Phase 7 incorporates external M&E site infrastructure mains distribution and ducting."
                     },
                     "source_evidence": []
                 },
                 {
-                    "id": "bill_33",
-                    "name": "Bill 33: Phase 4 - External Services",
+                    "id": "bill_49",
+                    "name": "Bill 49: Phase 8.1 (278 Wks) - External Services",
                     "attributes": {
-                        "bill_number": 33,
-                        "suggested_trade": "Electrical / Utilities Contractor",
+                        "bill_number": 49,
+                        "suggested_trade": "Utilities Subcontractor",
                         "package_confidence": 85,
                         "trade_confidence": 85,
-                        "ai_rationale": "External service infrastructure installation and utility supplies."
+                        "ai_rationale": "Section 278 External Services includes street lighting, underground services alterations, and statutory utility diversions."
                     },
                     "source_evidence": []
                 },
                 {
-                    "id": "bill_57",
-                    "name": "Bill 57: Phase 8.3 (278 Wks) - External Services",
+                    "id": "bill_53",
+                    "name": "Bill 53: Phase 8.2 (278 Wks) - External Services",
                     "attributes": {
-                        "bill_number": 57,
-                        "suggested_trade": "Utility / Electrical Services Contractor",
+                        "bill_number": 53,
+                        "suggested_trade": "Utilities Subcontractor",
                         "package_confidence": 85,
                         "trade_confidence": 85,
-                        "ai_rationale": "External services generally comprise primary equipment, cabling, and utility infrastructure falling under electrical and mechanical distribution packages."
-                    },
-                    "source_evidence": []
-                },
-                {
-                    "id": "bill_61",
-                    "name": "Bill 61: Phase 8.4 (278 Wks) - External Services",
-                    "attributes": {
-                        "bill_number": 61,
-                        "suggested_trade": "Utility / Electrical Services Contractor",
-                        "package_confidence": 85,
-                        "trade_confidence": 85,
-                        "ai_rationale": "External utility services involve cables, infrastructure connections, and external service networks."
-                    },
-                    "source_evidence": []
-                },
-                {
-                    "id": "bill_65",
-                    "name": "Bill 65: Phase 8.5 (278 Wks) - External Services",
-                    "attributes": {
-                        "bill_number": 65,
-                        "suggested_trade": "Utility / Electrical Services Contractor",
-                        "package_confidence": 85,
-                        "trade_confidence": 85,
-                        "ai_rationale": "External services infrastructure routing aligns with electrical and utility works."
-                    },
-                    "source_evidence": []
-                },
-                {
-                    "id": "bill_69",
-                    "name": "Bill 69: Ext Services (Disconnect/Connect/Divert)",
-                    "attributes": {
-                        "bill_number": 69,
-                        "suggested_trade": "Utility Infrastructure Contractor",
-                        "package_confidence": 80,
-                        "trade_confidence": 85,
-                        "ai_rationale": "External service disconnections, connections, and diversions are specialist utility works typically handled alongside electrical and mechanical services."
+                        "ai_rationale": "External service connections, utility ducting, and street lighting under Section 39."
                     },
                     "source_evidence": []
                 }
@@ -1041,10 +1023,10 @@
                     "name": "Bill 71: Gap Analysis",
                     "attributes": {
                         "bill_number": 71,
-                        "suggested_trade": "Commercial Management",
-                        "package_confidence": 70,
-                        "trade_confidence": 70,
-                        "ai_rationale": "A gap analysis represents a professional services or commercial allowance rather than a physical trade package scope."
+                        "suggested_trade": "Commercial / QS Allowance",
+                        "package_confidence": 95,
+                        "trade_confidence": 90,
+                        "ai_rationale": "Gap Analysis is a commercial or management review item and does not represent physical measured construction work."
                     },
                     "source_evidence": []
                 }
