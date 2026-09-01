@@ -428,6 +428,16 @@
                 </div>
             </div>
 
+            <!-- Viewing Historical Run Notification Banner -->
+            <div id="run-status-banner" style="display: none; background: #e0f2fe; border: 1px solid #bae6fd; color: #0369a1; padding: 10px 16px; border-radius: 8px; margin-bottom: 14px; font-size: 0.9em; justify-content: space-between; align-items: center;">
+                <div>
+                    <strong>👁️ Viewing League Table Output:</strong> <span id="banner-run-details"></span>
+                </div>
+                <button type="button" onclick="loadHierarchy('output_wd.json'); document.getElementById('run-status-banner').style.display='none';" style="border: none; background: #0284c7; color: white; border-radius: 4px; padding: 5px 10px; cursor: pointer; font-size: 0.82em; font-weight: 600;">
+                    Reset to Active Output
+                </button>
+            </div>
+
             <!-- Hierarchy Tree Header & Controls -->
             <div class="tree-controls" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; margin-top: 8px;">
                 <div style="font-weight: 600; color: #475569; font-size: 0.95em;">Works Package Hierarchy</div>
@@ -599,7 +609,12 @@
                     <td style="padding: 16px;">${row.execution_time_sec.toFixed(1)}s</td>
                     <td style="padding: 16px;">$${row.cost.toFixed(5)}</td>
                     <td style="padding: 16px; color: #64748b; font-size: 0.9em;">${dateStr}</td>
-                    <td style="padding: 16px; text-align: center;">
+                    <td style="padding: 16px; text-align: center; white-space: nowrap;">
+                        <button type="button" onclick="viewLeagueRun('${row.output_file || ''}', '${escapeHtml(row.model)}', '${escapeHtml(tmpl)}', '${row.timestamp}')"
+                                title="View this run in Live Allocator"
+                                style="padding: 5px 12px; border-radius: 6px; border: 1px solid #bae6fd; background: #f0f9ff; color: #0284c7; cursor: pointer; font-size: 0.82em; font-weight: 600; margin-right: 6px; transition: all 0.2s;">
+                            👁️ View Output
+                        </button>
                         <button type="button" onclick="deleteLeagueEntry('${row.timestamp}', '${escapeHtml(row.model)}', '${escapeHtml(tmpl)}')"
                                 title="Delete this entry"
                                 style="padding: 5px 12px; border-radius: 6px; border: 1px solid #fecdd3; background: #fff1f2; color: #e11d48; cursor: pointer; font-size: 0.82em; font-weight: 600; transition: all 0.2s;">
@@ -609,6 +624,22 @@
                 `;
                 tbody.appendChild(tr);
             });
+        }
+
+        function viewLeagueRun(outputFile, model, template, timestamp) {
+            switchTab('allocator');
+            
+            const banner = document.getElementById('run-status-banner');
+            if (banner) {
+                banner.style.display = 'flex';
+                const detailsEl = document.getElementById('banner-run-details');
+                if (detailsEl) {
+                    detailsEl.textContent = `${model} | ${template} (${new Date(timestamp).toLocaleString()})`;
+                }
+            }
+
+            const targetPath = outputFile || 'output_wd.json';
+            loadHierarchy(targetPath);
         }
 
         function escapeHtml(str) {
@@ -806,9 +837,13 @@
             allDetails.forEach(d => d.open = false);
         }
 
-        function loadHierarchy() {
-            return fetch('output_wd.json?t=' + Date.now())
-                .then(res => res.json())
+        function loadHierarchy(targetPath) {
+            const url = (targetPath || 'output_wd.json') + '?t=' + Date.now();
+            return fetch(url)
+                .then(res => {
+                    if (!res.ok) throw new Error("Could not load output file: " + (targetPath || 'output_wd.json'));
+                    return res.json();
+                })
                 .then(data => {
                     const meta = data.metadata || {};
                     document.getElementById('metric-accuracy').textContent = meta.overall_accuracy_score || '--';
@@ -955,6 +990,9 @@
             runBtn.style.display = 'none';
             cancelBtn.style.display = 'flex';
             currentAbortController = new AbortController();
+
+            const banner = document.getElementById('run-status-banner');
+            if (banner) banner.style.display = 'none';
 
             // Clear metrics during run
             document.getElementById('metric-accuracy').textContent = '--';

@@ -530,7 +530,14 @@ $finalOutput = [
     'work_packages' => $output
 ];
 
+// Save active output
 file_put_contents('output_wd.json', json_encode($finalOutput, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+
+// Save per-run output for historical viewing
+@mkdir(__DIR__ . '/runs', 0777, true);
+$runId = 'run_' . md5($aiService->getModelLabel() . '::' . $selectedTemplate);
+$runFile = "runs/{$runId}.json";
+file_put_contents($runFile, json_encode($finalOutput, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
 // Append to Historical Benchmark Data (Keeping only the latest run per model + template combination)
 $historyFile = 'benchmark_history.json';
@@ -546,7 +553,8 @@ $newRun = [
     'mapping_rate' => $mappingRate,
     'accuracy' => (float)$overallAccuracy,
     'execution_time_sec' => round(microtime(true) - $globalStartTime, 2),
-    'cost' => (float)$totalEstimatedCost
+    'cost' => (float)$totalEstimatedCost,
+    'output_file' => $runFile
 ];
 
 $updatedHistory = [];

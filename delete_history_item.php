@@ -43,6 +43,9 @@ foreach ($history as $row) {
 
     if ($match && !$deleted) {
         $deleted = true; // Delete only the specific matching item
+        if (!empty($row['output_file']) && file_exists(__DIR__ . '/' . $row['output_file'])) {
+            @unlink(__DIR__ . '/' . $row['output_file']);
+        }
         continue;
     }
     $filtered[] = $row;
