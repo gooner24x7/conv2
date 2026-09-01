@@ -1,17 +1,5 @@
 [
     {
-        "timestamp": "2026-09-01 13:28:29",
-        "model": "Google Gemini 3.7 Flash (Ultra-Fast)",
-        "template": "NRM1 template.csv",
-        "total_bills": 71,
-        "mapped_bills": 0,
-        "mapping_rate": 0,
-        "accuracy": 0,
-        "execution_time_sec": 6.91,
-        "cost": 0,
-        "output_file": "runs\/run_28f910addaa6a7e3d87726e8d54dc109.json"
-    },
-    {
         "timestamp": "2026-09-01 13:30:18",
         "model": "Google Gemini 3.5 Flash-Lite",
         "template": "NRM1 template.csv",
@@ -22,5 +10,17 @@
         "execution_time_sec": 48.79,
         "cost": 0.01589,
         "output_file": "runs\/run_9679e01bac2569c14dcc2fd30df34baf.json"
+    },
+    {
+        "timestamp": "2026-09-01 13:32:39",
+        "model": "OpenAI GPT-5.6 Luna (Lightweight)",
+        "template": "NRM1 template.csv",
+        "total_bills": 71,
+        "mapped_bills": 62,
+        "mapping_rate": 0.8732394366197183,
+        "accuracy": 87.9,
+        "execution_time_sec": 141.3,
+        "cost": 0.02661,
+        "output_file": "runs\/run_81482b265c7738e628deaba6c6ffbbce.json"
     }
 ]

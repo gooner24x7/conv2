@@ -149,7 +149,7 @@ class BoqParserService
             $firstRow = $sheet[0] ?? [];
             if (isset($firstRow['C']) || (isset($firstRow['A']) && stripos($firstRow['A'], 'Work Section Number') !== false)) {
                 $is4ColumnNrm = true;
-            } elseif (isset($sheet[1]['B']) && stripos($sheet[1]['B'], 'Context: Belongs to Group Element:') !== false) {
+            } elseif (isset($firstRow['E']) || (isset($firstRow['A']) && stripos($firstRow['A'], 'Group Element') !== false)) {
                 $isNrm1 = true;
             }
         }
@@ -197,20 +197,28 @@ class BoqParserService
             $groupElements = [];
             foreach ($sheet as $idx => $row) {
                 if ($idx === 0) continue;
-                $name = trim($row['A'] ?? '');
-                $desc = trim($row['B'] ?? '');
+                $groupName = trim($row['A'] ?? '');
+                $elementName = trim($row['B'] ?? '');
+                $code = trim($row['C'] ?? '');
+                $name = trim($row['D'] ?? '');
+                $scope = trim($row['E'] ?? '');
 
-                if (preg_match("/Group Element:\s*'([^']+)'/", $desc, $m)) {
-                    $groupName = $m[1];
-                    if (!isset($groupElements[$groupName])) {
-                        $groupElements[$groupName] = [];
-                    }
-                    $groupElements[$groupName][] = [
-                        'id' => 't2_' . md5($groupName . $name),
-                        'name' => $name,
-                        'description' => $desc
-                    ];
+                if ($groupName === '' || $name === '') continue;
+
+                if (!isset($groupElements[$groupName])) {
+                    $groupElements[$groupName] = [];
                 }
+                
+                $desc = "Element: $elementName.";
+                if ($scope !== '') {
+                    $desc .= " Scope: $scope";
+                }
+
+                $groupElements[$groupName][] = [
+                    'id' => 't2_' . md5($groupName . $code . $name),
+                    'name' => $code !== '' ? "$code $name" : $name,
+                    'description' => $desc
+                ];
             }
 
             $groupIdx = 1;
