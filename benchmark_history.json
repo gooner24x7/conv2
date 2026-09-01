@@ -1,110 +1,26 @@
 [
     {
-        "timestamp": "2026-08-27 10:16:32",
-        "model": "OpenAI GPT-5.6 Luna",
-        "template": "NRM2 template.csv",
-        "total_bills": 71,
-        "mapped_bills": 61,
-        "mapping_rate": 0.8591549295774648,
-        "accuracy": 90.7,
-        "execution_time_sec": 217.49,
-        "cost": 0.044815,
-        "output_file": "runs\/run_af4064c5ef314b628e94348a5cc55d2d.json"
-    },
-    {
-        "timestamp": "2026-08-27 10:38:05",
-        "model": "OpenAI GPT-5.6 Luna",
+        "timestamp": "2026-09-01 13:28:29",
+        "model": "Google Gemini 3.7 Flash (Ultra-Fast)",
         "template": "NRM1 template.csv",
-        "total_bills": 71,
-        "mapped_bills": 62,
-        "mapping_rate": 0.8732394366197183,
-        "accuracy": 89.2,
-        "execution_time_sec": 209.72,
-        "cost": 0.0653078,
-        "output_file": "runs\/run_4ee7e751542fee78896a406e99805036.json"
-    },
-    {
-        "timestamp": "2026-08-27 10:45:08",
-        "model": "OpenAI GPT-5.6 Luna",
-        "template": "WD template.csv",
-        "total_bills": 71,
-        "mapped_bills": 62,
-        "mapping_rate": 0.8732394366197183,
-        "accuracy": 84.6,
-        "execution_time_sec": 212.83,
-        "cost": 0.0397006,
-        "output_file": "runs\/run_cac097058422bd293bda31102c0dc4a7.json"
-    },
-    {
-        "timestamp": "2026-08-27 15:40:27",
-        "model": "Google Gemini 3.6 Flash",
-        "template": "NRM2 template.csv",
-        "total_bills": 71,
-        "mapped_bills": 61,
-        "mapping_rate": 0.8591549295774648,
-        "accuracy": 92.4,
-        "execution_time_sec": 341.45,
-        "cost": 0.262146,
-        "output_file": "runs\/run_46a1cda7b3e9a9268f61dfdfdbc4f1f3.json"
-    },
-    {
-        "timestamp": "2026-09-01 12:45:18",
-        "model": "Google Gemini 3.6 Flash (Fast & Balanced)",
-        "template": "WD template.csv",
         "total_bills": 71,
         "mapped_bills": 0,
         "mapping_rate": 0,
         "accuracy": 0,
-        "execution_time_sec": 2.17,
+        "execution_time_sec": 6.91,
         "cost": 0,
-        "output_file": "runs\/run_d79fd39cc27a54c7abb069febddce874.json"
+        "output_file": "runs\/run_28f910addaa6a7e3d87726e8d54dc109.json"
     },
     {
-        "timestamp": "2026-09-01 13:00:55",
-        "model": "Google Gemini 3.6 Flash (Fast & Balanced)",
-        "template": "NRM2 template.csv",
-        "total_bills": 71,
-        "mapped_bills": 70,
-        "mapping_rate": 0.9859154929577465,
-        "accuracy": 91.1,
-        "execution_time_sec": 126.72,
-        "cost": 0.00334,
-        "output_file": "runs\/run_61df4e2eea72e82053b4edb86b71a595.json"
-    },
-    {
-        "timestamp": "2026-09-01 13:08:48",
+        "timestamp": "2026-09-01 13:30:18",
         "model": "Google Gemini 3.5 Flash-Lite",
         "template": "NRM1 template.csv",
         "total_bills": 71,
         "mapped_bills": 70,
         "mapping_rate": 0.9859154929577465,
-        "accuracy": 92,
-        "execution_time_sec": 19.97,
-        "cost": 0.00821,
+        "accuracy": 94.2,
+        "execution_time_sec": 48.79,
+        "cost": 0.01589,
         "output_file": "runs\/run_9679e01bac2569c14dcc2fd30df34baf.json"
-    },
-    {
-        "timestamp": "2026-09-01 13:11:39",
-        "model": "Google Gemini 3.5 Flash-Lite",
-        "template": "WD template.csv",
-        "total_bills": 71,
-        "mapped_bills": 68,
-        "mapping_rate": 0.9577464788732394,
-        "accuracy": 89.9,
-        "execution_time_sec": 40.1,
-        "cost": 0.01029,
-        "output_file": "runs\/run_28aa60f5d251cc11520be4cc5a91966b.json"
-    },
-    {
-        "timestamp": "2026-09-01 13:22:38",
-        "model": "Google Gemini 3.5 Flash-Lite",
-        "template": "NRM2 template.csv",
-        "total_bills": 71,
-        "mapped_bills": 68,
-        "mapping_rate": 0.9577464788732394,
-        "accuracy": 91,
-        "execution_time_sec": 52.66,
-        "cost": 0.0176,
-        "output_file": "runs\/run_b6250822dcaf2c4a2e7720e6f3d7a234.json"
     }
 ]
