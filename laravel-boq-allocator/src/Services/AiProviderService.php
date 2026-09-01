@@ -230,33 +230,50 @@ class AiProviderService
 
     protected function httpPost(string $url, array $data, array $headers): array
     {
-        $ch = curl_init($url);
-        curl_setopt_array($ch, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => json_encode($data),
-            CURLOPT_HTTPHEADER => $headers,
-            CURLOPT_TIMEOUT => 180,
-            CURLOPT_SSL_VERIFYPEER => false
-        ]);
+        $maxRetries = 5;
+        $attempt = 0;
+        
+        while ($attempt < $maxRetries) {
+            $ch = curl_init($url);
+            curl_setopt_array($ch, [
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => json_encode($data),
+                CURLOPT_HTTPHEADER => $headers,
+                CURLOPT_TIMEOUT => 180,
+                CURLOPT_SSL_VERIFYPEER => false
+            ]);
 
-        $resp = curl_exec($ch);
-        $err = curl_error($ch);
-        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
+            $resp = curl_exec($ch);
+            $err = curl_error($ch);
+            $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
 
-        if ($err) {
-            throw new Exception("cURL Error: $err");
+            $isRetryableCode = in_array($code, [429, 500, 502, 503, 504]);
+            
+            if ($err || $isRetryableCode) {
+                $attempt++;
+                if ($attempt >= $maxRetries) {
+                    $errorMsg = $err ? "cURL Error: $err" : "API HTTP $code Error: " . substr($resp, 0, 500);
+                    throw new Exception($errorMsg . " (Failed after $maxRetries retries)");
+                }
+                // Exponential backoff: 2s, 4s, 8s, 16s
+                sleep(pow(2, $attempt));
+                continue;
+            }
+
+            if ($code >= 400) {
+                throw new Exception("API HTTP $code Error: " . substr($resp, 0, 500));
+            }
+
+            $decoded = json_decode($resp, true);
+            if ($decoded === null) {
+                throw new Exception("Invalid JSON response from AI API.");
+            }
+
+            return $decoded;
         }
-        if ($code >= 400) {
-            throw new Exception("API HTTP $code Error: " . substr($resp, 0, 500));
-        }
-
-        $decoded = json_decode($resp, true);
-        if ($decoded === null) {
-            throw new Exception("Invalid JSON response from AI API.");
-        }
-
-        return $decoded;
+        
+        throw new Exception("Unexpected error in httpPost.");
     }
 }
