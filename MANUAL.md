@@ -6,44 +6,46 @@ This document provides a comprehensive technical guide to the **Construction BoQ
 
 ## 1. System Overview & Architecture
 
-The **BoQ Allocation Engine** is a high-performance PHP service that automatically parses, analyzes, and categorizes construction **Bills of Quantities (BoQs)** (`.xlsx`) into standardized **Works Packages** or standard measurement frameworks (**NRM2**, **NRM1**, or bespoke contractor packages) using Large Language Model (LLM) reasoning.
+The **BoQ Allocation Engine** is a high-performance PHP service that automatically parses, analyses, and categorises construction **Bills of Quantities (BoQs)** (`.xlsx`) into standardised **Works Packages** or standard measurement frameworks (**NRM2**, **NRM1**, or bespoke contractor packages) using Large Language Model (LLM) reasoning.
+
+All standard templates are stored in a single canonical directory: `laravel-boq-allocator/templates/`.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                              INPUT DATA                                     │
 │  - BoQ Spreadsheet (.xlsx): General Summary & Detailed Bill Line Items     │
-│  - Works Package Template (.csv / .xlsx): WD, NRM1, or NRM2                 │
+│  - Works Package Template (.csv): WD (2-col), NRM2 (4-col), NRM1 (5-col)    │
 └──────────────────────────────────────┬──────────────────────────────────────┘
                                        │
                                        ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                           PARSING & EXTRACTION                              │
 │  - BoqParserService (Native XML/ZIP Stream Parsing, Zero Heavy Deps)        │
-│  - Template Structure Auto-Detection (2-column vs 4-column NRM hierarchy)   │
-│  - Context Extraction (Filters boilerplate, extracts top representative     │
-│    sub-items per Bill)                                                      │
+│  - Template Auto-Detection (2-col WD, 4-col NRM2, 5-col NRM1 hierarchy)     │
+│  - Scope Context Extraction (Strips boilerplate, extracts top items/bill)   │
 └──────────────────────────────────────┬──────────────────────────────────────┘
                                        │
                                        ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                        PROMPT INJECTION & BATCHING                          │
-│  - Commercial Estimator System Prompt with strict measurement standards     │
+│  - Senior Commercial Estimator System Prompt with measurement standards     │
 │  - Scope catalogues & optional custom user rules injected                   │
-│  - Smart batching (15-20 bills per batch) to optimize latency & context     │
+│  - Smart batching (15-20 bills per batch) to optimise latency & context     │
 └──────────────────────────────────────┬──────────────────────────────────────┘
                                        │
                                        ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                           MULTI-LLM REASONING                               │
-│  - AiProviderService: Universal client for Google Gemini, OpenAI, Claude    │
-│  - Dual-Confidence Evaluation: Works Package Match % + Trade Match %        │
-│  - Commercial Rationale Generation & Subcontractor Trade Classification     │
+│                       TWO-TIERED AI REASONING ENGINE                        │
+│  - AiProviderService: Universal client with 5x Exponential Backoff Retry    │
+│  - Phase 5 (Macro Trade Allocation): 2-Pass Reasoning (Draft + Reflection)  │
+│  - Phase 5.5 (Micro Sub-Allocation): Localised Tier 2 Work Item queries     │
+│  - Dual-Confidence Evaluation: Package Match % + Subcontractor Trade Match % │
 └──────────────────────────────────────┬──────────────────────────────────────┘
                                        │
                                        ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                       COMPILATION & SCORING METRICS                         │
-│  - Hierarchy Synthesis: Work Package Nodes -> Bill Children                 │
+│  - Hierarchy Synthesis: 3-Level Nesting (Section 📂 -> Item 📂 -> Bill 📄)   │
 │  - Bounded Scoring: Strict 0% - 100% Mapping Rate & Overall Accuracy        │
 │  - Real-time Progress Broadcasting (WebSockets / SSE)                       │
 │  - Output Artifacts: Structured JSON Tree & Metadata DTO                    │
@@ -55,17 +57,19 @@ The **BoQ Allocation Engine** is a high-performance PHP service that automatical
 ## 2. Step-by-Step Processing Pipeline
 
 ### Phase 1: Works Package Template Ingestion (`parseTemplate`)
-The engine dynamically inspects the uploaded template (`.csv` or `.xlsx`):
-1. **2-Column Standard Format (`WD template.csv`, `NRM1 template.csv`):**
+The engine dynamically inspects the uploaded template (`.csv`):
+1. **2-Column Standard Format (`WD template.csv`):**
    * Reads Column A as *Package Name* and Column B as *Scope Description / Inclusions*.
    * Assigns unique sequential identifiers (`wd_0`, `wd_1`, etc.).
 2. **4-Column NRM2 Hierarchy (`NRM2 template.csv`):**
    * Detects 4-column layout (`Work Section Number`, `Work Section`, `Work Item Number`, `Work Item`).
-   * Automatically groups the 600+ granular measurement items into **41 primary Work Sections** (e.g. `Section 14: Masonry`, `Section 15: Structural Metalwork`), injecting the list of work items directly into the scope description.
-   * Eliminates duplicate IDs and optimizes token efficiency while retaining granular trade context.
+   * Automatically groups the 600+ granular measurement items into **41 primary Work Sections** (e.g. `Section 14: Masonry`, `Section 15: Structural Metalwork`), building a macro map for Tier 1 allocation.
+3. **5-Column NRM1 Hierarchy (`NRM1 template.csv`):**
+   * Detects 5-column layout (`Group Element`, `Element`, `Package Code`, `Package Name`, `Scope Hints`).
+   * Groups items into primary **Group Elements** (e.g. `Facilitating works`, `Substructure`, `Superstructure`) and prepares elemental sub-items for Tier 2 allocation.
 
 ### Phase 2 & 3: BoQ Ingestion & Context Extraction (`parseBoq`)
-1. **General Summary Extraction:** Reads the `General Summary` tab to identify all top-level bill titles (e.g., `Bill 1: Demolition & Initial Earthworks`, `Bill 14: Masonry`).
+1. **General Summary Extraction:** Reads the `General Summary` tab to identify all top-level bill titles (e.g. `Bill 1: Demolition & Initial Earthworks`, `Bill 14: Masonry`).
 2. **Granular Sub-Item Extraction:** Scans the `Bill Items` sheet.
    * Strips out boilerplate lines (`to collection`, `carried forward`, `page total`, `summary`).
    * Extracts up to $N$ representative work item descriptions per bill (default: `20` lines) to serve as commercial evidence for the AI prompt.
@@ -74,22 +78,23 @@ The engine dynamically inspects the uploaded template (`.csv` or `.xlsx`):
 Constructs a prompt embodying the persona of a *Senior Construction Commercial Manager and Estimator*:
 * Injects all available Works Package IDs, Names, and Scope Descriptions.
 * Adds a fallback target: `wd_unmapped` (Unmapped / General Contractor Allowances / Provisional Sums).
-* Injects any user-defined custom priority rules (e.g., *"Allocate all drainage works under Section 5 to Groundworks Subcontractor"*).
+* Injects any user-defined custom priority rules (e.g. *"Allocate all drainage works under Section 5 to Groundworks Subcontractor"*).
 
-### Phase 5: Batch Processing & AI Multi-Provider Execution
+### Phase 5: Macro Trade Allocation & 2-Pass AI Reasoning
 * Batches the bills (default: 18 bills per batch) to avoid token limits and reduce API roundtrips.
-* Sends JSON-formatted requests to the configured AI model via `AiProviderService`.
-* Parses the returned JSON containing:
-  * `bill_number`: Integer ID.
-  * `target_wd_id`: Selected package ID (`wd_0` to `wd_N` or `wd_unmapped`).
-  * `package_confidence`: Confidence score ($0 - 100$).
-  * `trade`: Specialist subcontractor classification (e.g. *"Piling Contractor"*).
-  * `trade_confidence`: Trade classification confidence ($0 - 100$).
-  * `rationale`: Commercial explanation.
+* **Pass 1 (Draft Mapping):** Requests initial classification array from the LLM via `AiProviderService`.
+* **Pass 2 (Self-Reflection & Critique):** Evaluates the draft mapping against measurement constraints and corrects errors before finalizing.
+* **Exponential Backoff:** If the AI provider returns a `429 Rate Limit`, `503 Service Unavailable`, or temporary network error, `AiProviderService` automatically retries up to 5 times using exponential delays (`2s`, `4s`, `8s`, `16s`).
+
+### Phase 5.5: Tier 2 Micro Work Item Sub-Allocation
+For hierarchical templates (NRM1 and NRM2):
+* The engine collects all bills assigned to each Tier 1 macro section.
+* It sends targeted follow-up queries to the LLM containing *only* the specific micro work items belonging to that macro section.
+* Bills are assigned to their precise Tier 2 Work Item without sending all 600+ items in a single massive prompt, preserving speed and accuracy.
 
 ### Phase 6: Tree Compilation & Accuracy Metrics
-The engine synthesizes the final hierarchical JSON structure:
-1. **Unique Bill Tracking:** Allocates each bill into its corresponding Works Package node. Any unallocated bills or bills mapped to `wd_unmapped` are placed in the `Unmapped / General Scope` group.
+The engine synthesises the final hierarchical JSON structure:
+1. **Unique Bill Tracking & Tree Construction:** Constructs a 2-level tree (`Package 📂` -> `Bill 📄`) for flat templates, or a 3-level tree (`Macro Section 📂` -> `Micro Work Item 📂` -> `Bill 📄`) for NRM1 and NRM2.
 2. **Metric Calculations (Strictly Bounded $0.0\% - 100.0\%$):**
    * **Mapping Rate:**
      $$\text{Mapping Rate} = \min\left(1.0, \max\left(0.0, \frac{\text{Mapped Bills}}{\text{Total Bills}}\right)\right)$$
@@ -103,6 +108,7 @@ The engine synthesizes the final hierarchical JSON structure:
 ## 3. Data Contracts & Output Schema
 
 ### Output JSON Format (`AllocationResult`)
+
 
 ```json
 {
