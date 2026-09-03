@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-$dir = __DIR__ . '/templates';
+$dir = __DIR__ . '/laravel-boq-allocator/templates';
 $files = [];
 if (is_dir($dir)) {
     $scanned = scandir($dir);

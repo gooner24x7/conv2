@@ -79,7 +79,7 @@ if (isset($_GET['template'])) {
     }
 }
 
-$templatePath = __DIR__ . '/templates/' . basename($selectedTemplate);
+$templatePath = __DIR__ . '/laravel-boq-allocator/templates/' . basename($selectedTemplate);
 if (!file_exists($templatePath)) {
     emitStatus("Error: Template file not found: $selectedTemplate");
     exit;
