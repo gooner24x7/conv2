@@ -150,7 +150,7 @@ try {
             }
         }
     }
-    $totalWorksPackages = $l2Count > 0 ? ($l1Count + l2Count) : $l1Count;
+    $totalWorksPackages = $l2Count > 0 ? ($l1Count + $l2Count) : $l1Count;
 
     $newRun = [
         'timestamp' => date('Y-m-d H:i:s'),
