@@ -711,6 +711,41 @@
         function viewLeagueRun(outputFile, model, template, timestamp) {
             switchTab('allocator');
             
+            // Sync Works Template selector
+            const templateSelect = document.getElementById('template-select');
+            if (templateSelect && template) {
+                for (let option of templateSelect.options) {
+                    if (option.value === template || option.text.includes(template)) {
+                        templateSelect.value = option.value;
+                        break;
+                    }
+                }
+            }
+
+            // Sync AI Model selector
+            const modelSelect = document.getElementById('model-select');
+            if (modelSelect && model) {
+                let matched = false;
+                for (let option of modelSelect.options) {
+                    if (option.value === model) {
+                        modelSelect.value = option.value;
+                        matched = true;
+                        break;
+                    }
+                }
+                if (!matched) {
+                    const normModel = model.toLowerCase().replace(/[^a-z0-9]/g, '');
+                    for (let option of modelSelect.options) {
+                        const normVal = option.value.toLowerCase().replace(/[^a-z0-9]/g, '');
+                        const normText = option.text.toLowerCase().replace(/[^a-z0-9]/g, '');
+                        if (normVal === normModel || normText.includes(normModel) || normModel.includes(normVal)) {
+                            modelSelect.value = option.value;
+                            break;
+                        }
+                    }
+                }
+            }
+
             const banner = document.getElementById('run-status-banner');
             if (banner) {
                 banner.style.display = 'flex';
@@ -1024,6 +1059,33 @@
                     }
 
                     document.getElementById('metric-cost').textContent = meta.estimated_cost || '$0.00';
+
+                    if (meta.template) {
+                        const templateSelect = document.getElementById('template-select');
+                        if (templateSelect) {
+                            for (let option of templateSelect.options) {
+                                if (option.value === meta.template || option.text.includes(meta.template)) {
+                                    templateSelect.value = option.value;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    if (meta.engine) {
+                        const modelSelect = document.getElementById('model-select');
+                        if (modelSelect) {
+                            const normEngine = meta.engine.toLowerCase().replace(/[^a-z0-9]/g, '');
+                            for (let option of modelSelect.options) {
+                                const normVal = option.value.toLowerCase().replace(/[^a-z0-9]/g, '');
+                                const normText = option.text.toLowerCase().replace(/[^a-z0-9]/g, '');
+                                if (normVal === normEngine || normText.includes(normEngine) || normEngine.includes(normVal)) {
+                                    modelSelect.value = option.value;
+                                    break;
+                                }
+                            }
+                        }
+                    }
 
                     let l1Count = 0;
                     let l2Count = 0;
