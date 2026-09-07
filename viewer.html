@@ -415,6 +415,10 @@
                     <span id="metric-trade-conf">--</span>
                 </div>
                 <div class="metric-card">
+                    <strong>Total Works Packages</strong>
+                    <span id="metric-total-pkgs" style="color: #0d9488;">--</span>
+                </div>
+                <div class="metric-card">
                     <strong>Bills Mapped</strong>
                     <span id="metric-mapped">-- / --</span>
                 </div>
@@ -425,6 +429,43 @@
                 <div class="metric-card cost">
                     <strong>Total AI Cost</strong>
                     <span id="metric-cost" style="color: #4f46e5;">--</span>
+                </div>
+            </div>
+
+            <!-- Hierarchy Level Analysis Panel -->
+            <div id="hierarchy-analysis-panel" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px 20px; margin-bottom: 20px; border-left: 4px solid #0d9488; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 1.1em;">📊</span>
+                        <strong style="font-size: 0.95em; color: #0f172a;">Hierarchy Level Analysis</strong>
+                        <span id="analysis-template-badge" style="background: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; padding: 2px 8px; border-radius: 12px; font-size: 0.78em; font-weight: 600;">--</span>
+                    </div>
+                    <div style="font-size: 0.85em; color: #64748b;">
+                        Total Packages in Hierarchy: <strong id="analysis-total-count" style="color: #0d9488; font-size: 1.1em; margin-left: 4px;">0</strong>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 14px;">
+                        <div style="font-size: 0.75em; text-transform: uppercase; color: #64748b; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 4px;">Level 1: Macro Sections</div>
+                        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                            <span id="level-1-count" style="font-size: 1.3em; font-weight: 700; color: #0284c7;">0</span>
+                            <span id="level-1-label" style="font-size: 0.8em; color: #64748b;">Top-Level Groups</span>
+                        </div>
+                    </div>
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 14px;">
+                        <div style="font-size: 0.75em; text-transform: uppercase; color: #64748b; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 4px;">Level 2: Micro Items</div>
+                        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                            <span id="level-2-count" style="font-size: 1.3em; font-weight: 700; color: #0d9488;">0</span>
+                            <span id="level-2-label" style="font-size: 0.8em; color: #64748b;">Granular Packages</span>
+                        </div>
+                    </div>
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 14px;">
+                        <div style="font-size: 0.75em; text-transform: uppercase; color: #64748b; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 4px;">Level 3: Mapped Bills</div>
+                        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                            <span id="level-3-count" style="font-size: 1.3em; font-weight: 700; color: #16a34a;">0</span>
+                            <span id="level-3-label" style="font-size: 0.8em; color: #64748b;">BoQ Line Items</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -864,6 +905,51 @@
                     }
 
                     document.getElementById('metric-cost').textContent = meta.estimated_cost || '$0.00';
+
+                    let l1Count = 0;
+                    let l2Count = 0;
+                    let l3Count = 0;
+
+                    if (data.work_packages) {
+                        l1Count = data.work_packages.length;
+                        data.work_packages.forEach(wdPkg => {
+                            if (wdPkg.children) {
+                                wdPkg.children.forEach(child => {
+                                    if (child.attributes && child.attributes.package_type === 'tier2_item') {
+                                        l2Count++;
+                                        if (child.children) {
+                                            l3Count += child.children.length;
+                                        }
+                                    } else {
+                                        l3Count++;
+                                    }
+                                });
+                            }
+                        });
+                    }
+
+                    const totalWorksPackages = l2Count > 0 ? (l1Count + l2Count) : l1Count;
+
+                    const totalPkgsElem = document.getElementById('metric-total-pkgs');
+                    if (totalPkgsElem) totalPkgsElem.textContent = totalWorksPackages.toLocaleString();
+
+                    const analysisTotalCount = document.getElementById('analysis-total-count');
+                    if (analysisTotalCount) analysisTotalCount.textContent = totalWorksPackages.toLocaleString();
+
+                    const level1Count = document.getElementById('level-1-count');
+                    if (level1Count) level1Count.textContent = l1Count.toLocaleString();
+
+                    const level2Count = document.getElementById('level-2-count');
+                    if (level2Count) level2Count.textContent = l2Count > 0 ? l2Count.toLocaleString() : 'N/A';
+
+                    const level2Label = document.getElementById('level-2-label');
+                    if (level2Label) level2Label.textContent = l2Count > 0 ? 'Granular Work Items' : 'Single-Tier Template';
+
+                    const level3Count = document.getElementById('level-3-count');
+                    if (level3Count) level3Count.textContent = l3Count.toLocaleString();
+
+                    const templateBadge = document.getElementById('analysis-template-badge');
+                    if (templateBadge) templateBadge.textContent = meta.template || 'Works Template';
 
                     const treeContainer = document.getElementById('tree');
                     treeContainer.innerHTML = '';
