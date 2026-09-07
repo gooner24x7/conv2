@@ -128,6 +128,30 @@ try {
     $history = file_exists($historyFile) ? json_decode(file_get_contents($historyFile), true) : [];
     if (!is_array($history)) $history = [];
 
+    // Calculate Hierarchy Counts by Level
+    $l1Count = 0;
+    $l2Count = 0;
+    $l3Count = 0;
+
+    if (!empty($finalOutput['work_packages'])) {
+        $l1Count = count($finalOutput['work_packages']);
+        foreach ($finalOutput['work_packages'] as $wdPkg) {
+            if (!empty($wdPkg['children'])) {
+                foreach ($wdPkg['children'] as $child) {
+                    if (isset($child['attributes']['package_type']) && $child['attributes']['package_type'] === 'tier2_item') {
+                        $l2Count++;
+                        if (!empty($child['children'])) {
+                            $l3Count += count($child['children']);
+                        }
+                    } else {
+                        $l3Count++;
+                    }
+                }
+            }
+        }
+    }
+    $totalWorksPackages = $l2Count > 0 ? ($l1Count + l2Count) : $l1Count;
+
     $newRun = [
         'timestamp' => date('Y-m-d H:i:s'),
         'model' => $result->metadata['engine'],
@@ -136,6 +160,10 @@ try {
         'mapped_bills' => $result->metadata['mapped_bills'],
         'mapping_rate' => $result->metadata['mapped_bills'] / max(1, $result->metadata['total_bills']),
         'accuracy' => (float)str_replace('%', '', $result->metadata['overall_accuracy_score']),
+        'total_packages' => $totalWorksPackages,
+        'level_1_count' => $l1Count,
+        'level_2_count' => $l2Count,
+        'level_3_count' => $l3Count,
         'execution_time_sec' => (float)str_replace('s', '', $result->metadata['execution_time']),
         'cost' => (float)str_replace('$', '', $result->metadata['estimated_cost']),
         'output_file' => $runFile
