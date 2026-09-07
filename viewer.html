@@ -466,6 +466,13 @@
                             <span id="level-3-label" style="font-size: 0.8em; color: #64748b;">BoQ Line Items</span>
                         </div>
                     </div>
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 14px;">
+                        <div style="font-size: 0.75em; text-transform: uppercase; color: #64748b; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 4px;">Unmapped Bills</div>
+                        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                            <span id="level-unmapped-count" style="font-size: 1.3em; font-weight: 700; color: #d97706;">0</span>
+                            <span id="level-unmapped-label" style="font-size: 0.8em; color: #64748b;">General Allowances</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -480,8 +487,15 @@
             </div>
 
             <!-- Hierarchy Tree Header & Controls -->
-            <div class="tree-controls" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; margin-top: 8px;">
-                <div style="font-weight: 600; color: #475569; font-size: 0.95em;">Works Package Hierarchy</div>
+            <div class="tree-controls" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; margin-top: 8px; flex-wrap: wrap; gap: 10px;">
+                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                    <div style="font-weight: 600; color: #475569; font-size: 0.95em;">Works Package Hierarchy</div>
+                    <div style="position: relative; display: flex; align-items: center;">
+                        <input type="text" id="bill-search-input" placeholder="🔍 Search bills, scope, trade..." onkeyup="filterTreeBySearch()" style="padding: 6px 30px 6px 12px; font-size: 0.85em; border: 1px solid #cbd5e1; border-radius: 6px; width: 250px; outline: none; transition: border 0.2s;">
+                        <span id="search-clear-btn" onclick="clearBillSearch()" style="position: absolute; right: 8px; cursor: pointer; color: #94a3b8; display: none; font-size: 0.85em; font-weight: bold;">✕</span>
+                    </div>
+                    <span id="search-match-count" style="font-size: 0.8em; color: #0284c7; font-weight: 600; display: none;"></span>
+                </div>
                 <div style="display: flex; gap: 8px;">
                     <button type="button" class="btn-tree-toggle" onclick="expandAllWorkPackages()" style="padding: 6px 12px; font-size: 0.85em; font-weight: 500; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 4px; color: #334155; transition: all 0.2s;">
                         <span>➕</span> Expand All
@@ -905,6 +919,84 @@
             allDetails.forEach(d => d.open = false);
         }
 
+        function filterTreeBySearch() {
+            const searchInput = document.getElementById('bill-search-input');
+            const clearBtn = document.getElementById('search-clear-btn');
+            const countSpan = document.getElementById('search-match-count');
+            const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+
+            if (clearBtn) clearBtn.style.display = query !== '' ? 'inline-block' : 'none';
+
+            const treeContainer = document.getElementById('tree');
+            if (!treeContainer) return;
+
+            const billSummaries = treeContainer.querySelectorAll('.boq-package');
+            let matchCount = 0;
+            let totalBillsCount = billSummaries.length;
+
+            if (query === '') {
+                treeContainer.querySelectorAll('details').forEach(d => {
+                    d.style.display = '';
+                    if (d.querySelector('.boq-package')) {
+                        d.open = false;
+                    }
+                });
+                if (countSpan) countSpan.style.display = 'none';
+                return;
+            }
+
+            billSummaries.forEach(summary => {
+                const billDetails = summary.closest('details');
+                if (!billDetails) return;
+
+                const textContent = billDetails.innerText.toLowerCase();
+                const matches = textContent.includes(query);
+
+                if (matches) {
+                    matchCount++;
+                    billDetails.style.display = '';
+                    billDetails.open = true;
+
+                    let parent = billDetails.parentElement;
+                    while (parent && parent !== treeContainer) {
+                        if (parent.tagName && parent.tagName.toLowerCase() === 'details') {
+                            parent.style.display = '';
+                            parent.open = true;
+                        }
+                        parent = parent.parentElement;
+                    }
+                } else {
+                    billDetails.style.display = 'none';
+                }
+            });
+
+            const topDetails = treeContainer.querySelectorAll('details');
+            topDetails.forEach(d => {
+                if (d.querySelector('.wd-package')) {
+                    const visibleBills = d.querySelectorAll('details:not([style*="display: none"])');
+                    if (visibleBills.length === 0) {
+                        d.style.display = 'none';
+                    } else {
+                        d.style.display = '';
+                        d.open = true;
+                    }
+                }
+            });
+
+            if (countSpan) {
+                countSpan.style.display = 'inline';
+                countSpan.textContent = `${matchCount} of ${totalBillsCount} bills match`;
+            }
+        }
+
+        function clearBillSearch() {
+            const searchInput = document.getElementById('bill-search-input');
+            if (searchInput) {
+                searchInput.value = '';
+                filterTreeBySearch();
+            }
+        }
+
         function loadHierarchy(targetPath) {
             const url = (targetPath || 'output_wd.json') + '?t=' + Date.now();
             return fetch(url)
@@ -974,6 +1066,12 @@
 
                     const level3Count = document.getElementById('level-3-count');
                     if (level3Count) level3Count.textContent = l3Count.toLocaleString();
+
+                    const unmappedCountElem = document.getElementById('level-unmapped-count');
+                    if (unmappedCountElem) {
+                        const unmappedCount = meta.unmapped_bills !== undefined ? meta.unmapped_bills : (meta.total_bills && meta.mapped_bills ? (meta.total_bills - meta.mapped_bills) : 0);
+                        unmappedCountElem.textContent = unmappedCount.toLocaleString();
+                    }
 
                     const templateBadge = document.getElementById('analysis-template-badge');
                     if (templateBadge) templateBadge.textContent = meta.template || 'Works Template';
