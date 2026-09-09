@@ -355,17 +355,17 @@
             <div class="control-bar" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 25px;">
                 <label for="model-select" style="font-weight: 500; font-size: 14px; color: #475569;">AI Model:</label>
                 <select id="model-select" class="model-select">
+                    <optgroup label="OpenAI Models">
+                        <option value="openai-luna" selected>OpenAI GPT-5.6 Luna (Fast / Lightweight)</option>
+                        <option value="openai-sol">OpenAI GPT-5.6 Sol (Flagship / Deep Reasoning)</option>
+                        <option value="openai-terra">OpenAI GPT-5.6 Terra (Balanced / Everyday)</option>
+                    </optgroup>
                     <optgroup label="Google Gemini Models">
                         <option value="gemini-3.7-flash">Google Gemini 3.7 Flash (Next-Gen Reasoning & Code)</option>
-                        <option value="gemini-3.6-flash" selected>Google Gemini 3.6 Flash (Fast & Stable GA)</option>
+                        <option value="gemini-3.6-flash">Google Gemini 3.6 Flash (Fast & Stable GA)</option>
                         <option value="gemini-3.5-flash">Google Gemini 3.5 Flash (Ultra-Fast / High Efficiency)</option>
                         <option value="gemini-3.5-flash-lite">Google Gemini 3.5 Flash-Lite (High Throughput / Lowest Cost)</option>
                         <option value="gemini-3.1-pro">Google Gemini 3.1 Pro (Deep Reasoning Flagship)</option>
-                    </optgroup>
-                    <optgroup label="OpenAI Models">
-                        <option value="openai-sol">OpenAI GPT-5.6 Sol (Flagship / Deep Reasoning)</option>
-                        <option value="openai-terra">OpenAI GPT-5.6 Terra (Balanced / Everyday)</option>
-                        <option value="openai-luna">OpenAI GPT-5.6 Luna (Fast / Lightweight)</option>
                     </optgroup>
                     <optgroup label="Anthropic Claude Models">
                         <option value="claude-sonnet">Anthropic Claude 3.7 Sonnet</option>
@@ -377,6 +377,7 @@
                 <select id="template-select" class="model-select">
                     <option value="WD template.csv" selected>WD template.csv</option>
                     <option value="NRM1 template.csv">NRM1 template.csv</option>
+                    <option value="NRM2 template.csv">NRM2 template.csv</option>
                 </select>
 
                 <button id="run-btn" class="run-btn" onclick="triggerProcessing()">
@@ -1290,7 +1291,7 @@
             const progressBarFill = document.getElementById('progress-bar-fill');
             
             const modelSelect = document.getElementById('model-select');
-            const model = modelSelect ? modelSelect.value : 'gemini-flash';
+            const model = modelSelect ? modelSelect.value : 'openai-luna';
             const templateSelect = document.getElementById('template-select');
             const template = templateSelect ? templateSelect.value : 'WD template.csv';
 
@@ -1394,6 +1395,7 @@
                     select.innerHTML = `
                         <option value="WD template.csv" selected>WD template.csv</option>
                         <option value="NRM1 template.csv">NRM1 template.csv</option>
+                        <option value="NRM2 template.csv">NRM2 template.csv</option>
                     `;
                 }
             });

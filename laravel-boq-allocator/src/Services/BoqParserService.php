@@ -74,13 +74,17 @@ class BoqParserService
             @$doc->loadXML($xml);
             $rows = [];
             foreach ($doc->getElementsByTagName('row') as $row) {
-                $rd = [];
+                $rd = ['_row' => (int)$row->getAttribute('r')];
                 foreach ($row->getElementsByTagName('c') as $cell) {
                     preg_match('/^([A-Z]+)/', $cell->getAttribute('r'), $m);
                     $col = $m[1] ?? '';
                     $v = $cell->getElementsByTagName('v')->item(0);
                     if ($v) {
                         $rd[$col] = ($cell->getAttribute('t') === 's') ? ($strings[(int)$v->textContent] ?? '') : $v->textContent;
+                    } elseif ($cell->getAttribute('t') === 'inlineStr') {
+                        $text = '';
+                        foreach ($cell->getElementsByTagName('t') as $node) $text .= $node->textContent;
+                        $rd[$col] = $text;
                     }
                 }
                 $rows[] = $rd;
@@ -144,13 +148,18 @@ class BoqParserService
 
         $is4ColumnNrm = false;
         $isNrm1 = false;
+        $nrm2StartIndex = 1;
 
         if (!empty($sheet)) {
             $firstRow = $sheet[0] ?? [];
-            if (isset($firstRow['C']) || (isset($firstRow['A']) && stripos($firstRow['A'], 'Work Section Number') !== false)) {
-                $is4ColumnNrm = true;
-            } elseif (isset($firstRow['E']) || (isset($firstRow['A']) && stripos($firstRow['A'], 'Group Element') !== false)) {
+            if (isset($firstRow['A']) && stripos($firstRow['A'], 'Group Element') !== false) {
                 $isNrm1 = true;
+            } elseif (isset($firstRow['A']) && stripos($firstRow['A'], 'Work Section Number') !== false) {
+                $is4ColumnNrm = true;
+            } elseif (ctype_digit(trim((string)($firstRow['A'] ?? ''))) && trim((string)($firstRow['C'] ?? '')) !== '' && trim((string)($firstRow['D'] ?? '')) !== '') {
+                // The bundled AITOOLV3 NRM2 workbook starts directly with data.
+                $is4ColumnNrm = true;
+                $nrm2StartIndex = 0;
             }
         }
 
@@ -158,7 +167,7 @@ class BoqParserService
             $isTiered = true;
             $sectionGroups = [];
             foreach ($sheet as $idx => $row) {
-                if ($idx === 0) continue;
+                if ($idx < $nrm2StartIndex) continue;
                 $secNum = trim($row['A'] ?? '');
                 $secName = trim($row['B'] ?? '');
                 $itemNum = trim($row['C'] ?? '');
@@ -169,14 +178,22 @@ class BoqParserService
                 if (!isset($sectionGroups[$secNum])) {
                     $sectionGroups[$secNum] = [
                         'name' => "Section $secNum: $secName",
+                        'code' => $secNum,
+                        'section_name' => $secName,
                         'items' => []
                     ];
                 }
                 if ($itemName !== '') {
                     $sectionGroups[$secNum]['items'][] = [
                         'id' => 't2_' . md5($secNum . $itemName . $itemNum),
+                        'code' => $secNum . '.' . $itemNum,
                         'name' => $itemNum !== '' ? "$itemNum $itemName" : $itemName,
-                        'description' => "Detailed item: $itemName"
+                        'description' => "Detailed item: $itemName",
+                        'section_code' => $secNum,
+                        'section_name' => $secName,
+                        'item_code' => $itemNum,
+                        'item_name' => $itemName,
+                        'template_row' => $idx + 1,
                     ];
                 }
             }
@@ -184,12 +201,12 @@ class BoqParserService
             foreach ($sectionGroups as $secNum => $g) {
                 $id = 'wd_' . $secNum;
                 $name = $g['name'];
-                
+
                 $itemNames = array_column($g['items'], 'name');
                 $desc = "Includes: " . implode(', ', array_slice($itemNames, 0, 12)) . (count($itemNames) > 12 ? '...' : '.');
-                
+
                 $wdPackages[$name] = $id;
-                $wdList[] = ['id' => $id, 'name' => $name, 'description' => $desc];
+                $wdList[] = ['id' => $id, 'name' => $name, 'description' => $desc, 'code' => (string)$secNum, 'section_name' => $g['section_name']];
                 $tier2Map[$id] = $g['items'];
             }
         } elseif ($isNrm1) {
@@ -208,7 +225,7 @@ class BoqParserService
                 if (!isset($groupElements[$groupName])) {
                     $groupElements[$groupName] = [];
                 }
-                
+
                 $desc = "Element: $elementName.";
                 if ($scope !== '') {
                     $desc .= " Scope: $scope";
@@ -216,18 +233,23 @@ class BoqParserService
 
                 $groupElements[$groupName][] = [
                     'id' => 't2_' . md5($groupName . $code . $name),
+                    'code' => $code,
                     'name' => $code !== '' ? "$code $name" : $name,
-                    'description' => $desc
+                    'description' => $desc,
+                    'package_name' => $name,
+                    'group_name' => $groupName,
+                    'element_name' => $elementName,
+                    'scope' => "Context: Belongs to Group Element: '{$groupName}' -> Element: '{$elementName}'. Scope: {$scope}",
                 ];
             }
 
             $groupIdx = 1;
             foreach ($groupElements as $gName => $items) {
                 $id = 'wd_g' . $groupIdx++;
-                
+
                 $itemNames = array_column($items, 'name');
                 $desc = "Includes: " . implode(', ', array_slice($itemNames, 0, 12)) . (count($itemNames) > 12 ? '...' : '.');
-                
+
                 $wdPackages[$gName] = $id;
                 $wdList[] = ['id' => $id, 'name' => "Group: $gName", 'description' => $desc];
                 $tier2Map[$id] = $items;
@@ -241,7 +263,12 @@ class BoqParserService
 
                 $id = 'wd_' . count($wdPackages);
                 $wdPackages[$name] = $id;
-                $wdList[] = ['id' => $id, 'name' => $name, 'description' => $desc];
+                $wdList[] = [
+                    'id' => $id,
+                    'code' => 'WD-' . str_pad((string)(count($wdList) + 1), 2, '0', STR_PAD_LEFT),
+                    'name' => $name,
+                    'description' => $desc
+                ];
             }
         }
 
@@ -249,7 +276,8 @@ class BoqParserService
             'is_tiered' => $isTiered,
             'packages' => $wdPackages,
             'list' => $wdList,
-            'tier2_map' => $tier2Map
+            'tier2_map' => $tier2Map,
+            'profile' => $isNrm1 ? 'nrm1-v1' : ($is4ColumnNrm ? 'nrm2-v1' : 'wd-work-packages-v4')
         ];
     }
 
@@ -272,41 +300,108 @@ class BoqParserService
         ksort($bills);
 
         $billContext = [];
+        $records = [];
         $billItems = $boqData['Bill Items'] ?? [];
-        $lastBillNum = null;
+        $stateByBillSection = [];
 
         foreach ($billItems as $row) {
-            $colA = trim($row['A'] ?? '');
-            $colE = trim($row['E'] ?? '');
-
-            if ($colA !== '' && ctype_digit($colA)) {
-                $lastBillNum = (int)$colA;
+            if ($this->isBillItemsHeaderRow($row)) {
+                continue;
             }
 
-            if ($lastBillNum !== null && isset($bills[$lastBillNum]) && $colE !== '') {
-                $desc = $this->cleanText(mb_substr($colE, 0, 400));
-                // Filter out standard page headers, totals, and boilerplate
-                if (!preg_match('/(to collection|brought forward|carried forward|page total|summary)/i', $desc) && strlen($desc) > 3) {
-                    if (!isset($billContext[$lastBillNum])) {
-                        $billContext[$lastBillNum] = [];
-                    }
-                    if (count($billContext[$lastBillNum]) < $maxContextItemsPerBill) {
-                        if (!in_array($desc, $billContext[$lastBillNum])) {
-                            $billContext[$lastBillNum][] = $desc;
-                        }
-                    }
-                }
+            $colA = trim($row['A'] ?? '');
+            $description = (string)($row['E'] ?? '');
+            if ($colA === '' || !ctype_digit($colA) || trim($description) === '') continue;
+
+            $bill = (int)$colA;
+            if ($bill < 1 || $bill > 71) continue;
+
+            $section = $row['B'] ?? '';
+            $contextKey = $bill . '|' . trim((string)$section);
+            $state = $stateByBillSection[$contextKey] ?? ['prior' => '', 'system' => ''];
+            $system = $this->identifySystem($description, $bill);
+            if ($system !== '') $state['system'] = $system;
+
+            $contextParts = ["Bill {$bill}: " . ($bills[$bill] ?? '')];
+            if (trim((string)$section) !== '') $contextParts[] = 'Section: ' . trim((string)$section);
+            if ($state['system'] !== '') $contextParts[] = 'System: ' . $state['system'];
+            if ($state['prior'] !== '') $contextParts[] = 'Prior: ' . $state['prior'];
+
+            $records[] = [
+                'item_id' => (string)(count($records) + 1),
+                'record_id' => 'Bill Items!' . (string)($row['_row'] ?? (count($records) + 5)),
+                'excel_row' => (int)($row['_row'] ?? (count($records) + 5)),
+                'bill' => $bill,
+                'source_bill' => $row['A'] ?? '',
+                'bill_name' => $bills[$bill] ?? '',
+                'section' => $section,
+                'page' => $row['C'] ?? '',
+                'ref' => $row['D'] ?? '',
+                'description' => $description,
+                'context' => implode(' | ', $contextParts),
+                'quantity' => $row['F'] ?? '',
+                'unit' => $row['G'] ?? '',
+                'rate' => $row['H'] ?? '',
+                'extension' => $row['I'] ?? '',
+                'activity' => $row['J'] ?? '',
+            ];
+
+            $state['prior'] = $description;
+            $stateByBillSection[$contextKey] = $state;
+            if (!isset($billContext[$bill])) $billContext[$bill] = [];
+            if (count($billContext[$bill]) < $maxContextItemsPerBill && !in_array($description, $billContext[$bill], true)) {
+                $billContext[$bill][] = $description;
             }
         }
 
         return [
             'bills' => $bills,
-            'billContext' => $billContext
+            'billContext' => $billContext,
+            'records' => $records
         ];
     }
 
     public function cleanText(string $s): string
     {
         return trim(preg_replace('/\s+/', ' ', str_replace("\n", " ", $s)));
+    }
+
+    private function identifySystem(string $description, int $bill): string
+    {
+        if ($bill !== 16) return '';
+        $text = mb_strtolower(trim(preg_replace('/\s+/', ' ', $description)));
+        if (preg_match('/lift|transport system|hoist/i', $text)) return 'Lifts and transport';
+        if (preg_match('/electrical installations|electrical quotation|\belectrical\b|\bpv\b|harmonic|power/i', $text)) return 'Electrical installations';
+        if (preg_match('/mechanical installations|mechanical quotation|\bmechanical\b|lossnay|ventilation|heating|cooling/i', $text)) return 'Mechanical installations';
+        return '';
+    }
+
+    /**
+     * Conquest exports repeat the complete Bill Items heading on each page.
+     * Match the column labels as a row signature so a legitimate item whose
+     * description happens to be "Description" is not discarded by itself.
+     */
+    private function isBillItemsHeaderRow(array $row): bool
+    {
+        $expected = [
+            'A' => 'bill',
+            'B' => 'section',
+            'C' => 'page',
+            'D' => 'ref',
+            'E' => 'description',
+            'F' => 'quantity',
+            'G' => 'unit',
+            'H' => 'rate',
+            'I' => 'extension',
+            'J' => 'activity',
+        ];
+
+        foreach ($expected as $column => $label) {
+            if (mb_strtolower(trim((string)($row[$column] ?? ''))) !== $label) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

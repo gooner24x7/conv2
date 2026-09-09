@@ -13,7 +13,8 @@
         "ext-curl": "*",
         "ext-dom": "*",
         "ext-zip": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-mbstring": "*"
     },
     "extra": {
         "laravel": {

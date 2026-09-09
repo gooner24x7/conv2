@@ -25,6 +25,13 @@ class AiProviderService
         }
 
         $this->modelCatalog = [
+            'gpt-5.6-luna' => [
+                'provider' => 'openai',
+                'name' => getenv('OPENAI_MODEL') ?: 'gpt-4o-mini',
+                'label' => 'OpenAI GPT-5.6 Luna',
+                'cost_in_per_m' => 0.20,
+                'cost_out_per_m' => 1.20
+            ],
             'gemini-3.6-flash' => [
                 'provider' => 'gemini',
                 'name' => 'gemini-3.6-flash',
@@ -124,6 +131,70 @@ class AiProviderService
         }
 
         throw new Exception("Unsupported AI provider: $provider");
+    }
+
+    /**
+     * AITOOLV3-compatible classification through OpenAI Responses Structured Outputs.
+     */
+    public function classifyRecords(string $profile, string $dictionaryVersion, array $records): array
+    {
+        $apiKey = $this->config['api_keys']['openai'] ?? '';
+        if ($apiKey === '') throw new Exception('OPENAI_API_KEY is not configured.');
+        $isWd = str_starts_with($profile, 'wd-work-packages-');
+        $isNrm2 = $profile === 'nrm2-v1';
+        $systemPrompt = $isWd
+            ? 'Classify UK construction BOQ records against the supplied WD works-package candidates and their exact inclusion and exclusion scopes. Return AUTO with one supplied code only when the record is clearly within that package. Return UNALLOCATED with an empty code when none of the supplied candidates covers the work. Return REVIEW with an empty code or the best supplied code only when evidence is genuinely insufficient. Never invent a package ID, force out-of-scope work into a package, split a row, alter source information, or infer quantity, rate or extension. Return one result for every item_id in the same order. Keep reason to 12 words or fewer and flags only when necessary. No prose.'
+            : ($isNrm2
+                ? 'Classify each UK construction BOQ record into one supplied NRM2 work-section/work-item candidate. Return AUTO with exactly one supplied code only when the description and context support that work item. Otherwise return REVIEW and an empty code or best supplied code. Never invent a code, force a match, split a row, alter source information, or infer quantity, rate or extension. Return one result for every item_id in the same order. Keep reason to 12 words or fewer and flags only when necessary. No prose.'
+                : 'Classify UK construction BOQ records into the supplied NRM1 candidate packages. Select exactly one supplied candidate or leave REVIEW. Never invent a code, split a row, alter source information, or infer quantity, rate or extension. Use AUTO only when the supplied BOQ text is unambiguous. Return one result for every item_id in the same order. Keep reason to 12 words or fewer and flags only when necessary. No prose.');
+        $modelRecords = array_map(fn(array $record) => [
+            'item_id'=>(string)$record['item_id'],'bill'=>(int)$record['bill'],'bill_name'=>(string)$record['bill_name'],
+            'section'=>(string)$record['section'],'description'=>(string)$record['description'],'context'=>(string)$record['context'],
+            'quantity'=>$record['quantity'] ?? '','unit'=>(string)($record['unit'] ?? ''),'candidates'=>$record['candidates'],
+        ], $records);
+        $statuses = $isWd ? ['AUTO','REVIEW','UNALLOCATED'] : ['AUTO','REVIEW'];
+        $schema = ['type'=>'object','additionalProperties'=>false,'required'=>['results'],'properties'=>['results'=>[
+            'type'=>'array','minItems'=>count($records),'maxItems'=>count($records),'items'=>[
+                'type'=>'object','additionalProperties'=>false,'required'=>['item_id','code','status','confidence','flags','reason'],
+                'properties'=>[
+                    'item_id'=>['type'=>'string'],'code'=>['type'=>'string'],'status'=>['type'=>'string','enum'=>$statuses],
+                    'confidence'=>['type'=>'number','enum'=>[0,.9,.95,.98]],
+                    'flags'=>['type'=>'array','items'=>['type'=>'string'],'maxItems'=>2],
+                    'reason'=>['type'=>'string','maxLength'=>80],
+                ],
+            ],
+        ]]];
+        $input = [
+            ['role'=>'system','content'=>$systemPrompt],
+            ['role'=>'user','content'=>json_encode(['classification_profile'=>$profile,'dictionary_version'=>$dictionaryVersion,'records'=>$modelRecords], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE)],
+        ];
+        $maxOutputTokens = min(16000, max(1500, count($records) * 90));
+        $estimatedInputTokens = (int)ceil(strlen((string)json_encode($input)) / 4);
+        $estimatedMaxCost = ($estimatedInputTokens * .20 + $maxOutputTokens * 1.20) / 1000000;
+        $targetModel = $this->modelCatalog[$this->modelKey]['name'] ?? $this->modelKey;
+        $requestPayload = [
+            'model' => $targetModel,
+            'store' => false,
+            'prompt_cache_key' => hash('sha256', $profile . ':' . $dictionaryVersion),
+            'max_output_tokens' => $maxOutputTokens,
+            'input' => $input,
+            'text' => ['format' => ['type' => 'json_schema', 'name' => 'boq_package_classification', 'strict' => true, 'schema' => $schema]],
+        ];
+        if (str_starts_with($targetModel, 'o1') || str_starts_with($targetModel, 'o3') || str_starts_with($targetModel, 'o4')) {
+            $requestPayload['reasoning'] = ['effort' => 'low'];
+        }
+        $response = $this->httpPost('https://api.openai.com/v1/responses', $requestPayload, ['Content-Type: application/json', 'Authorization: Bearer ' . $apiKey]);
+        if (($response['status'] ?? '') === 'incomplete') throw new Exception('OpenAI returned an incomplete response.');
+        $rawText = $response['output_text'] ?? '';
+        if ($rawText === '') foreach (($response['output'] ?? []) as $output) foreach (($output['content'] ?? []) as $content) if (isset($content['text'])) { $rawText = $content['text']; break 2; }
+        $parsed = json_decode(trim((string)$rawText), true);
+        if (!is_array($parsed['results'] ?? null)) throw new Exception('OpenAI structured output did not contain the required results array.');
+        return [
+            'results'=>$parsed['results'],
+            'input_tokens'=>(int)($response['usage']['input_tokens'] ?? 0),
+            'cached_input_tokens'=>(int)($response['usage']['input_tokens_details']['cached_tokens'] ?? 0),
+            'output_tokens'=>(int)($response['usage']['output_tokens'] ?? 0),
+        ];
     }
 
     protected function callGemini(string $model, string $systemPrompt, string $userPrompt): array
@@ -232,7 +303,7 @@ class AiProviderService
     {
         $maxRetries = 5;
         $attempt = 0;
-        
+
         while ($attempt < $maxRetries) {
             $ch = curl_init($url);
             curl_setopt_array($ch, [
@@ -250,7 +321,7 @@ class AiProviderService
             curl_close($ch);
 
             $isRetryableCode = in_array($code, [429, 500, 502, 503, 504]);
-            
+
             if ($err || $isRetryableCode) {
                 $attempt++;
                 if ($attempt >= $maxRetries) {
@@ -273,7 +344,7 @@ class AiProviderService
 
             return $decoded;
         }
-        
+
         throw new Exception("Unexpected error in httpPost.");
     }
 }

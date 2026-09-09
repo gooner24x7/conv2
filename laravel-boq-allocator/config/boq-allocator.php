@@ -6,12 +6,9 @@ return [
     | Default AI Provider & Model
     |--------------------------------------------------------------------------
     | Default model to use for BoQ classification if none specified in request.
-    | Options:
-    |   - Google: 'gemini-3.6-flash', 'gemini-3.7-flash', 'gemini-3.5-flash', 'gemini-3.1-pro'
-    |   - OpenAI: 'openai-luna', 'openai-terra', 'openai-sol', 'gpt-4o', 'gpt-4o-mini'
-    |   - Anthropic: 'claude-3-7-sonnet', 'claude-3-5-sonnet'
+    | AITOOLV3 defaults to gpt-5.6-luna through the OpenAI Responses API.
     */
-    'default_model' => env('BOQ_DEFAULT_MODEL', 'gemini-3.6-flash'),
+    'default_model' => env('BOQ_DEFAULT_MODEL', env('OPENAI_MODEL', 'gpt-5.6-luna')),
 
     /*
     |--------------------------------------------------------------------------
@@ -31,6 +28,8 @@ return [
     |--------------------------------------------------------------------------
     */
     'batch_size' => env('BOQ_BATCH_SIZE', 18),
+    'max_records_per_call' => env('BOQ_MAX_RECORDS_PER_CALL', 100),
+    'cost_cap_usd' => env('BOQ_COST_CAP_USD', 0.15),
     'max_context_items_per_bill' => env('BOQ_MAX_CONTEXT_ITEMS', 20),
 
     /*
@@ -40,7 +39,7 @@ return [
     | Default template to use if none is selected.
     */
     'default_template' => env('BOQ_DEFAULT_TEMPLATE', 'WD template.csv'),
-    
+
     /*
     |--------------------------------------------------------------------------
     | Templates Storage Path

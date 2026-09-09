@@ -1,0 +1,617 @@
+"Work Section Number","Work Section","Work Item Number","Work Item"
+1,Preliminaries,A.1,"Project particulars"
+1,Preliminaries,A.2,"Specifications and drawings"
+1,Preliminaries,A.3,"The site and existing buildings"
+1,Preliminaries,A.4,"Description of the works"
+1,Preliminaries,A.5,"General constraints on executing the works"
+1,Preliminaries,A.6,"Contract conditions"
+1,Preliminaries,A.7,"Employer's requirements: provision, content and use of documents"
+1,Preliminaries,A.8,"Employer's requirements: contractor-designed work"
+1,Preliminaries,A.9,"Employer's requirements: building information modelling (BIM)"
+1,Preliminaries,A.10,"Employer's requirements: completion"
+1,Preliminaries,A.11,"Employer's requirements: programme/progress"
+1,Preliminaries,A.12,"Employer's requirements: management of the works"
+1,Preliminaries,A.13,"Employer's requirements: working with the employer and others"
+1,Preliminaries,A.14,"Employer's requirements: quality management"
+1,Preliminaries,A.15,"Employer's requirements: tests and inspections"
+1,Preliminaries,A.16,"Employer's requirements: services and facilities"
+1,Preliminaries,A.17,"Employer's requirements: health and safety"
+1,Preliminaries,A.18,"Employer's requirements: subcontracting"
+1,Preliminaries,A.19,"Employer's requirements: title"
+1,Preliminaries,A.20,"Employer's requirements: records"
+1,Preliminaries,B.1,"Employer's requirements: site accommodation"
+1,Preliminaries,B.2,"Employer's requirements: site records"
+1,Preliminaries,B.3,"Employer's requirements: completion and post-completion requirements"
+1,Preliminaries,B.4,"Contractor's cost items: management and staff"
+1,Preliminaries,B.5,"Contractor's cost items: site establishment"
+1,Preliminaries,B.6,"Contractor's cost items: temporary services"
+1,Preliminaries,B.7,"Contractor's cost items: security (preliminaries (main contract) only)"
+1,Preliminaries,B.8,"Contractor's cost items: safety and environmental protection"
+1,Preliminaries,B.9,"Contractor's cost items: control and protection"
+1,Preliminaries,B.10,"Contractor's cost items: mechanical plant"
+1,Preliminaries,B.11,"Contractor's cost items: temporary works"
+1,Preliminaries,B.12,"Contractor's cost items: site records"
+1,Preliminaries,B.13,"Contractor's cost items: completion and post-completion requirements"
+1,Preliminaries,B.14,"Contractor's cost items: cleaning"
+1,Preliminaries,B.15,"Contractor's cost items: fees and charges"
+1,Preliminaries,B.16,"Contractor's cost items: site services (preliminaries (main contract) only)"
+1,Preliminaries,B.17,"Contractor's cost items: insurance, bonds, guarantees and warranties"
+2,"Off-site manufactured materials, components or buildings",1,Component
+2,"Off-site manufactured materials, components or buildings",2,"Prefabricated structures"
+2,"Off-site manufactured materials, components or buildings 139",3,"Services connections"
+2,"Off-site manufactured materials, components or buildings 139",4,Floors
+2,"Off-site manufactured materials, components or buildings 139",5,Stairs
+2,"Off-site manufactured materials, components or buildings 139",6,Bridges
+2,"Off-site manufactured materials, components or buildings 139",7,Masts
+2,"Off-site manufactured materials, components or buildings 139",8,"Other, type stated"
+3,Demolitions,1,Demolitions
+3,Demolitions,2,"Temporary support of structures, roads, etc"
+3,Demolitions,3,"Temporary works"
+3,Demolitions,4,Decontamination
+3,Demolitions,5,Recycling
+3,Demolitions,6,"Providing openings, details stated"
+4,"Alterations, repairs and conservation",1,"Works of alteration"
+4,"Alterations, repairs and conservation",2,Removing
+4,"Alterations, repairs and conservation",3,"Cutting or forming openings"
+4,"Alterations, repairs and conservation",4,"Cutting or forming recesses"
+4,"Alterations, repairs and conservation",5,Coverings
+4,"Alterations, repairs and conservation",6,Pavings
+4,"Alterations, repairs and conservation",7,"Filling in recesses"
+4,"Alterations, repairs and conservation",8,"Removing existing and replacing"
+4,"Alterations, repairs and conservation",9,"Preparing existing structures for connection or attachment of new work"
+4,"Alterations, repairs and conservation",10,Repairing
+4,"Alterations, repairs and conservation",11,"Repointing joints"
+4,"Alterations, repairs and conservation",12,Repointing
+4,"Alterations, repairs and conservation",13,"Resin or cement impregnation/injection"
+4,"Alterations, repairs and conservation",14,"Inserting new walls ties"
+4,"Alterations, repairs and conservation",15,"Re-dressing existing flashings, etc"
+4,"Alterations, repairs and conservation",16,"Damp-proof course renewal"
+4,"Alterations, repairs and conservation",17,"Damp-proof course insertion"
+4,"Alterations, repairs and conservation",18,"Cleaning surfaces"
+4,"Alterations, repairs and conservation",19,"Removing stains"
+4,"Alterations, repairs and conservation",20,"Artificial weathering"
+4,"Alterations, repairs and conservation",21,Renovating
+4,"Alterations, repairs and conservation",22,Conserving
+4,"Alterations, repairs and conservation",23,Decontamination
+4,"Alterations, repairs and conservation",24,"Temporary works"
+4,"Alterations, repairs and conservation",25,Recycling
+5,"Excavating and filling",1,"Preliminary sitework"
+5,"Excavating and filling",2,"Removing trees"
+5,"Excavating and filling",3,"Removing tree stumps"
+5,"Excavating and filling",4,"Site clearance"
+5,"Excavating and filling",5,"Site preparation"
+5,"Excavating and filling",6,"Excavation, starting level stated if not original ground level"
+5,"Excavating and filling",7,"Extra over all types of excavation irrespective of depth"
+5,"Excavating and filling",8,"Support to face(s) of excavation"
+5,"Excavating and filling",9,Disposal
+5,"Excavating and filling",10,"Retaining excavated material on site"
+5,"Excavating and filling",11,"Filling obtained from excavated material"
+5,"Excavating and filling",12,"Imported filling"
+5,"Excavating and filling",13,"Geotextile fabric"
+5,"Excavating and filling",14,"Radon barrier"
+5,"Excavating and filling",15,"Methane barrier"
+5,"Excavating and filling",16,"Damp-proof membrane"
+5,"Excavating and filling",17,"Ground movement protection boards"
+5,"Excavating and filling",18,"Any other fabric, membrane or board, type stated"
+5,"Excavating and filling",19,"Ground stabilisation meshes, etc., type stated"
+5,"Excavating and filling",20,"Cutting off tops of piles, irrespective of length"
+6,"Ground remediation and soil stabilisation",1,"Site dewatering"
+6,"Ground remediation and soil stabilisation",2,Sterilisation
+6,"Ground remediation and soil stabilisation",3,"Chemical neutralising"
+6,"Ground remediation and soil stabilisation",4,Freezing
+6,"Ground remediation and soil stabilisation",5,"Ground gas venting"
+6,"Ground remediation and soil stabilisation",6,"Soil nailing"
+6,"Ground remediation and soil stabilisation",7,"Ground anchors"
+6,"Ground remediation and soil stabilisation",8,"Pressure grouting/ground permeation"
+6,"Ground remediation and soil stabilisation",9,Compacting
+6,"Ground remediation and soil stabilisation",10,"Stabilising soil in situ by incorporating cement with a rotavator"
+7,Piling,1,"Interlocking sheet piles"
+7,Piling,2,"Bored piles"
+7,Piling,3,"Driven piles"
+7,Piling,4,"Other, type stated"
+7,Piling,5,"Vibro-compacted piles"
+7,Piling,6,"Vibro-compacted trench fill"
+7,Piling,7,"Extra over piling"
+7,Piling,8,"Reinforcement to in-situ concrete piles"
+7,Piling,9,"Breaking through obstructions"
+7,Piling,10,"Disposal of excavated materials"
+7,Piling,11,Delays
+7,Piling,12,Tests
+8,Underpinning,1,Underpinning
+8,Underpinning,2,Walls
+8,Underpinning,3,Bases
+8,Underpinning,4,Reinforcement
+8,Underpinning,5,"Brickwork or blockwork"
+8,Underpinning,6,Tanking
+9,"Diaphragm walls and embedded retaining walls",1,"Walls, thickness stated"
+9,"Diaphragm walls and embedded retaining walls",2,"Extra over excavation and disposal"
+9,"Diaphragm walls and embedded retaining walls",3,Joints
+9,"Diaphragm walls and embedded retaining walls",4,"Trimming and cleaning exposed faces"
+9,"Diaphragm walls and embedded retaining walls",5,Delays
+9,"Diaphragm walls and embedded retaining walls",6,Tests
+10,"Crib walls, gabions and reinforced earth",1,"Crib walls"
+10,"Crib walls, gabions and reinforced earth",2,"Extra over crib walls for:"
+10,"Crib walls, gabions and reinforced earth",3,"Gabion basket walls"
+10,"Crib walls, gabions and reinforced earth",4,"Earth reinforcement"
+10,"Crib walls, gabions and reinforced earth",5,"Stepped on face"
+11,"In-situ concrete works",1,"Mass concrete"
+11,"In-situ concrete works",2,"Horizontal work"
+11,"In-situ concrete works",3,"Sloping work < 150"
+11,"In-situ concrete works",4,"150. Sloping work >"
+11,"In-situ concrete works",5,"Vertical work"
+11,"In-situ concrete works",6,"Sundry in-situ concrete work"
+11,"In-situ concrete works",7,"Sprayed in-situ concrete. Surface finishes to in-situ"
+11,"In-situ concrete works",8,Trowelling
+11,"In-situ concrete works",9,"Power floating"
+11,"In-situ concrete works",10,Hacking
+11,"In-situ concrete works",11,Grinding
+11,"In-situ concrete works",12,"Any other surface treatment not left to discretion of the contractor"
+11,"In-situ concrete works",13,Formwork
+11,"In-situ concrete works",14,"Sides of foundations and bases"
+11,"In-situ concrete works",15,"Edges of horizontal work"
+11,"In-situ concrete works",16,"Soffits of horizontal work"
+11,"In-situ concrete works",17,"Soffits of troughed or waffled horizontal work, details described"
+11,"In-situ concrete works",18,"Soffits of sloping ramps, steps, staircases, etc"
+11,"In-situ concrete works",19,"Sides and soffits of isolated beams"
+11,"In-situ concrete works",20,"Sides and soffits of attached beams"
+11,"In-situ concrete works",21,"Sides of upstand beams"
+11,"In-situ concrete works",22,"Sides of isolated columns, nr stated"
+11,"In-situ concrete works",23,"Faces of walls and other vertical work"
+11,"In-situ concrete works",24,"Extra over"
+11,"In-situ concrete works",25,"Wall ends, soffits and steps in walls"
+11,"In-situ concrete works",26,"Staircase strings, etc"
+11,"In-situ concrete works",27,"Staircase risers, etc"
+11,"In-situ concrete works",28,"Sloping top surfaces"
+11,"In-situ concrete works",29,"Steps in top surfaces"
+11,"In-situ concrete works",30,"Steps in soffits"
+11,"In-situ concrete works",31,"Complex shapes"
+11,"In-situ concrete works",32,"Wall kickers"
+11,"In-situ concrete works",33,"Mild steel bars"
+11,"In-situ concrete works",34,"High yield steel bars"
+11,"In-situ concrete works",35,"Accessories not at the discretion of the contractor"
+11,"In-situ concrete works",36,"Pre/post- tensioned members"
+11,"In-situ concrete works",37,Mesh
+11,"In-situ concrete works",38,Plain
+11,"In-situ concrete works",39,Formed
+11,"In-situ concrete works",40,"Cut chases"
+11,"In-situ concrete works",41,"Type or proprietary reference stated. In-situ concrete sundries"
+11,"In-situ concrete works",42,Grouting
+11,"In-situ concrete works",43,"Filling mortices"
+11,"In-situ concrete works",44,"Filling chases"
+12,"Precast/composite concrete",1,"Composite concrete work"
+12,"Precast/composite concrete",2,"Designed joints"
+12,"Precast/composite concrete",3,"Holding down or tie straps"
+12,"Precast/composite concrete",4,Vertical
+13,"Precast concrete",1,"Precast concrete goods"
+13,"Precast concrete",2,Rooflights
+13,"Precast concrete",3,"Pavement lights"
+13,"Precast concrete",4,"Vertical panel lights"
+13,"Precast concrete",5,"Designed joints"
+13,"Precast concrete",6,"Holding down or tie straps"
+14,Masonry,1,"Walls, overall thickness stated"
+14,Masonry,2,"Diaphragm walls, overall thickness stated, spacing and thickness of ribs stated"
+14,Masonry,3,"Vaulting, thickness and type stated"
+14,Masonry,4,"Isolated piers, isolated casings, chimney stacks, columns"
+14,Masonry,5,"Used as formwork"
+14,Masonry,6,"Arches (number stated)"
+14,Masonry,7,"Bands, dimensioned description"
+14,Masonry,8,Flues
+14,Masonry,9,"Flue linings"
+14,Masonry,10,"Filling around flues"
+14,Masonry,11,"Extra over walls for perimeters and abutments, details stated"
+14,Masonry,12,"Extra over for:"
+14,Masonry,13,"Special purpose blocks or stones"
+14,Masonry,14,"Forming cavity"
+14,Masonry,15,"Cavity insulation"
+14,Masonry,16,"Damp-proof courses <= 300mm wide"
+14,Masonry,17,"Damp-proof courses"
+14,Masonry,18,"Pre-formed cavity trays"
+14,Masonry,19,"Joint reinforcement"
+14,Masonry,20,Fillets
+14,Masonry,21,Pointing
+14,Masonry,22,Joints
+14,Masonry,23,"Wedging and pinning"
+14,Masonry,24,Creasing
+14,Masonry,25,"Proprietary and individual spot items"
+15,"Structural metalwork",1,"Framed members, framing and fabrication"
+15,"Structural metalwork",2,"Sag rods"
+15,"Structural metalwork",3,"Isolated structural members, fabrication"
+15,"Structural metalwork",4,"Isolated structural members, permanent erection on site"
+15,"Structural metalwork",5,"Allowance for fittings"
+15,"Structural metalwork",6,"Cold rolled purlins, cladding rails, etc"
+15,"Structural metalwork",7,"Extra over steel member for:"
+15,"Structural metalwork",8,"Profiled metal decking, type and/or profile stated"
+15,"Structural metalwork",9,"Extra over for:"
+15,"Structural metalwork",10,"Holding down bolts or assemblies"
+15,"Structural metalwork",11,"Special bolts"
+15,"Structural metalwork",12,"Connections to existing steel and other members or structures"
+15,"Structural metalwork",13,"Trial erection"
+15,"Structural metalwork",14,"Filling hollow sections"
+15,"Structural metalwork",15,"Surface treatment"
+15,"Structural metalwork",16,"Isolated structural members"
+15,"Structural metalwork",17,Testing
+16,Carpentry,1,"Primary or structural timbers"
+16,Carpentry,2,"Engineered or prefabricated members/items"
+16,Carpentry,3,"Backing and other first fix timbers"
+16,Carpentry,4,"Boarding, flooring, sheeting, decking, casings, linings, sarking, fascias, bargeboards, soffits, etc"
+16,Carpentry,5,"Ornamental ends of timber members"
+16,Carpentry,6,"Metal fixings, fastenings and fittings"
+16,Carpentry,7,"Partition and wall members"
+16,Carpentry,8,Strutting
+17,"Sheet roof coverings",1,"Coverings > 500mm wide"
+17,"Sheet roof coverings",2,"This list is not exhaustive"
+17,"Sheet roof coverings",3,"Extra over for forming"
+17,"Sheet roof coverings",4,"Boundary work, location and method of forming described"
+17,"Sheet roof coverings",5,Flashings
+17,"Sheet roof coverings",6,Gutters
+17,"Sheet roof coverings",7,"Vertical angles"
+17,"Sheet roof coverings",8,"Spot items"
+17,"Sheet roof coverings",9,Fittings
+18,"Tile and slate roof and wall coverings",1,"Roof coverings"
+18,"Tile and slate roof and wall coverings",2,"Wall coverings"
+18,"Tile and slate roof and wall coverings",3,"Boundary work, location and method of forming described"
+18,"Tile and slate roof and wall coverings",4,Fittings
+18,"Tile and slate roof and wall coverings",5,Valleys
+18,"Tile and slate roof and wall coverings",6,Hips
+18,"Tile and slate roof and wall coverings",7,"Vertical angles"
+18,"Tile and slate roof and wall coverings",8,"Other, type stated"
+19,Waterproofing,1,"Coverings > 500mm wide"
+19,Waterproofing,2,"Coverings <= 500mm wide"
+19,Waterproofing,3,Skirtings
+19,Waterproofing,4,"Curved, radii stated"
+19,Waterproofing,5,Aprons
+19,Waterproofing,6,Stepped
+19,Waterproofing,7,Gutters
+19,Waterproofing,8,Channels
+19,Waterproofing,9,Valleys
+19,Waterproofing,10,Kerbs
+19,Waterproofing,11,"Internal angle fillets"
+19,Waterproofing,12,"Spot items"
+19,Waterproofing,13,Fittings
+19,Waterproofing,14,"Edge trim"
+20,"Proprietary walls, linings and partitions",1,"Proprietary metal framed system to form walls"
+20,"Proprietary walls, linings and partitions",2,"Structural framed systems to form walls"
+20,"Proprietary walls, linings and partitions",3,"Proprietary metal framed system to form ceilings"
+20,"Proprietary walls, linings and partitions",4,"Extra over for different linings or finishes"
+20,"Proprietary walls, linings and partitions",5,"Extra over for forming openings"
+20,"Proprietary walls, linings and partitions",6,"Extra over for non-standard perimeter details"
+20,"Proprietary walls, linings and partitions",7,"Extra over for curved partitions"
+20,"Proprietary walls, linings and partitions",8,"Extra over partitions for:"
+20,"Proprietary walls, linings and partitions",9,"Extra over for access panels"
+20,"Proprietary walls, linings and partitions",10,"Fair ends to partitions"
+20,"Proprietary walls, linings and partitions",11,"Proprietary linings to walls"
+20,"Proprietary walls, linings and partitions",12,"SFS accessories"
+20,"Proprietary walls, linings and partitions",13,"Proprietary encasements to structural steel framing"
+20,"Proprietary walls, linings and partitions",14,"Proprietary linings to columns"
+20,"Proprietary walls, linings and partitions",15,"Proprietary linings to beams"
+20,"Proprietary walls, linings and partitions",16,"Proprietary linings to bulkheads"
+20,"Proprietary walls, linings and partitions",17,"Extra over for forming openings"
+20,"Proprietary walls, linings and partitions",18,"Extra over for non-standard perimeter details"
+20,"Proprietary walls, linings and partitions",19,"Extra over for angles"
+20,"Proprietary walls, linings and partitions",20,"Extra over wall linings for:"
+20,"Proprietary walls, linings and partitions",21,"Extra over for access panels"
+20,"Proprietary walls, linings and partitions",22,"Beads, function stated"
+21,"Cladding and covering",1,Walls
+21,"Cladding and covering",2,Floors
+21,"Cladding and covering",3,Ceilings
+21,"Cladding and covering",4,Roofs
+21,"Cladding and covering",5,"Bottom edges"
+21,"Cladding and covering",6,Eaves
+21,"Cladding and covering",7,"Sides of columns"
+21,"Cladding and covering",8,"Items extra over the work in which they occur"
+21,"Cladding and covering",9,"Boundary work"
+21,"Cladding and covering",10,"Opening perimeters"
+21,"Cladding and covering",11,Angles
+21,"Cladding and covering",12,Closers
+22,"General joinery",1,"Skirtings, picture rails, dado rails, etc."
+22,"General joinery",2,"Architraves, etc"
+22,"General joinery",3,"Cover fillets, etc."
+22,"General joinery",4,"Isolated shelves, etc."
+22,"General joinery",5,"Window boards"
+22,"General joinery",6,"Isolated handrails, etc."
+22,"General joinery",7,"Duct covers"
+22,"General joinery",8,"Pipe casings"
+22,"General joinery",9,Shelves
+22,"General joinery",10,"Pinboards, backboards, plinth blocks, etc"
+22,"General joinery",11,"Floor, wall and ceiling boarding, sheeting, panelling, fine linings and casings"
+22,"General joinery",12,"Boarding, sheeting, panelling over 600mm wide"
+22,"General joinery",13,"Boarding, sheeting, panelling not exceeding 600mm wide"
+22,"General joinery",14,"Proprietary partitions, panels and cubicles"
+22,"General joinery",15,Partitions
+22,"General joinery",16,"Items extra over the partition they occur in"
+22,"General joinery",17,"Duct panels, sanitaryware back panels, etc"
+22,"General joinery",18,"Cubicle partition sets"
+22,"General joinery",19,"Items extra over the partition they occur in"
+22,"General joinery",20,"Infill panels and sheets, number stated. Sealant joints"
+22,"General joinery",21,"Joints, contact surfaces stated"
+22,"General joinery",22,"Pointing, contact surfaces stated"
+22,"General joinery",23,"Raking out existing joints. Ironmongery"
+22,"General joinery",24,"Type of item, unit or set stated"
+23,"Windows, screens and lights",1,"Windows and rooflights"
+23,"Windows, screens and lights",2,"Window shutters"
+23,"Windows, screens and lights",3,"Sun shields"
+23,"Windows, screens and lights",4,"Rooflights, borrowed lights and screens"
+23,"Windows, screens and lights",5,"Screens, borrowed lights, etc."
+23,"Windows, screens and lights",6,"Shop fronts"
+23,"Windows, screens and lights",7,"Louvres and vents"
+23,"Windows, screens and lights",8,Glazing
+23,"Windows, screens and lights",9,"Glass, type stated"
+23,"Windows, screens and lights",10,"Louvre blades"
+23,"Windows, screens and lights",11,Ironmongery
+23,"Windows, screens and lights",12,"Type of item, unit or set stated"
+24,"Doors, shutters and hatches",1,"Door sets"
+24,"Doors, shutters and hatches",2,Doors
+24,"Doors, shutters and hatches",3,"Roller shutters"
+24,"Doors, shutters and hatches",4,"Collapsible gates"
+24,"Doors, shutters and hatches",5,"Sliding folding partitions"
+24,"Doors, shutters and hatches",6,Hatches
+24,"Doors, shutters and hatches",7,"Strong room doors"
+24,"Doors, shutters and hatches",8,Grilles
+24,"Doors, shutters and hatches",9,"Door frames"
+24,"Doors, shutters and hatches",10,"Door linings"
+24,"Doors, shutters and hatches",11,"Door stops"
+24,"Doors, shutters and hatches",12,"Associated fire stops"
+24,"Doors, shutters and hatches",13,"Associated smoke stops"
+24,"Doors, shutters and hatches",14,"Glass, type stated"
+24,"Doors, shutters and hatches",15,"Louvre blades. Ironmongery"
+24,"Doors, shutters and hatches",16,"Type of item, unit or set stated"
+25,"Stairs, walkways and balustrades",1,"Staircase, type stated"
+25,"Stairs, walkways and balustrades",2,"Loft ladders"
+25,"Stairs, walkways and balustrades",3,Ladders
+25,"Stairs, walkways and balustrades",4,"Extra over for:"
+25,"Stairs, walkways and balustrades",5,Catwalks
+25,"Stairs, walkways and balustrades",6,Walkways
+25,"Stairs, walkways and balustrades",7,"Balustrades and handrails"
+25,"Stairs, walkways and balustrades",8,Handrails
+25,"Stairs, walkways and balustrades",9,Barriers
+25,"Stairs, walkways and balustrades",10,"Guard rails"
+25,"Stairs, walkways and balustrades",11,"Balcony units"
+25,"Stairs, walkways and balustrades",12,"Extra over for:"
+26,Metalwork,1,"Isolated metal members"
+26,Metalwork,2,"General metalwork"
+26,Metalwork,3,"Sheet metal"
+26,Metalwork,4,"Wire mesh"
+26,Metalwork,5,"Composite items"
+26,Metalwork,6,"Filling hollow sections"
+26,Metalwork,7,"Surface treatments"
+26,Metalwork,8,"Isolated protective coatings"
+27,Glazing,1,"Glass, type stated"
+27,Glazing,2,"Sealed glazed units"
+27,Glazing,3,"Louvre blades, type stated"
+27,Glazing,4,"Extra over for:"
+27,Glazing,5,"Lead light glazing, type of glass stated"
+27,Glazing,6,"Saddle bars"
+27,Glazing,7,Mirrors
+27,Glazing,8,"Removing existing glass and preparing frame or surround to receive new glass"
+28,"Floor, wall, ceiling and roof finishings",1,"Screeds, beds and toppings"
+28,"Floor, wall, ceiling and roof finishings",2,"Finish to floors, type of finish and overall thickness stated"
+28,"Floor, wall, ceiling and roof finishings",3,"Obstructed by services"
+28,"Floor, wall, ceiling and roof finishings",4,"Ramps to raised access floors"
+28,"Floor, wall, ceiling and roof finishings",5,"Fire barriers in void below raised floor"
+28,"Floor, wall, ceiling and roof finishings",6,"Finish to roofs, type of finish and overall thickness stated"
+28,"Floor, wall, ceiling and roof finishings",7,"Finish to walls, type of finish and overall thickness stated"
+28,"Floor, wall, ceiling and roof finishings",8,Raised
+28,"Floor, wall, ceiling and roof finishings",9,"Finish to ceilings, type of finish and overall thickness stated"
+28,"Floor, wall, ceiling and roof finishings",10,"Finish to isolated beams, type of finish and overall thickness stated"
+28,"Floor, wall, ceiling and roof finishings",11,"Finish to treads"
+28,"Floor, wall, ceiling and roof finishings",12,"Finish to risers"
+28,"Floor, wall, ceiling and roof finishings",13,"Finish to strings and aprons"
+28,"Floor, wall, ceiling and roof finishings",14,"Skirtings, net height stated"
+28,"Floor, wall, ceiling and roof finishings",15,"Linings to channels"
+28,"Floor, wall, ceiling and roof finishings",16,"Kerbs and cappings"
+28,"Floor, wall, ceiling and roof finishings",17,Coves
+28,"Floor, wall, ceiling and roof finishings",18,Mouldings
+28,"Floor, wall, ceiling and roof finishings",19,Cornices
+28,"Floor, wall, ceiling and roof finishings",20,Architraves
+28,"Floor, wall, ceiling and roof finishings",21,"Ceiling ribs"
+28,"Floor, wall, ceiling and roof finishings",22,Bands
+28,"Floor, wall, ceiling and roof finishings",23,"Special tiles, slabs, fittings, etc."
+28,"Floor, wall, ceiling and roof finishings",24,"Surface treatment"
+28,"Floor, wall, ceiling and roof finishings",25,"Movement joints"
+28,"Floor, wall, ceiling and roof finishings",26,"Cover strips"
+28,"Floor, wall, ceiling and roof finishings",27,"Dividing strips"
+28,"Floor, wall, ceiling and roof finishings",28,"Beads, function stated"
+28,"Floor, wall, ceiling and roof finishings",29,Nosings
+28,"Floor, wall, ceiling and roof finishings",30,"Reinforcement, type stated"
+28,"Floor, wall, ceiling and roof finishings",31,"Metal mesh lathing"
+28,"Floor, wall, ceiling and roof finishings",32,"Board insulation, type stated"
+28,"Floor, wall, ceiling and roof finishings",33,"Quilt insulation, type stated"
+28,"Floor, wall, ceiling and roof finishings",34,"Isolation joints"
+28,"Floor, wall, ceiling and roof finishings",35,Accessories
+28,"Floor, wall, ceiling and roof finishings",36,"Precast plaster mouldings, etc."
+29,Decoration,1,"Painting general surfaces"
+29,Decoration,2,"Painting special surfaces"
+29,Decoration,3,"Painting structural steelwork"
+29,Decoration,4,"Painting radiators, pipework and conduits"
+29,Decoration,5,"Fire rating"
+29,Decoration,6,"Painting pipes"
+29,Decoration,7,"Painting services, etc."
+29,Decoration,8,"Painting railings, fences and gates. Decorative papers or fabrics"
+29,Decoration,9,"Walls and columns"
+29,Decoration,10,"Ceilings and beams"
+29,Decoration,11,Borders
+29,Decoration,12,Motifs
+30,"Suspended ceilings",1,Ceilings
+30,"Suspended ceilings",2,"Plenum ceilings"
+30,"Suspended ceilings",3,Beams
+30,"Suspended ceilings",4,Bulkheads
+30,"Suspended ceilings",5,"Isolated strips"
+30,"Suspended ceilings",6,Upstands
+30,"Suspended ceilings",7,"Access panels"
+30,"Suspended ceilings",8,"Edge trims"
+30,"Suspended ceilings",9,"Angle trims"
+30,"Suspended ceilings",10,"Fire barriers"
+30,"Suspended ceilings",11,"Collars for services passing through fire barriers"
+30,"Suspended ceilings",12,Fittings
+30,"Suspended ceilings",13,"Shadow gap battens"
+31,"Insulation, fire stopping and fire protection",1,Boards
+31,"Insulation, fire stopping and fire protection",2,Sheets
+31,"Insulation, fire stopping and fire protection",3,Quilts
+31,"Insulation, fire stopping and fire protection",4,Loose
+31,"Insulation, fire stopping and fire protection",5,Sprayed
+31,"Insulation, fire stopping and fire protection",6,"Filling cavities"
+31,"Insulation, fire stopping and fire protection",7,"Fire stops, type stated"
+31,"Insulation, fire stopping and fire protection",8,"Fire sleeves, collars, etc"
+32,"Furniture, fittings and equipment",1,"Fixtures, fittings or equipment"
+32,"Furniture, fittings and equipment",2,"Fixtures, fittings and equipment supplied by the employer"
+32,"Furniture, fittings and equipment",3,"Ancillary items not included with fixtures, fittings or equipment"
+32,"Furniture, fittings and equipment",4,"Fixtures, fittings or equipment supplied and installed by specialist contractor"
+32,"Furniture, fittings and equipment",5,Signwriting
+32,"Furniture, fittings and equipment",6,"Fall restraint and fall arrest systems"
+33,"Drainage above ground",1,Pipework
+33,"Drainage above ground",2,"Pipework ancillaries"
+33,"Drainage above ground",3,"Items extra over pipework"
+33,"Drainage above ground",4,"Pipe sleeves through walls, floors and ceilings"
+33,"Drainage above ground",5,Gutters
+33,"Drainage above ground",6,"Gutter ancillaries"
+33,"Drainage above ground",7,"Items extra over the gutter in which they occur"
+33,"Drainage above ground",8,"Marking, position of and leaving or forming all holes, mortices, chases, etc. required in the structure"
+33,"Drainage above ground",9,Identification
+33,"Drainage above ground",10,"Testing and commissioning"
+33,"Drainage above ground",11,"Preparing drawings"
+33,"Drainage above ground",12,Operating
+34,"Drainage above ground",1,"Drain runs"
+34,"Drainage above ground",2,"Items extra over drain runs irrespective of depth or pipe size"
+34,"Drainage above ground",3,"Pipe fittings"
+34,"Drainage above ground",4,Accessories
+34,"Drainage above ground",5,Pumps
+34,"Drainage above ground",6,Manholes
+34,"Drainage above ground",7,"Inspection chambers"
+34,"Drainage above ground",8,Soakaways
+34,"Drainage above ground",9,Cesspits
+34,"Drainage above ground",10,"Septic tanks"
+34,"Drainage above ground",11,"Other tanks and pits, type stated"
+34,"Drainage above ground",12,"Extra over the excavation for:"
+34,"Drainage above ground",13,Sundries
+34,"Drainage above ground",14,"Covers and frames"
+34,"Drainage above ground",15,"Marker posts"
+34,"Drainage above ground",16,Connections
+34,"Drainage above ground",17,"Testing and commissioning"
+35,"Site works",1,Kerbs
+35,"Site works",2,"No deductions made in superficial"
+35,"Site works",3,Channels
+35,"Site works",4,"Paving, type stated"
+35,"Site works",5,"Extra over for:"
+35,"Site works",6,"In-situ concrete"
+35,"Site works",7,Formwork
+35,"Site works",8,Reinforcement
+35,"Site works",9,Joints
+35,"Site works",10,"Worked finishes"
+35,"Site works",11,"Accessories cast in"
+35,"Site works",12,"Coated macadam and asphalt"
+35,"Site works",13,"Gravel, hoggin and woodchip"
+35,"Site works",14,"Interlocking brick and blocks, slabs, bricks, blocks, setts and cobbles"
+35,"Site works",15,"Extra over for:"
+35,"Site works",16,Accessories
+35,"Site works",17,"Site furniture"
+35,"Site works",18,"Liquid applied surfacings"
+35,"Site works",19,"Sheet surfacings"
+35,"Site works",20,"Tufted surfacings"
+35,"Site works",21,"Proprietary horizontal drainage layers"
+35,"Site works",22,"Surface dressings"
+35,"Site works",23,"Line markings, width stated"
+35,"Site works",24,"Letters, figures and symbols"
+35,"Site works",25,"Sheet linings to pools, lakes, ponds, waterways and the like"
+35,"Site works",26,"Spot items"
+36,Fencing,1,"Fencing, type stated"
+36,Fencing,2,"Extra over for posts"
+36,Fencing,3,"Supports are posts, struts, etc"
+36,Fencing,4,"Items extra over fencing, supports and special supports and independent gate posts irrespective of type"
+36,Fencing,5,Gates
+36,Fencing,6,Ironmongery
+37,"Soft landscaping",1,Cultivating
+37,"Soft landscaping",2,"Surface application"
+37,"Soft landscaping",3,Seeding
+37,"Soft landscaping",4,Turfing
+37,"Soft landscaping",5,Trees
+37,"Soft landscaping",6,Mulch
+37,"Soft landscaping",7,Fertiliser
+37,"Soft landscaping",8,Sand
+37,"Soft landscaping",9,"Soil ameliorates"
+37,"Soft landscaping",10,"Other, details stated"
+37,"Soft landscaping",11,"Plant containers"
+37,"Soft landscaping",12,Protection
+37,"Soft landscaping",13,Maintenance
+38,"Mechanical services",1,"Primary equipment"
+38,"Mechanical services",2,"Terminal equipment and fittings"
+38,"Mechanical services",3,Pipework
+38,"Mechanical services",4,"Alternative - pipe fittings"
+38,"Mechanical services",5,"Pipe ancillaries"
+38,"Mechanical services",6,"Ventilation ducts"
+38,"Mechanical services",7,"Alternative - duct fittings"
+38,"Mechanical services",8,"Duct ancillaries"
+38,"Mechanical services",9,"Insulation and fire protection to equipment and fittings"
+38,"Mechanical services",10,"Alternative - insulation to pipe fittings"
+38,"Mechanical services",11,"Insulation and fire protection to pipe ancillaries"
+38,"Mechanical services",12,"Insulation and fire protection to ventilation ducts"
+38,"Mechanical services",13,"Alternative - insulation to duct fittings"
+38,"Mechanical services",14,"Insulation and fire protection to duct ancillaries"
+38,"Mechanical services",15,"Fire stopping"
+38,"Mechanical services",16,Identification
+38,"Mechanical services",17,Testing
+38,"Mechanical services",18,Commissioning
+38,"Mechanical services",19,"System validation"
+38,"Mechanical services",20,"Operation and maintenance manuals"
+38,"Mechanical services",21,"Drawing requirements"
+38,"Mechanical services",22,Training
+38,"Mechanical services",23,"Loose ancillaries"
+38,"Mechanical services",24,"Post-completion requirements"
+39,"Electrical services",1,"Primary equipment"
+39,"Electrical services",2,"Terminal equipment and fittings"
+39,"Electrical services",3,"Cable containment"
+39,"Electrical services",4,"Alternative - cable containment fittings"
+39,"Electrical services",5,Cables
+39,"Electrical services",6,"Cable terminations and joints"
+39,"Electrical services",7,"Final circuits"
+39,"Electrical services",8,"Modular wiring systems"
+39,"Electrical services",9,"Busbar trunking"
+39,"Electrical services",10,"Alternative - busbar trunking fittings"
+39,"Electrical services",11,Tapes
+39,"Electrical services",12,"Electrodes, earth pits and markers"
+39,"Electrical services",13,"Fire stopping and penetration seals"
+39,"Electrical services",14,Identification
+39,"Electrical services",15,Testing
+39,"Electrical services",16,Commissioning
+39,"Electrical services",17,"System validation"
+39,"Electrical services",18,"Operation and maintenance manuals"
+39,"Electrical services",19,"Drawing requirements"
+39,"Electrical services",20,Training
+39,"Electrical services",21,"Loose ancillaries"
+39,"Electrical services",22,"Post-practical completion requirements"
+40,"Transportation systems",1,"System, type stated"
+40,"Transportation systems",2,"Fire stopping and penetration seals"
+40,"Transportation systems",3,Identification
+40,"Transportation systems",4,"Testing and commissioning"
+40,"Transportation systems",5,"Symbols or numbers"
+40,"Transportation systems",6,"Operation and maintenance manuals"
+40,"Transportation systems",7,"Drawing requirements"
+40,"Transportation systems",8,"Other, type stated"
+40,"Transportation systems",9,"Loose ancillaries"
+40,"Transportation systems",10,"Post-practical completion requirements"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",1,"General builder's work"
+41,"Builder's work in connection with mechanical, electrical and",2,"Marking position of holes, mortices, chases and the like"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",3,"Pipe and duct sleeves"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",4,"Bases, plinths, etc"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",5,"Duct covers and frames"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",6,"Supports for services"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",7,"Catenary cables. Work for services installations"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",8,"Cutting holes, mortices and chases"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",9,"Cutting mortices and sinkings in existing structure"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",10,"Cutting chases through existing structures"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",11,"Lifting and replacing access covers and duct covers"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",12,"Lifting and replacing floor boards"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",13,"Underground pipe ducts"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",14,"Items extra over underground pipe ducts"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",15,"Pipe duct fittings"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",16,Accessories
+41,"Builder's work in connection with mechanical, electrical and transportation installations",17,Manholes
+41,"Builder's work in connection with mechanical, electrical and transportation installations",18,"Access chambers"
+41,"Builder's work in connection with mechanical, electrical and",19,"Valve chambers"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",20,"Inspection chambers"
+41,"Builder's work in connection with mechanical, electrical and",21,"Surface boxes"
+41,"Builder's work in connection with mechanical, electrical and",22,"Stopcock pits"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",23,"Extra over the excavation for:"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",24,"Marker posts"
+41,"Builder's work in connection with mechanical, electrical and",25,"Marker plates"
+41,"Builder's work in connection with mechanical, electrical and transportation installations",26,Connections
+41,"Builder's work in connection with mechanical, electrical and transportation installations",27,"Testing and commissioning"

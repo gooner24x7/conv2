@@ -52,7 +52,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 use BoqAllocator\Services\BoqAllocationEngine;
 
 // 1. Resolve Model
-$selectedModel = 'gemini-3.6-flash'; // default
+$selectedModel = 'openai-luna'; // default
 if (isset($_GET['model'])) {
     $selectedModel = trim($_GET['model']);
 } elseif (isset($_POST['model'])) {
@@ -63,6 +63,12 @@ if (isset($_GET['model'])) {
             $selectedModel = substr($arg, 8);
         }
     }
+}
+
+// Fall back to openai-luna if a non-OpenAI model is supplied (AITOOLV3 pipeline uses OpenAI Responses API)
+if (!str_starts_with($selectedModel, 'openai-') && !str_starts_with($selectedModel, 'gpt-')) {
+    emitStatus("Note: Defaulting '{$selectedModel}' to OpenAI Luna (AITOOLV3 uses OpenAI Responses API).", 2);
+    $selectedModel = 'openai-luna';
 }
 
 // 2. Resolve Template
