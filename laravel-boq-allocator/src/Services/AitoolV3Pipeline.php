@@ -56,7 +56,7 @@ class AitoolV3Pipeline
                 $candidateCodes = array_values(array_unique(array_filter(array_merge([$decision['code']], $decision['alternatives'] ?? []))));
                 $candidates = array_values(array_intersect_key($dictionary, array_flip($candidateCodes)));
                 if ($candidates) {
-                    $cached = $cache->get($record['decision_key'], $dictionaryVersion);
+                    $cached = ($this->config['bypass_cache'] ?? false) ? null : $cache->get($record['decision_key'], $dictionaryVersion);
                     if ($cached !== null) {
                         $decision = $this->validateAiDecision($cached['decision'], $decision, $candidates, $template['profile']);
                         $record['api_resolved'] = true;
@@ -74,7 +74,7 @@ class AitoolV3Pipeline
 
         $inputTokens = $cachedInputTokens = $outputTokens = 0;
         if ($unresolved) {
-            $emit('Phase 4: Resolving deterministic review cases with GPT-5.6 Luna...', 55);
+            $emit("Phase 4: Resolving deterministic review cases with {$aiProvider->getModelLabel()}...", 55);
             $batchSize = min(100, max(1, (int)($this->config['max_records_per_call'] ?? 100)));
             $batches = array_chunk($unresolved, $batchSize);
             foreach ($batches as $batchIndex => $batch) {

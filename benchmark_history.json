@@ -1,17 +1,5 @@
 [
     {
-        "timestamp": "2026-09-01 13:32:39",
-        "model": "OpenAI GPT-5.6 Luna (Lightweight)",
-        "template": "NRM1 template.csv",
-        "total_bills": 71,
-        "mapped_bills": 62,
-        "mapping_rate": 0.8732394366197183,
-        "accuracy": 87.9,
-        "execution_time_sec": 141.3,
-        "cost": 0.02661,
-        "output_file": "runs\/run_81482b265c7738e628deaba6c6ffbbce.json"
-    },
-    {
         "timestamp": "2026-09-02 13:59:11",
         "model": "Google Gemini 3.5 Flash-Lite",
         "template": "NRM1 template.csv",
@@ -40,7 +28,39 @@
         "output_file": "runs\/run_b6250822dcaf2c4a2e7720e6f3d7a234.json"
     },
     {
-        "timestamp": "2026-09-09 10:13:06",
+        "timestamp": "2026-09-09 10:17:20",
+        "model": "OpenAI GPT-5.6 Luna (Lightweight)",
+        "template": "NRM1 template.csv",
+        "total_bills": 71,
+        "mapped_bills": 63,
+        "mapping_rate": 0.8873239436619719,
+        "accuracy": 92.1,
+        "total_packages": 34,
+        "level_1_count": 8,
+        "level_2_count": 26,
+        "level_3_count": 71,
+        "execution_time_sec": 0.19,
+        "cost": 0,
+        "output_file": "runs\/run_81482b265c7738e628deaba6c6ffbbce.json"
+    },
+    {
+        "timestamp": "2026-09-09 10:24:26",
+        "model": "OpenAI GPT-5.6 Luna (Lightweight)",
+        "template": "WD template.csv",
+        "total_bills": 71,
+        "mapped_bills": 62,
+        "mapping_rate": 0.8732394366197183,
+        "accuracy": 93.4,
+        "total_packages": 19,
+        "level_1_count": 19,
+        "level_2_count": 0,
+        "level_3_count": 71,
+        "execution_time_sec": 4.43,
+        "cost": 0.00021,
+        "output_file": "runs\/run_6a002fe67e397e833b8ff6c29978883d.json"
+    },
+    {
+        "timestamp": "2026-09-09 10:25:57",
         "model": "OpenAI GPT-5.6 Luna (Lightweight)",
         "template": "NRM2 template.csv",
         "total_bills": 71,
@@ -51,24 +71,24 @@
         "level_1_count": 21,
         "level_2_count": 30,
         "level_3_count": 71,
-        "execution_time_sec": 3.34,
-        "cost": 0.00024,
+        "execution_time_sec": 2.23,
+        "cost": 0.00023,
         "output_file": "runs\/run_07ca7e96f6d37887c717196d297bf93f.json"
     },
     {
-        "timestamp": "2026-09-09 10:14:14",
-        "model": "OpenAI GPT-5.6 Luna (Lightweight)",
-        "template": "WD template.csv",
+        "timestamp": "2026-09-09 10:26:17",
+        "model": "OpenAI GPT-5.6 Sol (Flagship)",
+        "template": "NRM2 template.csv",
         "total_bills": 71,
-        "mapped_bills": 62,
-        "mapping_rate": 0.8732394366197183,
-        "accuracy": 93.3,
-        "total_packages": 19,
-        "level_1_count": 19,
-        "level_2_count": 0,
+        "mapped_bills": 63,
+        "mapping_rate": 0.8873239436619719,
+        "accuracy": 92.1,
+        "total_packages": 51,
+        "level_1_count": 21,
+        "level_2_count": 30,
         "level_3_count": 71,
-        "execution_time_sec": 0.53,
-        "cost": 0,
-        "output_file": "runs\/run_6a002fe67e397e833b8ff6c29978883d.json"
+        "execution_time_sec": 3.18,
+        "cost": 0.00394,
+        "output_file": "runs\/run_cd305138dcd15073acd58c688affb0e3.json"
     }
 ]

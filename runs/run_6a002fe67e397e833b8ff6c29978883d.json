@@ -6,16 +6,16 @@
         "packages_used": 18,
         "engine": "OpenAI GPT-5.6 Luna (Lightweight)",
         "template": "WD template.csv",
-        "execution_time": "0.53s",
-        "overall_accuracy_score": "93.3%",
-        "avg_package_confidence": "95.7%",
-        "avg_trade_confidence": "95.7%",
+        "execution_time": "4.43s",
+        "overall_accuracy_score": "93.4%",
+        "avg_package_confidence": "95.8%",
+        "avg_trade_confidence": "95.8%",
         "token_usage": {
-            "input": 0,
-            "output": 0,
-            "total": 0
+            "input": 1729,
+            "output": 252,
+            "total": 1981
         },
-        "estimated_cost": "$0.00000"
+        "estimated_cost": "$0.00021"
     },
     "work_packages": [
         {
@@ -148,9 +148,9 @@
                     "attributes": {
                         "bill_number": 1,
                         "suggested_trade": "Demolition",
-                        "package_confidence": 89,
-                        "trade_confidence": 89,
-                        "ai_rationale": "Temporary support scope is not explicitly covered by demolition or groundworks.; Existing highway retention is outside demolition and groundworks scopes."
+                        "package_confidence": 98,
+                        "trade_confidence": 98,
+                        "ai_rationale": "Clearly related to demolition works.; Requires further context on valve replacements."
                     },
                     "source_evidence": [
                         "C EXISTING SITE / BUILDINGS / SERVICES\n\nC20 DEMOLITION\n\nRefer to 22-004-PR-W-0020 DGW1 Demolition Programme Rev A 2024-09-20\n\nPhase 1A W+M Demolition (Above ground)\nPhase 1B W+M Demolition (Ground floor slabs)\nPhase 1C W+M Demolition (Basements)\nPhase 1D W+M Demolition (Foundations)\n\nPHASE 1 \n\n(Wolseley Plumb Centre)\n\nAsbestos removal",
@@ -1453,7 +1453,7 @@
                         "suggested_trade": "Roofing (Hotmelt)",
                         "package_confidence": 96,
                         "trade_confidence": 96,
-                        "ai_rationale": "Inherited from explicit Conquest source scope: Waterproof roof covering system"
+                        "ai_rationale": "Inherited from explicit Conquest source scope: Waterproof roof covering system; Specific to roofing materials and installation."
                     },
                     "source_evidence": [
                         "ROOF STRUCTURE AND ROOF COVERINGS\n\nG Structural/Carcassing metal/timber\n\nG30 Metal profiled sheet decking\n\nMetal Decking; to terraces and level 05 main roof\n\nSpecialist design",
@@ -1663,7 +1663,7 @@
                         "suggested_trade": "Joinery",
                         "package_confidence": 96,
                         "trade_confidence": 96,
-                        "ai_rationale": "Inherited from explicit Conquest source scope: Internal timber doors and ironmongery"
+                        "ai_rationale": "Inherited from explicit Conquest source scope: Internal timber doors and ironmongery; Related to internal timber doors installation."
                     },
                     "source_evidence": [
                         "INTERNAL DOORS AND SCREENS\n\nL WINDOWS/DOORS/STAIRS\n\nL20 Doors/ shutters/ hatches\n\nRefer to Architect drawing numbers:-\nDGW1-BBA-Z1-ZZ-SH-A-7105 P03\nDGW1-BBA-Z1-ZZ-SH-A-7121 P05\nDGW1-BBA-Z1-ZZ-DR-A-7101 P02\n\nSite dimensions; See NBS clause L20/150\n\nSite measurement",

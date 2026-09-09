@@ -85,6 +85,22 @@ if (isset($_GET['template'])) {
     }
 }
 
+// 3. Resolve Bypass Cache
+$bypassCache = false;
+if (isset($_GET['bypass_cache'])) {
+    $val = strtolower(trim((string)$_GET['bypass_cache']));
+    $bypassCache = in_array($val, ['1', 'true', 'yes', 'on'], true);
+} elseif (isset($_POST['bypass_cache'])) {
+    $val = strtolower(trim((string)$_POST['bypass_cache']));
+    $bypassCache = in_array($val, ['1', 'true', 'yes', 'on'], true);
+} else {
+    foreach ($argv ?? [] as $arg) {
+        if ($arg === '--bypass-cache' || $arg === '--bypass-cache=1') {
+            $bypassCache = true;
+        }
+    }
+}
+
 $templatePath = __DIR__ . '/laravel-boq-allocator/templates/' . basename($selectedTemplate);
 if (!file_exists($templatePath)) {
     emitStatus("Error: Template file not found: $selectedTemplate");
@@ -98,8 +114,11 @@ if (!file_exists($boqPath)) {
 }
 
 try {
-    // 3. Initialize the Engine
-    $engine = new BoqAllocationEngine();
+    // 4. Initialize the Engine
+    if ($bypassCache) {
+        emitStatus("Bypass Cache enabled: forcing live AI review calls...", 4);
+    }
+    $engine = new BoqAllocationEngine(null, ['bypass_cache' => $bypassCache]);
 
     // 4. Run Allocation with live progress streaming
     $result = $engine->allocate(

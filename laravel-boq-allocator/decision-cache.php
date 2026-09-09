@@ -7,62 +7,72 @@
             "decision": {
                 "code": "38.3",
                 "status": "AUTO",
-                "confidence": 0.98,
+                "confidence": 0.95,
                 "flags": [],
-                "reason": "Water mains are pipework.",
-                "alternatives": []
+                "reason": "Pipework matches water mains description best",
+                "alternatives": [
+                    "38.1",
+                    "38.3",
+                    "41.26"
+                ]
             },
-            "model": "gpt-5.6-luna",
+            "model": "openai-sol",
             "locked": true,
-            "updated_at": "2026-08-23T14:45:21+00:00"
+            "updated_at": "2026-09-09T10:26:17+00:00"
         },
         "bcbd14a750a93b06093f0d97bf340936c1c86d551dde5bb6e4a6a44ce3329af7": {
             "dictionary_version": "NRM2-template-sha256:72065f9f86cd0e24e5cb9a501cbf5bb5e8aa36e12313dee349eea01c0980af4e",
             "decision": {
-                "code": "41.26",
-                "status": "REVIEW",
-                "confidence": 0.9,
-                "flags": [
-                    "UTILITY_SCOPE_UNCLEAR"
-                ],
-                "reason": "Water service activity is unclear; connections is only approximate candidate.",
-                "alternatives": []
+                "code": "38.3",
+                "status": "AUTO",
+                "confidence": 0.95,
+                "flags": [],
+                "reason": "Pipework suits water HVSS work item",
+                "alternatives": [
+                    "38.1",
+                    "38.3",
+                    "41.26"
+                ]
             },
-            "model": "gpt-5.6-luna",
+            "model": "openai-sol",
             "locked": true,
-            "updated_at": "2026-08-23T14:45:21+00:00"
+            "updated_at": "2026-09-09T10:26:17+00:00"
         },
         "e8794e793c0c03be6d4c5da433995d0f755cb715ad9908737bdd89b544793b15": {
             "dictionary_version": "NRM2-template-sha256:72065f9f86cd0e24e5cb9a501cbf5bb5e8aa36e12313dee349eea01c0980af4e",
             "decision": {
-                "code": "41.26",
+                "code": "",
                 "status": "REVIEW",
                 "confidence": 0.9,
-                "flags": [
-                    "UTILITY_SCOPE_UNCLEAR"
-                ],
-                "reason": "Electrical diversion does not clearly match listed mechanical or connectionswork",
-                "alternatives": []
+                "flags": [],
+                "reason": "Diversions lacks direct candidate match",
+                "alternatives": [
+                    "38.1",
+                    "38.3",
+                    "41.26"
+                ]
             },
-            "model": "gpt-5.6-luna",
+            "model": "openai-sol",
             "locked": true,
-            "updated_at": "2026-08-23T14:45:21+00:00"
+            "updated_at": "2026-09-09T10:26:17+00:00"
         },
         "4ea8d18845b412534bf8bea2d72047bad431766a77088a54507b2e6109ce50c1": {
             "dictionary_version": "NRM2-template-sha256:72065f9f86cd0e24e5cb9a501cbf5bb5e8aa36e12313dee349eea01c0980af4e",
             "decision": {
-                "code": "41.26",
+                "code": "",
                 "status": "REVIEW",
                 "confidence": 0.9,
-                "flags": [
-                    "UTILITY_SCOPE_UNCLEAR"
-                ],
-                "reason": "Gas service diversion does not clearly match listed candidates.",
-                "alternatives": []
+                "flags": [],
+                "reason": "Gas description unclear for candidate match",
+                "alternatives": [
+                    "38.1",
+                    "38.3",
+                    "41.26"
+                ]
             },
-            "model": "gpt-5.6-luna",
+            "model": "openai-sol",
             "locked": true,
-            "updated_at": "2026-08-23T14:45:21+00:00"
+            "updated_at": "2026-09-09T10:26:17+00:00"
         },
         "bcc4149f2b7cc0bfa0e2f97243e93dc7436144daa676b45cbe14a98795b88bcf": {
             "dictionary_version": "NRM1-template-sha256:aac91ec9df88f6af067f40b5b177673e6bb6a997960dfc2852dd81269214b5aa",
@@ -371,112 +381,115 @@
         "4ba9a66eb35cc27608ae0c8909045a67f84b43eecd84c813554aa6c20d06830d": {
             "dictionary_version": "WD-template-sha256:1488cd8166537aa1d4b4978179339e45c54f6beb358d8d91f0ddd71c06d7dd66",
             "decision": {
-                "code": "",
-                "status": "REVIEW",
-                "confidence": 0.9,
-                "flags": [
-                    "TEMPORARY_WORKS"
-                ],
-                "reason": "Temporary support scope is not explicitly covered by demolition or groundworks.",
-                "alternatives": []
+                "code": "WD-03",
+                "status": "AUTO",
+                "confidence": 0.98,
+                "flags": [],
+                "reason": "Clearly related to demolition works.",
+                "alternatives": [
+                    "WD-04"
+                ]
             },
-            "model": "gpt-5.6-luna",
+            "model": "openai-luna",
             "locked": true,
-            "updated_at": "2026-08-24T14:20:16+00:00"
+            "updated_at": "2026-09-09T10:24:26+00:00"
         },
         "e0c0be332eb3959bb837a951fe7a4b18d5a3b1d0409a06c14b582b8f782839d4": {
             "dictionary_version": "WD-template-sha256:1488cd8166537aa1d4b4978179339e45c54f6beb358d8d91f0ddd71c06d7dd66",
             "decision": {
-                "code": "",
-                "status": "UNALLOCATED",
-                "confidence": 0,
-                "flags": [
-                    "OUTSIDE_WD_DICTIONARY"
-                ],
-                "reason": "Existing highway retention is outside demolition and groundworks scopes.",
-                "alternatives": []
+                "code": "WD-04",
+                "status": "AUTO",
+                "confidence": 0.98,
+                "flags": [],
+                "reason": "Pertains to road support within groundworks.",
+                "alternatives": [
+                    "WD-04"
+                ]
             },
-            "model": "gpt-5.6-luna",
+            "model": "openai-luna",
             "locked": true,
-            "updated_at": "2026-08-24T14:20:16+00:00"
+            "updated_at": "2026-09-09T10:24:26+00:00"
         },
         "a8a6c25871ad51604fbf9a6d8b476128af909359d1e0629280c5e83dd63fa0b6": {
             "dictionary_version": "WD-template-sha256:1488cd8166537aa1d4b4978179339e45c54f6beb358d8d91f0ddd71c06d7dd66",
             "decision": {
-                "code": "",
-                "status": "UNALLOCATED",
-                "confidence": 0,
-                "flags": [
-                    "OUTSIDE_WD_DICTIONARY"
-                ],
-                "reason": "Existing highway retention is outside demolition and groundworks scopes.",
-                "alternatives": []
+                "code": "WD-04",
+                "status": "AUTO",
+                "confidence": 0.98,
+                "flags": [],
+                "reason": "Involves retained highway works in groundworks.",
+                "alternatives": [
+                    "WD-04"
+                ]
             },
-            "model": "gpt-5.6-luna",
+            "model": "openai-luna",
             "locked": true,
-            "updated_at": "2026-08-24T14:20:16+00:00"
+            "updated_at": "2026-09-09T10:24:26+00:00"
         },
         "0f9dcd6ccc78fd34b032f753705226bc809a801b10ad553b86cb72c371a4d3b6": {
             "dictionary_version": "WD-template-sha256:1488cd8166537aa1d4b4978179339e45c54f6beb358d8d91f0ddd71c06d7dd66",
             "decision": {
-                "code": "",
-                "status": "UNALLOCATED",
-                "confidence": 0,
-                "flags": [
-                    "OUTSIDE_WD_DICTIONARY"
-                ],
-                "reason": "Water valve adjustment is outside demolition and groundworks scopes.",
-                "alternatives": []
+                "code": "WD-03",
+                "status": "REVIEW",
+                "confidence": 0.9,
+                "flags": [],
+                "reason": "Requires further context on valve replacements.",
+                "alternatives": [
+                    "WD-04"
+                ]
             },
-            "model": "gpt-5.6-luna",
+            "model": "openai-luna",
             "locked": true,
-            "updated_at": "2026-08-24T14:20:16+00:00"
+            "updated_at": "2026-09-09T10:24:26+00:00"
         },
         "9369a0861a47ce6da3487764c3e6446c85205d22ce0dd726d07da58b6287b3b0": {
             "dictionary_version": "WD-template-sha256:1488cd8166537aa1d4b4978179339e45c54f6beb358d8d91f0ddd71c06d7dd66",
             "decision": {
-                "code": "WD-13",
+                "code": "WD-12",
                 "status": "AUTO",
-                "confidence": 0.95,
+                "confidence": 0.98,
                 "flags": [],
-                "reason": "External boarding fixed to purlins falls within SFS external boarding scope.",
-                "alternatives": []
+                "reason": "Specific to roofing materials and installation.",
+                "alternatives": [
+                    "WD-19",
+                    "WD-12"
+                ]
             },
-            "model": "gpt-5.6-luna",
+            "model": "openai-luna",
             "locked": true,
-            "updated_at": "2026-08-24T14:20:16+00:00"
+            "updated_at": "2026-09-09T10:24:26+00:00"
         },
         "2f20842a013830670316533a1ee1a3890cab5b3d84729bdec955b95162090296": {
             "dictionary_version": "WD-template-sha256:1488cd8166537aa1d4b4978179339e45c54f6beb358d8d91f0ddd71c06d7dd66",
             "decision": {
-                "code": "WD-08",
-                "status": "REVIEW",
-                "confidence": 0.9,
-                "flags": [
-                    "ACCESS_CONTROL"
-                ],
-                "reason": "Access control is electrical-related but not explicitly listed in M&E scope.",
-                "alternatives": []
+                "code": "WD-20",
+                "status": "AUTO",
+                "confidence": 0.98,
+                "flags": [],
+                "reason": "Related to internal timber doors installation.",
+                "alternatives": [
+                    "WD-08"
+                ]
             },
-            "model": "gpt-5.6-luna",
+            "model": "openai-luna",
             "locked": true,
-            "updated_at": "2026-08-24T14:20:16+00:00"
+            "updated_at": "2026-09-09T10:24:26+00:00"
         },
         "cd5d9fb29e70ed5aab023a533ac6f0c2a15e7c259177681dbf2d0d90a089d0eb": {
             "dictionary_version": "WD-template-sha256:1488cd8166537aa1d4b4978179339e45c54f6beb358d8d91f0ddd71c06d7dd66",
             "decision": {
                 "code": "WD-05",
-                "status": "REVIEW",
-                "confidence": 0.9,
-                "flags": [
-                    "MIXED_SCOPE"
-                ],
-                "reason": "Row combines highways resurfacing, kerb replacement, and separately scoped road ",
-                "alternatives": []
+                "status": "AUTO",
+                "confidence": 0.98,
+                "flags": [],
+                "reason": "Directly involves road surfacing and drainage.",
+                "alternatives": [
+                    "WD-22"
+                ]
             },
-            "model": "gpt-5.6-luna",
+            "model": "openai-luna",
             "locked": true,
-            "updated_at": "2026-08-24T14:20:16+00:00"
+            "updated_at": "2026-09-09T10:24:26+00:00"
         },
         "b0d5c7299a4b3189c54475ebc434ba75274a48c87dcf62699fbcbad8f4de757f": {
             "dictionary_version": "NRM1-template-sha256:aac91ec9df88f6af067f40b5b177673e6bb6a997960dfc2852dd81269214b5aa",

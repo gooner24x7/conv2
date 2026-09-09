@@ -14,7 +14,8 @@ class BoqAllocationEngine
     {
         $this->parser = $parser ?: new BoqParserService();
         $this->classifier = $classifier ?: new AitoolV3Classifier();
-        $this->config = $config ?: (function_exists('config') ? config('boq-allocator', []) : []);
+        $defaultConfig = function_exists('config') ? config('boq-allocator', []) : [];
+        $this->config = array_merge($defaultConfig, $config);
     }
 
     /** Run AITOOLV3 row allocation and return the existing bill-level JSON shape. */

@@ -6,16 +6,16 @@
         "packages_used": 20,
         "engine": "OpenAI GPT-5.6 Luna (Lightweight)",
         "template": "NRM2 template.csv",
-        "execution_time": "3.34s",
+        "execution_time": "2.23s",
         "overall_accuracy_score": "92.1%",
         "avg_package_confidence": "94.2%",
         "avg_trade_confidence": "94.2%",
         "token_usage": {
             "input": 1020,
-            "output": 142,
-            "total": 1162
+            "output": 130,
+            "total": 1150
         },
-        "estimated_cost": "$0.00024"
+        "estimated_cost": "$0.00023"
     },
     "work_packages": [
         {

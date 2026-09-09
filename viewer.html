@@ -380,6 +380,11 @@
                     <option value="NRM2 template.csv">NRM2 template.csv</option>
                 </select>
 
+                <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: #475569; margin-left: 6px; margin-right: 6px; cursor: pointer; user-select: none;">
+                    <input type="checkbox" id="bypass-cache" style="cursor: pointer; width: 16px; height: 16px; accent-color: #2563eb;">
+                    <span>Bypass Cache (Force Live AI)</span>
+                </label>
+
                 <button id="run-btn" class="run-btn" onclick="triggerProcessing()">
                     <span>⚡</span> Run Allocation
                 </button>
@@ -1295,6 +1300,9 @@
             const templateSelect = document.getElementById('template-select');
             const template = templateSelect ? templateSelect.value : 'WD template.csv';
 
+            const bypassCheckbox = document.getElementById('bypass-cache');
+            const bypassCache = (bypassCheckbox && bypassCheckbox.checked) ? 1 : 0;
+
             runBtn.style.display = 'none';
             cancelBtn.style.display = 'flex';
             currentAbortController = new AbortController();
@@ -1322,11 +1330,13 @@
                 const currentIndex = tournamentQueue.indexOf(model) + 1;
                 progressBox.textContent = `[Batch Run ${currentIndex}/${tournamentQueue.length}] Connecting to ${model} using template ${template}...\n`;
             } else {
-                progressBox.textContent = `[Init] Connecting to ${model} using template ${template}...\n`;
+                const bypassNote = bypassCache ? ' (Cache Bypassed - Live AI)' : '';
+                progressBox.textContent = `[Init] Connecting to ${model} using template ${template}${bypassNote}...\n`;
             }
 
             try {
-                const response = await fetch(`process_boq_wd.php?model=${model}&template=${encodeURIComponent(template)}`, {
+                const bypassParam = bypassCache ? '&bypass_cache=1' : '';
+                const response = await fetch(`process_boq_wd.php?model=${model}&template=${encodeURIComponent(template)}${bypassParam}`, {
                     signal: currentAbortController.signal
                 });
                 const reader = response.body.getReader();
